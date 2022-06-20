@@ -11,5 +11,5 @@ func _ready():
 	pass # Replace with function body.
 
 
-func _pressed():
-	get_tree().change_scene("res://src/Game.tscn")
+#func _pressed():
+#	get_tree().change_scene("res://src/Game.tscn")

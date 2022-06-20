@@ -1,51 +1,62 @@
-extends KinematicBody2D
+extends "res://src/scripts/body_physics.gd"
 
 onready var animationPlayer = $AnimationPlayer
 onready var sprite = $Sprite
+onready var weapon = $WeaponSlot/Weapon
 
 export (int) var speed = 100
 export (int) var damage = 10
 export (int) var HP = 100
 export (int) var MANA = 50
+export (int) var attack_speed = 0.5
 
-var velocity = Vector2()
+enum {
+	IDLE,
+	MOVE,
+	DEATH,
+	DASH
+}
 
-func get_input():
-	velocity = Vector2()
+var state = IDLE
+var attack_cd = true
+
+
+func _physics_process(delta):
+	Motion = move_and_slide(Motion)
+	
+	match state:
+		IDLE:
+			state_idle()
+		MOVE:
+			state_move()
+
+func _input(event):
+	if event.is_action_pressed("attack_click") and attack_cd:
+		weapon.attack(damage)
+		attack_cd = false
+		yield(get_tree().create_timer(attack_speed), "timeout")
+		attack_cd = true
+
+
+func state_idle():
+	animationPlayer.play("idle")
+	if Input.is_action_pressed("move_right") || Input.is_action_pressed("move_left") || Input.is_action_pressed("move_down") || Input.is_action_pressed("move_up"):
+		state = MOVE
+
+func state_move():
+	Motion = Vector2()
 	animationPlayer.play("run")
 	if Input.is_action_pressed("move_right"):
 		sprite.flip_h = false
-		velocity.x += 1
+		_MotionRight()
 	if Input.is_action_pressed("move_left"):
 		sprite.flip_h = true
-		velocity.x -= 1
+		_MotionLeft()
 	if Input.is_action_pressed("move_down"):
-		velocity.y += 1
+		_MotionDown()
 	if Input.is_action_pressed("move_up"):
-		velocity.y -= 1
-	velocity = velocity.normalized() * speed
-
-func _physics_process(delta):
-	get_input()
-	velocity = move_and_slide(velocity)
-
-# Управление мышкой
-#var target = null
-
-#func _input(event):
-#	if event.is_action_pressed("move_click"):
-#		target = get_global_mouse_position()
-
-
-#func _physics_process(delta):
-#	if target:
-#		velocity = position.direction_to(target) * speed
-#		#look_at(target)
-#		if position.distance_to(target) > 5:
-#			velocity = move_and_slide(velocity)
-#			animationPlayer.play("run")
-#
-#		if target.x < self.position.x:
-#			sprite.flip_h = true
-#		elif target.x > self.position.x:
-#			sprite.flip_h = false
+		_MotionUp()
+	if Motion == Vector2(0,0):
+		state = IDLE
+		
+	Motion = Motion.normalized() * speed
