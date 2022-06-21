@@ -83,8 +83,14 @@ attack_click={
 
 2d_render/layer_5="Player"
 2d_render/layer_6="Enemy"
+2d_physics/layer_1="Ground"
 2d_physics/layer_5="Player"
-2d_physics/layer_6="Enemy"
+2d_physics/layer_6="Player Hitbox"
+2d_physics/layer_7="Player Hurtbox"
+2d_physics/layer_8="Player Projectile"
+2d_physics/layer_9="Enemy"
+2d_physics/layer_10="Enemy Hitbox"
+2d_physics/layer_11="Enemy Hurtbox"
 
 [physics]
 

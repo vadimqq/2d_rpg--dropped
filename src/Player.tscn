@@ -76,6 +76,8 @@ tracks/0/keys = {
 }
 
 [node name="Player" type="KinematicBody2D" groups=["Player"]]
+collision_layer = 16
+collision_mask = 257
 script = ExtResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -83,13 +85,14 @@ current = true
 zoom = Vector2( 0.25, 0.25 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -8 )
 texture = ExtResource( 1 )
 hframes = 32
 vframes = 16
 frame = 72
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
-position = Vector2( 0, 9 )
+position = Vector2( 0, 1 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -98,8 +101,8 @@ anims/death = SubResource( 5 )
 anims/idle = SubResource( 6 )
 anims/run = SubResource( 3 )
 
-[node name="WeaponSlot" type="Node2D" parent="."]
-position = Vector2( 0, 8 )
+[node name="WeaponSlot" type="RayCast2D" parent="."]
+cast_to = Vector2( 30, 0 )
 script = ExtResource( 3 )
 
 [node name="Weapon" parent="WeaponSlot" instance=ExtResource( 4 )]

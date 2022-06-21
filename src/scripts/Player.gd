@@ -3,6 +3,7 @@ extends "res://src/scripts/body_physics.gd"
 onready var animationPlayer = $AnimationPlayer
 onready var sprite = $Sprite
 onready var weapon = $WeaponSlot/Weapon
+onready var weaponSlot = $WeaponSlot
 
 export (int) var speed = 100
 export (int) var damage = 10
@@ -32,7 +33,7 @@ func _physics_process(delta):
 
 func _input(event):
 	if event.is_action_pressed("attack_click") and attack_cd:
-		weapon.attack(damage)
+		weapon.attack(weaponSlot.rotation_degrees, weaponSlot.rotation, damage)
 		attack_cd = false
 		yield(get_tree().create_timer(attack_speed), "timeout")
 		attack_cd = true

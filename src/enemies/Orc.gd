@@ -36,26 +36,23 @@ func state_chase():
 	if player != null:
 		animationPlayer.play("run")
 		Motion = (player.global_position - global_position).normalized() * speed
+		if player.global_position.x > global_position.x:
+			sprite.flip_h = false
+		else:
+			sprite.flip_h = true
 
 func state_death():
 	animationPlayer.play("death")
 
 func take_damage(damage):
 	HP -= damage
+	print(HP)
 	
 	if HP <= 0:
 		state = DEATH
 
-
-func _on_hurtBox_area_entered(area):
-
-	if area.is_in_group('Player'):
-		take_damage(area.damage)
-
-
 func _on_PlayerDetectionZone_body_entered(body):
-	print(body.get_groups())
-	if body.is_in_group('Player'):
+#	if body.is_in_group('Player'):
 		player = body
 		state = CHASE
 
@@ -63,3 +60,7 @@ func _on_PlayerDetectionZone_body_entered(body):
 func _on_PlayerDetectionZone_body_exited(body):
 	state = IDLE
 	player = null
+
+
+func _on_hurtBox_body_entered(body):
+	take_damage(body.damage)
