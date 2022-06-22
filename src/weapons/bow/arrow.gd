@@ -3,6 +3,7 @@ extends RigidBody2D
 var speed = 0
 var damage = 0
 var rotated_angle = 0
+var knockback_power = 0
 
 func _physics_process(delta):
 	position += transform.x * speed * delta

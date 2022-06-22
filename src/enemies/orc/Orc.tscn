@@ -1,11 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://src/enemies/Orc.gd" type="Script" id=1]
+[ext_resource path="res://src/enemies/orc/Orc.gd" type="Script" id=1]
 [ext_resource path="res://assets/0x72_DungeonTilesetII_v1.4.png" type="Texture" id=2]
+[ext_resource path="res://src/shaders/Sprite_shader.tres" type="Material" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 5.0
-height = 4.0
+radius = 18.0
 
 [sub_resource type="Animation" id=5]
 resource_name = "death"
@@ -72,20 +72,40 @@ tracks/0/keys = {
 "values": [ 81, 186, 187, 188, 189, 190 ]
 }
 
+[sub_resource type="Animation" id=9]
+resource_name = "take_damage"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 185 ]
+}
+
 [sub_resource type="CircleShape2D" id=7]
-radius = 78.4092
+radius = 333.054
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 5, 7 )
+extents = Vector2( 20, 28 )
 
 [node name="Orc" type="KinematicBody2D"]
 collision_layer = 256
 collision_mask = 257
 script = ExtResource( 1 )
+speed = 100
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -1, -9 )
+material = ExtResource( 3 )
+scale = Vector2( 4, 4 )
 texture = ExtResource( 2 )
+offset = Vector2( -1, -9 )
 hframes = 32
 vframes = 16
 frame = 185
@@ -97,6 +117,7 @@ shape = SubResource( 1 )
 anims/death = SubResource( 5 )
 anims/idle = SubResource( 6 )
 anims/run = SubResource( 3 )
+anims/take_damage = SubResource( 9 )
 
 [node name="PlayerDetectionZone" type="Area2D" parent="."]
 collision_layer = 0
@@ -112,6 +133,14 @@ collision_mask = 128
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtBox"]
 shape = SubResource( 8 )
 
+[node name="hitBox" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitBox"]
+shape = SubResource( 8 )
+
 [connection signal="body_entered" from="PlayerDetectionZone" to="." method="_on_PlayerDetectionZone_body_entered"]
 [connection signal="body_exited" from="PlayerDetectionZone" to="." method="_on_PlayerDetectionZone_body_exited"]
+[connection signal="area_entered" from="hurtBox" to="." method="_on_hurtBox_area_entered"]
 [connection signal="body_entered" from="hurtBox" to="." method="_on_hurtBox_body_entered"]

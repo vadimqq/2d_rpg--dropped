@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/TileMap.tscn" type="PackedScene" id=3]
+
+[node name="LVL" type="Node2D"]
+
+[node name="TileMap" parent="." instance=ExtResource( 3 )]
+z_index = 0
