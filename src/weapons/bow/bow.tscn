@@ -23,7 +23,6 @@ tracks/0/keys = {
 
 [node name="Bow" type="Node2D"]
 script = ExtResource( 2 )
-multishot_count = 12
 
 [node name="Sprite" type="Sprite" parent="."]
 rotation = 2.36084

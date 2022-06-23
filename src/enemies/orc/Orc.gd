@@ -1,9 +1,11 @@
 extends "res://src/scripts/body_physics.gd"
 
+var drop = preload("res://src/neutral_Object/Exp_point/Exp_point.tscn")
+
 onready var animationPlayer = $AnimationPlayer
 onready var sprite = $Sprite
 onready var player_detection_zone = $PlayerDetectionZone
-onready var hurt_box = $hurtBox 
+onready var hurt_box = $hurtBox
 
 export (int) var speed = 50
 export (int) var damage = 10
@@ -35,14 +37,19 @@ func _physics_process(delta):
 
 # Для спавнера сурвайвл режима
 func start_player_chase(player_body):
-	player_detection_zone.monitorable = false
-	player_detection_zone.monitoring = false
+	player_detection_zone.set_block_signals(true)
 	player = player_body
 	state = CHASE
 
 func take_damage(damage):
 	HP -= damage
 	state = TAKE_DAMAGE
+
+func on_death():
+	var drop_instance = drop.instance()
+	get_tree().current_scene.add_child(drop_instance)
+	drop_instance.transform = transform
+	queue_free()
 
 func state_idle():
 	animationPlayer.play("idle")
@@ -56,7 +63,6 @@ func state_chase():
 			sprite.flip_h = false
 		else:
 			sprite.flip_h = true
-
 
 func state_death():
 	Motion = Vector2()
@@ -85,7 +91,7 @@ func _on_PlayerDetectionZone_body_entered(body):
 		player = body
 		state = CHASE
 
-func _on_PlayerDetectionZone_body_exited(body):
+func _on_PlayerDetectionZone_body_exited():
 	state = IDLE
 	player = null
 
@@ -93,7 +99,3 @@ func _on_hurtBox_area_entered(area):
 	var weapon = area.get_parent()
 	Motion = (global_position - weapon.global_position) * weapon.knockback_power
 	take_damage(weapon.damage)
-
-
-func _on_hitBox_area_entered(area):
-	pass # Replace with function body.
