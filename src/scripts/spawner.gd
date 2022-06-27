@@ -6,8 +6,9 @@ onready var timer = $Timer
 
 func _ready():
 	pass
-#	timer.start()
-
+	timer.wait_time = 4
+	timer.start()
+	
 func _on_Timer_timeout():
 	var orc_instance = orc.instance()
 

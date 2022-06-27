@@ -13,12 +13,12 @@ func _physics_process(delta):
 			global_position = global_position.move_toward(player.global_position, speed * delta)
 			if player.global_position == global_position:
 				player.EXP += EXP_weight
-				hide()
-				set_process(false)
+				queue_free()
 
 func pick_up(player_body):
-	player = player_body
-	can_move_to_player()
+	if self:
+		player = player_body
+		can_move_to_player()
 
 func can_move_to_player():
 	yield(get_tree().create_timer(0.2), "timeout")

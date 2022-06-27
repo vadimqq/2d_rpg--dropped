@@ -5,16 +5,32 @@ var arrow = preload("res://src/weapons/bow/arrow.tscn")
 onready var muzzle = $Muzzle
 onready var animation = $AnimationBow
 
-
 export (int) var arrow_speed = 500
+export (float) var skill_1_cd = 5
+export (float) var skill_2_cd = 5
+export (float) var skill_3_cd = 5
+export (float) var skill_4_cd = 5
+
+var upgrade_sistem = [
+	{
+		"name": 'multishot passive',
+		'description': 'cast multishot on every 5 attack',
+		'upgrade_func': funcref(self, 'upgrade_multishot')
+	}
+]
+#weapon.upgrade_sistem[0]['upgrade_func'].call_func()
+#MULTISHOT
 export (int) var multishot_count = 12
+#--------
+
+
+#PASSIVE
 var multishot_passive = {
 	count_proc = 5,
-	is_active = true
+	is_active = false
 }
+#------
 var attack_counter = 0
-
-export (int) var cd_skill_1 = 10
 
 func attack(angle, damage, knockback_power):
 	one_shoot(angle, damage, knockback_power)
@@ -25,12 +41,7 @@ func attack(angle, damage, knockback_power):
 			cast_skill_1(angle, damage, knockback_power)
 			attack_counter = 0
 
-# Надо переделать всратая тема
-	animation.play("attack")
-	yield(get_tree().create_timer(0.2), "timeout")
-	animation.stop()
-
-func cast_skill_1(angle, damage, knockback_power):
+func mutishot(angle, damage, knockback_power):
 	var casted = 0
 	var add_angle = 0
 	var add_degrees = 0
@@ -46,12 +57,27 @@ func cast_skill_1(angle, damage, knockback_power):
 		is_right_side = !is_right_side
 		casted += 1
 
-
 func one_shoot(angle, damage, knockback_power):
 	var arrow_instance = arrow.instance()
-
 	arrow_instance.damage = damage
 	arrow_instance.knockback_power = knockback_power
 	arrow_instance.speed = arrow_speed
 	owner.add_child(arrow_instance)
 	arrow_instance.fire(global_transform, angle)
+
+func upgrade_multishot():
+	multishot_passive.is_active = true
+
+
+#PLAYER ADAPTER
+func cast_skill_1(angle, damage, knockback_power):
+	mutishot(angle, damage, knockback_power)
+
+func cast_skill_2(angle, damage, knockback_power):
+	mutishot(angle, damage, knockback_power)
+
+func cast_skill_3(angle, damage, knockback_power):
+	mutishot(angle, damage, knockback_power)
+
+func cast_skill_4(angle, damage, knockback_power):
+	mutishot(angle, damage, knockback_power)

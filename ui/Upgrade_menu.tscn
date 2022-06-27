@@ -1,0 +1,92 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://ui/scripts/Upgrade_menu.gd" type="Script" id=1]
+[ext_resource path="res://ui/assets/group_panel.png" type="Texture" id=2]
+[ext_resource path="res://ui/assets/arrow-right.png" type="Texture" id=3]
+[ext_resource path="res://ui/scripts/Button_up_stat.gd" type="Script" id=4]
+
+[node name="Menu_container" type="Container"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="Menu_background" type="ColorRect" parent="."]
+margin_right = 1920.0
+margin_bottom = 1080.0
+color = Color( 0, 0, 0, 0.196078 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_right = 1920.0
+margin_bottom = 1080.0
+
+[node name="PanelContainer" type="HBoxContainer" parent="CenterContainer"]
+margin_left = 960.0
+margin_top = 540.0
+margin_right = 960.0
+margin_bottom = 540.0
+grow_horizontal = 0
+grow_vertical = 0
+rect_pivot_offset = Vector2( -1106, -252 )
+
+[node name="Button_up_stat" type="TextureButton" parent="CenterContainer"]
+visible = false
+margin_left = 840.0
+margin_top = 460.0
+margin_right = 1080.0
+margin_bottom = 620.0
+rect_min_size = Vector2( 240, 160 )
+texture_normal = ExtResource( 2 )
+expand = true
+script = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="CenterContainer/Button_up_stat"]
+margin_left = 99.0
+margin_top = -23.0
+margin_right = 145.0
+margin_bottom = -9.0
+text = "INT + 2"
+
+[node name="stat_wrapper" type="VBoxContainer" parent="CenterContainer/Button_up_stat"]
+margin_left = 25.0
+margin_top = 30.0
+margin_right = 215.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 190, 110 )
+
+[node name="Stat" type="HBoxContainer" parent="CenterContainer/Button_up_stat/stat_wrapper"]
+visible = false
+margin_right = 190.0
+margin_bottom = 14.0
+
+[node name="Stat_name" type="Label" parent="CenterContainer/Button_up_stat/stat_wrapper/Stat"]
+margin_right = 50.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 50, 0 )
+text = "name:"
+align = 1
+
+[node name="Current_value" type="Label" parent="CenterContainer/Button_up_stat/stat_wrapper/Stat"]
+margin_left = 54.0
+margin_right = 104.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 50, 0 )
+text = "0"
+align = 1
+
+[node name="Panel" type="TextureRect" parent="CenterContainer/Button_up_stat/stat_wrapper/Stat"]
+margin_left = 108.0
+margin_right = 120.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 12, 12 )
+texture = ExtResource( 3 )
+stretch_mode = 1
+
+[node name="Next_value" type="Label" parent="CenterContainer/Button_up_stat/stat_wrapper/Stat"]
+margin_left = 124.0
+margin_right = 174.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 50, 0 )
+text = "0"
+align = 1
+
+[connection signal="pressed" from="CenterContainer/Button_up_stat" to="CenterContainer/Button_up_stat" method="_on_Button_up_stat_pressed"]
