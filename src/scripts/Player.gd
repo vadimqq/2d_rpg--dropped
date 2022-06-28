@@ -16,11 +16,13 @@ var agility_damage_scale: float = 0.5
 var agility_attack_speed_scale: float = 0.015
 var agility_movement_speed_scale: int = 2
 
-
 var intellegence_damage_scale: float = 0.2
 var intellegence_mana_scale: float = 10
 
-var STAT_PER_LVL = 2
+var STAT_PER_LVL = 10
+
+# КАПЫ СКЕЙЛОВ
+var cd_reduction_cup = 90
 
 # БАЗОВЫЕ СТАТЫ НУЖНО БАЛАНСИТЬ
 export (int) var STRENGTH = 10
@@ -42,6 +44,8 @@ export (int) var LVL = 1
 export (float) var speed = 300 + (AGILITY * agility_movement_speed_scale)
 export (float) var damage = (STRENGTH * strength_damage_scale) + (AGILITY * agility_damage_scale) + (INTELLIGENCE * intellegence_damage_scale)
 export (float) var attack_speed = 1.2 - (AGILITY * agility_attack_speed_scale)
+export (float) var cd_reduction = INTELLIGENCE if INTELLIGENCE < cd_reduction_cup else cd_reduction_cup
+
 export (int) var knockback_power = 5
 export (float) var pick_up_scailng = 1.9
 
@@ -144,8 +148,6 @@ func up_STR():
 	STRENGTH += STAT_PER_LVL
 	updae_stats()
 	Ui.load_player_info(self)
-	print(STRENGTH)
-	print(MAX_HP)
 
 func up_INT():
 	INTELLIGENCE += STAT_PER_LVL
@@ -167,6 +169,8 @@ func updae_stats():
 	speed = 300 + (AGILITY * agility_movement_speed_scale)
 	damage = (STRENGTH * strength_damage_scale) + (AGILITY * agility_damage_scale) + (INTELLIGENCE * intellegence_damage_scale)
 	attack_speed = 1.2 - (AGILITY * agility_attack_speed_scale)
+	cd_reduction = INTELLIGENCE if INTELLIGENCE < cd_reduction_cup else cd_reduction_cup
+	
 	MAX_EXP *= EXP_SCALING
 	EXP = 0
 	LVL += 1

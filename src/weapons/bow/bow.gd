@@ -27,7 +27,7 @@ export (int) var multishot_count = 12
 #PASSIVE
 var multishot_passive = {
 	count_proc = 5,
-	is_active = false
+	is_active = true
 }
 #------
 var attack_counter = 0

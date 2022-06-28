@@ -22,12 +22,16 @@ func load_player_info(playerInfo):
 	HP_bar.max_value = player.MAX_HP
 	EXP_bar.max_value = player.MAX_EXP
 	LVL_input.text = str(player.LVL)
-	skill_1_progress_bar.max_value = playerInfo.skill_sistem['skill_1']['cd']
+	var cdr_value = player.skill_sistem['skill_1']['cd'] / 100 * player.cd_reduction
+	
+	skill_1_progress_bar.max_value = playerInfo.skill_sistem['skill_1']['cd'] - cdr_value
 
 
 func start_skill_timer(name):
 	player.skill_sistem[name]['is_cd'] = true
-	skill_timers[name].wait_time = player.skill_sistem[name]['cd']
+	var cdr_value = player.skill_sistem[name]['cd'] / 100 * player.cd_reduction
+	
+	skill_timers[name].wait_time = player.skill_sistem[name]['cd'] - cdr_value
 	skill_timers[name].start()
 
 

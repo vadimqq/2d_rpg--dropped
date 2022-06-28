@@ -78,7 +78,12 @@ func get_structured_stats(player):
 					"name": 'DMG',
 					"current_value": player.damage,
 					"next_value": (player.STRENGTH * player.strength_damage_scale) + ((player.AGILITY) * player.agility_damage_scale) + ((player.INTELLIGENCE + player.STAT_PER_LVL) * player.intellegence_damage_scale)
-				}
+				},
+				{
+					"name": 'CDR',
+					"current_value": str(player.cd_reduction) + '%',
+					"next_value": str(player.cd_reduction + player.STAT_PER_LVL if player.cd_reduction + player.STAT_PER_LVL < 99 else 99) + '%',
+				},
 			]
 		}
 	]
