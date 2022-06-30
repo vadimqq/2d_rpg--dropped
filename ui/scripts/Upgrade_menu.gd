@@ -40,6 +40,11 @@ func get_structured_stats(player):
 					"next_value": (player.STRENGTH + player.STAT_PER_LVL) * player.strength_hp_scale
 				},
 				{
+					"name": 'HP REG',
+					"current_value": player.HP_REG,
+					"next_value":  player.HP_REG + player.STAT_PER_LVL / 10
+				},
+				{
 					"name": 'DMG',
 					"current_value": player.damage,
 					"next_value": ((player.STRENGTH + player.STAT_PER_LVL) * player.strength_damage_scale) + (player.AGILITY * player.agility_damage_scale) + (player.INTELLIGENCE * player.intellegence_damage_scale)
@@ -73,6 +78,11 @@ func get_structured_stats(player):
 					"name": 'MP',
 					"current_value": player.MAX_MANA,
 					"next_value": (player.INTELLIGENCE + player.STAT_PER_LVL) * player.intellegence_mana_scale
+				},
+				{
+					"name": 'MP REG',
+					"current_value": player.MANA_REG,
+					"next_value":  player.MANA_REG + player.STAT_PER_LVL / 10
 				},
 				{
 					"name": 'DMG',

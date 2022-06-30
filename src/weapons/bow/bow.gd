@@ -6,7 +6,10 @@ onready var muzzle = $Muzzle
 onready var animation = $AnimationBow
 
 export (int) var arrow_speed = 500
+
 export (float) var skill_1_cd = 5
+export (int) var skill_1_mana_cost = 20
+
 export (float) var skill_2_cd = 5
 export (float) var skill_3_cd = 5
 export (float) var skill_4_cd = 5
@@ -63,7 +66,7 @@ func one_shoot(angle, damage, knockback_power):
 	arrow_instance.knockback_power = knockback_power
 	arrow_instance.speed = arrow_speed
 	owner.add_child(arrow_instance)
-	arrow_instance.fire(global_transform, angle)
+	arrow_instance.fire(muzzle.global_transform, angle)
 
 func upgrade_multishot():
 	multishot_passive.is_active = true

@@ -7,6 +7,8 @@ onready var weaponSlot = $WeaponSlot
 onready var Ui = $Camera2D/Ui
 onready var hurt_box = $hurtBox
 onready var pick_up_zone = $pick_up_zone/CollisionShape2D
+onready var regen_timer = $Regen_timer
+
 
 # СКАЛЯЦИЯ НУЖНО БАЛАНСИТЬ
 var strength_damage_scale: float = 0.8
@@ -19,7 +21,7 @@ var agility_movement_speed_scale: int = 2
 var intellegence_damage_scale: float = 0.2
 var intellegence_mana_scale: float = 10
 
-var STAT_PER_LVL = 10
+var STAT_PER_LVL: float = 3
 
 # КАПЫ СКЕЙЛОВ
 var cd_reduction_cup = 90
@@ -29,11 +31,13 @@ export (int) var STRENGTH = 10
 export (int) var AGILITY = 10
 export (int) var INTELLIGENCE = 10
 
-export (int) var MAX_HP = STRENGTH * strength_hp_scale
-export (int) var HP = 100
+export (float) var MAX_HP = STRENGTH * strength_hp_scale
+export (float) var HP = MAX_HP
+export (float) var HP_REG = 1 + STRENGTH / 10
 
-export (int) var MAX_MANA = INTELLIGENCE * intellegence_mana_scale
-export (int) var MANA = 50
+export (float) var MAX_MANA = INTELLIGENCE * intellegence_mana_scale
+export (float) var MANA = MAX_MANA
+export (float) var MANA_REG = 1 + INTELLIGENCE / 10
 
 
 export (int) var MAX_EXP = 5
@@ -75,6 +79,7 @@ func _ready():
 	Ui.load_player_info(self)
 	pick_up_zone.scale.x = pick_up_scailng
 	pick_up_zone.scale.y = pick_up_scailng
+	regen_process()
 
 func _physics_process(delta):
 	Motion = move_and_slide(Motion)
@@ -100,9 +105,10 @@ func _physics_process(delta):
 
 # SKILL CASTS
 func _input(event):
-	if event.is_action_pressed("click_skill_1") and !skill_sistem['skill_1']['is_cd']:
+	if event.is_action_pressed("click_skill_1") and !skill_sistem['skill_1']['is_cd'] and MANA > weapon.skill_1_mana_cost:
 		weapon.cast_skill_1(weaponSlot.rotation, damage, knockback_power)
 		Ui.start_skill_timer('skill_1')
+		MANA -= weapon.skill_1_mana_cost
 #------------
 func state_idle():
 	animationPlayer.play("idle")
@@ -162,18 +168,29 @@ func up_AGI():
 
 func updae_stats():
 	MAX_HP = STRENGTH * strength_hp_scale
-	HP = MAX_HP
+	HP_REG = 2 + STRENGTH / 10
+	
 	MAX_MANA = INTELLIGENCE * intellegence_mana_scale
-	MANA = MAX_MANA
+	MANA_REG = 1 + INTELLIGENCE / 10
 	
 	speed = 300 + (AGILITY * agility_movement_speed_scale)
 	damage = (STRENGTH * strength_damage_scale) + (AGILITY * agility_damage_scale) + (INTELLIGENCE * intellegence_damage_scale)
 	attack_speed = 1.2 - (AGILITY * agility_attack_speed_scale)
 	cd_reduction = INTELLIGENCE if INTELLIGENCE < cd_reduction_cup else cd_reduction_cup
 	
+	pick_up_zone.scale.x = pick_up_scailng
+	pick_up_zone.scale.y = pick_up_scailng
+	
 	MAX_EXP *= EXP_SCALING
 	EXP = 0
 	LVL += 1
+
+func regen_process():
+	if MAX_HP > HP:
+		HP += HP_REG
+	if MAX_MANA > MANA:
+		MANA += MANA_REG
+	regen_timer.start()
 
 func get_weapon_skill_info():
 	skill_sistem['skill_1']['cd'] = weapon.skill_1_cd
@@ -193,3 +210,7 @@ func _on_hurtBox_area_entered(area):
 func _on_pick_up_zone_body_entered(body):
 	body.pick_up(self)
 
+
+
+func _on_Regen_timer_timeout():
+	regen_process()
