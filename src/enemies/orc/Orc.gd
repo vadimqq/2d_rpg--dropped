@@ -96,7 +96,5 @@ func _on_PlayerDetectionZone_body_exited():
 	player = null
 
 func _on_hurtBox_area_entered(area):
-	var instance = area.get_parent()
-#	if instance.knockback_power > 0:
-	Motion = (global_position - instance.global_position) * instance.knockback_power
-	take_damage(instance.damage)
+	Motion = (global_position - area.global_position) * 2
+	take_damage(area.damage)

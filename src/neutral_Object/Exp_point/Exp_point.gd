@@ -9,7 +9,7 @@ func _physics_process(delta):
 	if player != null:
 		global_position = global_position.move_toward(player.global_position, speed * delta)
 		if player.global_position == global_position:
-			player.EXP += EXP_weight
+			player.take_EXP(EXP_weight)
 			queue_free()
 
 func pick_up(player_body):

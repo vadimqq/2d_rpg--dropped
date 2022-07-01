@@ -1,28 +1,23 @@
 extends TextureButton
 
 onready var label = $Label
-onready var wrapper = $stat_wrapper
-onready var stat = $stat_wrapper/Stat
 
 var menu_root = null
+var data = {
+	'name': '',
+	'lvl': 0,
+	'node_link': '',
+	'updete_func': null
+}
 
 func _ready():
-	pass
-
-func set_stat(arr_stats):
-	for item in arr_stats:
-		var new_stat = stat.duplicate()
-		wrapper.add_child(new_stat)
-		
-		var stat_name = new_stat.get_child(0)
-		var current_value = new_stat.get_child(1)
-		var next_value = new_stat.get_child(3)
-		
-		stat_name.text = str(item['name']) + ':'
-		current_value.text = str(item['current_value'])
-		next_value.text = str(item['next_value'])
-		new_stat.visible = true
-
+	label.text = data['name']
 
 func _on_Button_up_stat_pressed():
-	menu_root.upgrade_stat_by_name(label.text)
+	if data.has('node_link'):
+		get_tree().get_nodes_in_group('player')[0].upgrade_spirit(data['node_link'])
+		menu_root.close_upgrade()
+	if data.has('updete_func'):
+		data['updete_func'].call_func(data['lvl'])
+		menu_root.clear_upgrade_object(data)
+		menu_root.close_upgrade()

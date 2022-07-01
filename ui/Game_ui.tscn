@@ -60,6 +60,7 @@ texture_progress = ExtResource( 9 )
 texture_progress_offset = Vector2( -1, 1 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
+visible = false
 margin_left = 20.0
 margin_top = 1020.0
 margin_right = 224.0
