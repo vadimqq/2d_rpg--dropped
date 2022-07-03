@@ -2,6 +2,7 @@ extends Area2D
 
 onready var animation = $Animation
 onready var sprite = $Sprite
+onready var collider = $CollisionShape2D
 
 var speed = 0
 var damage = 0
@@ -25,9 +26,11 @@ func fire(new_global_transform, angle, projectile_damage, projectile_speed):
 
 
 func _on_Dark_ball_area_entered(area):
+	speed = 0
 	animation.play("destoy")
 	
 
 
 func _on_Dark_ball_body_entered(body):
+	speed = 0
 	animation.play("destoy")

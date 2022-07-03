@@ -1,6 +1,7 @@
 extends "res://src/scripts/body_physics.gd"
 
 var drop = preload("res://src/neutral_Object/Exp_point/Exp_point.tscn")
+var flosting_text = preload("res://ui/Floating_text.tscn")
 
 onready var animationPlayer = $AnimationPlayer
 onready var sprite = $Sprite
@@ -11,6 +12,7 @@ export (int) var speed = 50
 export (int) var damage = 10
 export (int) var HP = 100
 
+var can_chaining = true
 export var take_damage_time = 0.2
 
 enum {
@@ -42,6 +44,9 @@ func start_player_chase(player_body):
 	state = CHASE
 
 func take_damage(damage):
+	var flosting_text_insance = flosting_text.instance()
+	flosting_text_insance.amount = damage
+	add_child(flosting_text_insance)
 	HP -= damage
 	state = TAKE_DAMAGE
 
@@ -96,5 +101,6 @@ func _on_PlayerDetectionZone_body_exited():
 	player = null
 
 func _on_hurtBox_area_entered(area):
+	pass
 	Motion = (global_position - area.global_position) * 2
 	take_damage(area.damage)

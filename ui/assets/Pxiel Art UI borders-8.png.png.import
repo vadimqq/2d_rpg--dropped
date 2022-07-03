@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lighten_skill.png-90e57f8cf0432a996f1df24a0be17a11.stex"
+path="res://.import/Pxiel Art UI borders-8.png.png-d9e36f0d28d2e40c3aa553c1fb0a1026.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/spirits/light_spirit/lighten_skill.png"
-dest_files=[ "res://.import/lighten_skill.png-90e57f8cf0432a996f1df24a0be17a11.stex" ]
+source_file="res://ui/assets/Pxiel Art UI borders-8.png.png"
+dest_files=[ "res://.import/Pxiel Art UI borders-8.png.png-d9e36f0d28d2e40c3aa553c1fb0a1026.stex" ]
 
 [params]
 

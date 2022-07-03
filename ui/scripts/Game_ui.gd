@@ -3,7 +3,7 @@ extends Container
 onready var HP_bar = $VBoxContainer/HP
 onready var MANA_bar = $VBoxContainer/MANA
 onready var EXP_bar = $EXP
-onready var LVL_input = $VBoxContainer/LVL
+onready var LVL_input = $LVL
 onready var skill_1_progress_bar = $HBoxContainer/skill_1/Texture_progress
 onready var upgrade_menu = $Upgrade_menu
 

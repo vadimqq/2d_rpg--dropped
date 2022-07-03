@@ -6,7 +6,7 @@ onready var timer = $Timer
 
 func _ready():
 	pass
-	timer.wait_time = 7
+	timer.wait_time = 3
 	timer.start()
 	
 func _on_Timer_timeout():

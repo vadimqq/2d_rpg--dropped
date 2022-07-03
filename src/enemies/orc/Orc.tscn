@@ -120,6 +120,7 @@ anims/run = SubResource( 3 )
 anims/take_damage = SubResource( 9 )
 
 [node name="PlayerDetectionZone" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 16
 
