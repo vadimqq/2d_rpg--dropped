@@ -34,8 +34,11 @@ func create_upgrade_button(spirits_pivot):
 				if upgrade['upgrades'].has(upgrade['lvl']):
 					upgrade_array.push_back(spirit.upgrade_dictionary[name])
 	
-	var count_upgrade = 3 if upgrade_array.size() >= 3 else upgrade_array.size()
+	if upgrade_array.size() == 0:
+		close_upgrade()
+		return
 	
+	var count_upgrade = 3 if upgrade_array.size() >= 3 else upgrade_array.size()
 	for spirit in get_random_upgrade(upgrade_array, count_upgrade):
 		var new_upgrade_button = upgrade_button.duplicate()
 		new_upgrade_button.data = spirit
@@ -44,9 +47,6 @@ func create_upgrade_button(spirits_pivot):
 		new_upgrade_button.visible = true
 
 func get_random_upgrade(array, count):
-	if array.size() == 0:
-		close_upgrade()
-		return
 	randomize()
 	var result = []
 	for i in count:
@@ -63,12 +63,6 @@ var spirts_array = [
 			'type': 'lightning',
 			'node_link': 'res://src/spirits/lightning_spirit/lightning_spirit.tscn',
 			'image_src': 'res://src/spirits/lightning_spirit/lightning_spirit.png'
-		},
-		{
-			'name': 'Void spirit',
-			'type': 'dark',
-			'node_link': 'res://src/spirits/dark_spirit/dark_spirit.tscn',
-			'image_src': 'res://src/spirits/dark_spirit/dark_spirit.png'
 		},
 		{
 			'name': 'Void spirit',

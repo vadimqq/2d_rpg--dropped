@@ -10,7 +10,7 @@ onready var lightning_discharge_timer = $Lightning_discharge_timer
 var stats_instance = null
 
 var can_cast_ligtning_chain = false
-var ligtning_chain_damage = 0
+var ligtning_chain_damage_percent = 0
 
 func _ready():
 	animation.play("idle")
@@ -24,9 +24,9 @@ func cast_spell(stats):
 	var lightning_bolt_instance = lightning_bolt.instance()
 	lightning_bolt_instance.flip_v = global_transform.x.x < 0
 	lightning_bolt_instance.can_cast_ligtning_chain = can_cast_ligtning_chain
-	lightning_bolt_instance.ligtning_chain_damage = ligtning_chain_damage
+	lightning_bolt_instance.ligtning_chain_damage_percent = ligtning_chain_damage_percent
 	add_child(lightning_bolt_instance)
-	lightning_bolt_instance.fire(global_transform, muzzle.rotation, stats.DAMAGE, stats.PROJECTILE_SPEED)
+	lightning_bolt_instance.fire(global_transform, muzzle.rotation, get_damage_after_amplify(), stats.PROJECTILE_SPEED)
 
 func cast_lightning_discharge():
 	randomize()
@@ -34,7 +34,7 @@ func cast_lightning_discharge():
 	var rand_x = rand_range(global_position.x - 500, global_position.x + 500)
 	var rand_y = rand_range(global_position.y - 400, global_position.y + 400)
 	
-	lightning_discharge_instance.damage = stats_instance.DAMAGE
+	lightning_discharge_instance.damage = get_damage_after_amplify()
 	lightning_discharge_instance.global_position = Vector2(rand_x, rand_y)
 	add_child(lightning_discharge_instance)
 	lightning_discharge_timer.start()
@@ -59,10 +59,14 @@ func up_lightning_discharge():
 func up_lightning_chain():
 	can_cast_ligtning_chain = true
 	var upgrade_lvl = upgrade_dictionary['lightning_chain']['lvl']
-	var upgrade_value = (stats_instance.DAMAGE /100) * upgrade_dictionary['lightning_chain']['upgrades'][upgrade_lvl]['value']
-	ligtning_chain_damage += upgrade_value
+	ligtning_chain_damage_percent += upgrade_dictionary['lightning_chain']['upgrades'][upgrade_lvl]['value']
 	
 	upgrade_dictionary['lightning_chain']['lvl'] += 1
+
+func up_lightning_amplify():
+	var upgrade_lvl = upgrade_dictionary['lightning_amplify']['lvl']
+	stats_instance.up_lightning_amplify(upgrade_dictionary['lightning_amplify']['upgrades'][upgrade_lvl]['value'])
+	upgrade_dictionary['lightning_amplify']['lvl'] += 1
 
 var upgrade_dictionary = {
 	'lightning_speed': {
@@ -109,9 +113,26 @@ var upgrade_dictionary = {
 				'value': 1.0
 			}
 		}
+	},
+	'lightning_amplify': {
+		'name': 'Lightning damage amplify ',
+		'lvl': 1,
+		'updete_func': funcref(self, "up_lightning_amplify"),
+		'upgrades': {
+			1: {
+				'discription': 'more damage by lightning spells + 10%',
+				'value': 10
+			},
+			2: {
+				'discription': 'more damage by lightning spells + 10%',
+				'value': 10
+			}
+		}
 	}
 }
 
+func get_damage_after_amplify():
+	return stats_instance.DAMAGE + (stats_instance.DAMAGE /100) * stats_instance.LIGHTING_AMPLIFY
 
 func _on_Lightning_discharge_timer_timeout():
 	cast_lightning_discharge()

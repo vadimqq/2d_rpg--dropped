@@ -6,6 +6,7 @@ onready var collider = $CollisionShape2D
 
 var speed = 0
 var damage = 0
+var knockback_power = 0
 var flip_v = false
 
 func _physics_process(delta):
@@ -15,7 +16,7 @@ func _physics_process(delta):
 func _ready():
 	sprite.flip_v = flip_v
 	set_as_toplevel(true)
-	animation.play("fly")
+	animation.play("idle")
 
 func fire(new_global_transform, angle, projectile_damage, projectile_speed):
 	damage = projectile_damage
@@ -25,11 +26,8 @@ func fire(new_global_transform, angle, projectile_damage, projectile_speed):
 
 
 func _on_Dark_ball_area_entered(area):
-	speed = 0
-	animation.play("destoy")
-	
+	queue_free()
 
 
 func _on_Dark_ball_body_entered(body):
-	speed = 0
-	animation.play("destoy")
+	queue_free()

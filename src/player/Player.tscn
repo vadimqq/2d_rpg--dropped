@@ -115,12 +115,9 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.7 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [  ],
-"method": "cast_dash"
-}, {
 "args": [  ],
 "method": "end_cast"
 } ]
@@ -216,6 +213,9 @@ anims/dash = SubResource( 8 )
 anims/death = SubResource( 9 )
 anims/idle = SubResource( 3 )
 anims/run = SubResource( 4 )
+
+[node name="Dash_pivot" type="Position2D" parent="AnimationNode"]
+position = Vector2( -33, 62 )
 
 [node name="Muzzle" type="RayCast2D" parent="."]
 position = Vector2( -6.10352e-05, 19 )

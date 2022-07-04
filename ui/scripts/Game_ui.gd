@@ -26,7 +26,7 @@ func load_player_info(stats_instance):
 	MANA_bar.max_value = stats.MAX_MANA
 	EXP_bar.max_value = stats.MAX_EXP
 	
-	LVL_input.text = str(stats.LVL)
+	LVL_input.text = 'lvl ' + str(stats.LVL)
 
 func open_upgrade_menu(spirits_pivot):
 	upgrade_menu.open_upgrade(spirits_pivot)

@@ -11,7 +11,7 @@ var knockback_power = 0
 var flip_v = false
 
 var can_cast_ligtning_chain = false
-var ligtning_chain_damage = 0
+var ligtning_chain_damage_percent = 0
 
 func _physics_process(delta):
 	position += transform.x * speed * delta
@@ -30,7 +30,7 @@ func fire(new_global_transform, angle, projectile_damage, projectile_speed):
 
 func cast_lightnining_chain(area):
 	var lightning_chain_instance = lightning_chain.instance()
-	lightning_chain_instance.damage = ligtning_chain_damage
+	lightning_chain_instance.damage = (damage / 100) * ligtning_chain_damage_percent
 #	добавляю в противника ноду надо переделать!!!
 	area.call_deferred("add_child", lightning_chain_instance)
 

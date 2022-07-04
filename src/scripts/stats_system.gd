@@ -9,19 +9,21 @@ class STAT_SYSTEM:
 
 	var MAX_EXP = 20
 	var EXP = 0
-	var EXP_SCALING = 1.4
+	var EXP_SCALING = 1
 	var LVL = 1
 
 	var BASE_MOVE_SPEED = 200.0
+	var BASE_DASH_SPEED = 600.0
 	var BASE_CDR = 0
 	var BASE_ATTACK_SPEED = 2.0
 	var BASE_PROJECTILE_SPEED = 300.0
-	var BASE_CAST_DURATION = 0
+	var BASE_CAST_DURATION = 100
 	var BASE_INCREASE_AREA = 0
 	var BASE_KNOCKBACK_POWER = 0
 	var BASE_DAMAGE = 20.0
 	
 	var MOVE_SPEED = BASE_MOVE_SPEED
+	var DASH_SPEED = BASE_DASH_SPEED
 	var CDR = BASE_CDR
 	var ATTACK_SPEED = BASE_ATTACK_SPEED
 	var PROJECTILE_SPEED = BASE_PROJECTILE_SPEED
@@ -47,5 +49,13 @@ class STAT_SYSTEM:
 	func up_attack_speed(value):
 		ATTACK_SPEED += value
 
-	func up_damge(value):
+	func up_damage(value):
 		DAMAGE += value
+	
+	func up_lightning_amplify(value):
+		LIGHTING_AMPLIFY += value
+	
+	func up_dark_amplify(value):
+		DARK_AMPLIFY += value
+
+# для метты кдр, дубликатор, 

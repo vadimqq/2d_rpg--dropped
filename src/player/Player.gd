@@ -7,9 +7,11 @@ onready var muzzle = $Muzzle
 onready var muzzle_spawn = $Muzzle/Spawn_position
 onready var Ui = $Camera2D/Ui
 onready var spirit_pivot = $Spirts_pivot
+onready var dash_pivot = $AnimationNode/Dash_pivot
 
 var stats_system = preload('res://src/scripts/stats_system.gd').STAT_SYSTEM
 var base_attack = preload("res://src/skills/base/attack/attack.tscn")
+var dash_effect = preload("res://src/effects/dash/dash.tscn")
 
 var stats_instance = null
 var dash_is_cd = false
@@ -19,6 +21,7 @@ enum {
 	MOVE,
 	DEATH,
 	CAST,
+	DASH
 }
 
 var state = IDLE
@@ -40,6 +43,8 @@ func _physics_process(delta):
 			get_tree().change_scene("res://ui/Root_menu.tscn")
 		CAST:
 			state_cast()
+		DASH:
+			state_dash()
 
 	if Input.is_action_pressed("click_skill_1") and state != CAST:
 		state = CAST
@@ -50,7 +55,15 @@ func _physics_process(delta):
 	if Input.is_action_pressed("attack_click") and state != CAST:
 		state = CAST
 		animationPlayer.play("base_attack")
+	if Input.is_action_pressed("dash"):
+		var dash_instance = dash_effect.instance()
+		dash_instance.scale.x = -1
+		dash_instance.global_position = dash_pivot.global_position 
+		get_tree().current_scene.add_child(dash_instance)
 		
+#		get_tree().add_child(dash_instance)
+		state = DASH
+	
 func state_idle():
 	Motion = Vector2()
 	animationPlayer.play("idle")
@@ -74,6 +87,16 @@ func state_move():
 		state = IDLE
 	Motion = Motion.normalized() * stats_instance.MOVE_SPEED
 
+func state_dash():
+#	доделать состояние рывка
+	Motion = Vector2()
+	animationPlayer.play("dash")
+	if animationNode.scale.x == 1:
+		_MotionRight()
+	else:
+		_MotionLeft()
+	Motion = Motion * stats_instance.DASH_SPEED
+
 func take_damage():
 	sprite.material.set_shader_param('whiten', true)
 	yield(get_tree().create_timer(0.2), "timeout")
@@ -90,10 +113,11 @@ func lvl_up():
 	stats_instance.lvl_up()
 
 func upgrade_spirit(link):
-	var inst = load(link)
+	var spirit_instance = load(link).instance()
+	spirit_instance.stats_instance = stats_instance
 	for spirit_wrapper in spirit_pivot.get_children():
 		if(spirit_wrapper.get_children().empty()):
-			spirit_wrapper.add_child(inst.instance())
+			spirit_wrapper.add_child(spirit_instance)
 			break
 
 func state_cast():
@@ -113,7 +137,7 @@ func cast_base_attack():
 	for spirit_wrapper in spirit_pivot.get_children():
 		if(!spirit_wrapper.get_children().empty()):
 			spirit_wrapper.get_children()[0].cast_spell(stats_instance)
-	
+
 func cast_skill_1():
 	pass
 	

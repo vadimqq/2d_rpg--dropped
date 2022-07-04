@@ -22,7 +22,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Rect2( 24, 46, 0, 32 ), Rect2( 24, 46, 0, 32 ) ]
+"values": [ Rect2( 0, 0, 0, 38 ), Rect2( 0, 0, 0, 38 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Enemy_detection_zone/CollisionShape2D:scale")
@@ -111,17 +111,15 @@ scale = Vector2( 1e-05, 1e-05 )
 shape = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 10, 3 )
 texture = ExtResource( 2 )
 centered = false
 offset = Vector2( 0, -16 )
 region_enabled = true
-region_rect = Rect2( 24, 46, 0, 32 )
+region_rect = Rect2( 0, 0, 0, 38 )
 
 [node name="Animation" type="AnimationPlayer" parent="."]
 playback_speed = 4.0
 anims/cast = SubResource( 5 )
 anims/find = SubResource( 3 )
 
-[connection signal="area_entered" from="Enemy_detection_zone" to="." method="_on_Enemy_detection_zone_area_entered"]
 [connection signal="body_entered" from="Enemy_detection_zone" to="." method="_on_Enemy_detection_zone_body_entered"]

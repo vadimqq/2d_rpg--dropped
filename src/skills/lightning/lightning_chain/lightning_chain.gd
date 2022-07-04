@@ -14,19 +14,6 @@ func _ready():
 	detection_zone.scale.y = 0
 	animation.play("find")
 
-func _on_Enemy_detection_zone_area_entered(area):
-	if !enemy_colliding_array.has(area):
-		animation.stop()
-		look_at(area.global_position)
-		var distance = global_position.distance_to(area.global_position) / 10
-		var sprite_region_rect = sprite.region_rect
-		sprite_region_rect.size.x = distance
-		animation.get_animation('cast').track_set_key_value(0, 1, sprite_region_rect)
-		animation.play('cast')
-		
-		enemy_position = area.global_position
-		enemy_colliding_array.push_back(area)
-
 func change_position():
 	global_position = enemy_position
 	animation.play("find")
@@ -36,11 +23,12 @@ func _on_Enemy_detection_zone_body_entered(body):
 	if !enemy_colliding_array.has(body):
 		animation.stop()
 		look_at(body.global_position)
-		var distance = global_position.distance_to(body.global_position) / 10
+		var distance = global_position.distance_to(body.global_position)
 		var sprite_region_rect = sprite.region_rect
 		sprite_region_rect.size.x = distance
+		sprite.flip_h = bool(randi() % 2)
 		animation.get_animation('cast').track_set_key_value(0, 1, sprite_region_rect)
 		animation.play('cast')
-		
+
 		enemy_position = body.global_position
 		enemy_colliding_array.push_back(body)
