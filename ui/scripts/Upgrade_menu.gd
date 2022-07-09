@@ -23,16 +23,14 @@ func close_upgrade():
 
 func create_upgrade_button(spirits_pivot):
 	var upgrade_array = []
-	for spirit_wrapper in spirits_pivot.get_children():
-		if spirit_wrapper.get_child_count() == 0:
-			upgrade_array += spirts_array
-			break
-	for spirit_wrapper in spirits_pivot.get_children():
-		for spirit in spirit_wrapper.get_children():
-			for name in spirit.upgrade_dictionary:
-				var upgrade = spirit.upgrade_dictionary[name]
-				if upgrade['upgrades'].has(upgrade['lvl']):
-					upgrade_array.push_back(spirit.upgrade_dictionary[name])
+	if spirits_pivot.max_spirit_count > spirits_pivot.get_children().size():
+		upgrade_array += spirts_array
+
+	for spirit in spirits_pivot.get_children():
+		for name in spirit.upgrade_dictionary:
+			var upgrade = spirit.upgrade_dictionary[name]
+			if upgrade['upgrades'].has(upgrade['lvl']):
+				upgrade_array.push_back(spirit.upgrade_dictionary[name])
 	
 	if upgrade_array.size() == 0:
 		close_upgrade()

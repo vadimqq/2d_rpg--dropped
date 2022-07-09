@@ -1,0 +1,118 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://src/enemies/nodes/base_enemy/base_enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/enemies/pig/pig.png" type="Texture" id=2]
+[ext_resource path="res://src/enemies/pig/pig.gd" type="Script" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 23.0217
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 23, 26.5 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 23, 26.5 )
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpritePivot/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "run"
+length = 1.1
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpritePivot/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "take_damage"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpritePivot/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 13, 14, 15, 16, 17 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "end_take_damage"
+} ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("Animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "run" ],
+"method": "play"
+} ]
+}
+
+[node name="Pig" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtBox" index="0"]
+position = Vector2( 0, 1 )
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitBox" index="0"]
+position = Vector2( 0, 1.5 )
+shape = SubResource( 3 )
+
+[node name="Animation" type="AnimationPlayer" parent="." index="3"]
+anims/RESET = SubResource( 4 )
+anims/run = SubResource( 5 )
+anims/take_damage = SubResource( 6 )
+
+[node name="Sprite" type="Sprite" parent="SpritePivot" index="0"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+hframes = 4
+vframes = 5
+
+[connection signal="area_entered" from="hurtBox" to="." method="_take_damage"]

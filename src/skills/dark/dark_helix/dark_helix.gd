@@ -25,9 +25,9 @@ func _process(delta):
 		) + spawn_container.global_position
 
 func _ready():
-	var circumference = max_radius + max_radius * PI
+	var circumference = (max_radius + max_radius) * PI
 	var between_distance = circumference / max_orb_count
-	cd_timer.wait_time = (between_distance / speed) / 15
+	cd_timer.wait_time = (between_distance / speed) / 10
 	cd_timer.start()
 	live_timer.wait_time = life_time
 

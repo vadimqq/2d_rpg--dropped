@@ -7,7 +7,6 @@ onready var sprite = $Sprite
 
 var speed = 0
 var damage = 0
-var knockback_power = 0
 var flip_v = false
 
 var can_cast_ligtning_chain = false

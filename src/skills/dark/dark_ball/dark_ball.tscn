@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/skills/dark/dark_ball/dark_ball.gd" type="Script" id=1]
 [ext_resource path="res://src/skills/dark/dark_ball/dark_ball.png" type="Texture" id=2]
+[ext_resource path="res://src/skills/dark/dark_ball/dark_bolt.wav" type="AudioStream" id=3]
 
 [sub_resource type="CircleShape2D" id=6]
 radius = 14.0357
@@ -101,6 +102,10 @@ shape = SubResource( 6 )
 anims/RESET = SubResource( 3 )
 anims/destoy = SubResource( 4 )
 anims/fly = SubResource( 5 )
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+volume_db = -20.0
 
 [connection signal="area_entered" from="." to="." method="_on_Dark_ball_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_Dark_ball_body_entered"]

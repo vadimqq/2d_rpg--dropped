@@ -13,6 +13,10 @@ config_version=4
 config/name="2d_rouglike"
 run/main_scene="res://ui/Root_menu.tscn"
 
+[autoload]
+
+GAME_CORE="*res://src/global_scripts/GAME_CORE.gd"
+
 [display]
 
 window/size/width=1920

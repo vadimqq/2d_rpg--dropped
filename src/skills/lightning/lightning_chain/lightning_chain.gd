@@ -29,6 +29,5 @@ func _on_Enemy_detection_zone_body_entered(body):
 		sprite.flip_h = bool(randi() % 2)
 		animation.get_animation('cast').track_set_key_value(0, 1, sprite_region_rect)
 		animation.play('cast')
-
 		enemy_position = body.global_position
 		enemy_colliding_array.push_back(body)

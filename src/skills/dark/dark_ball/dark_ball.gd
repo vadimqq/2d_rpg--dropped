@@ -3,6 +3,7 @@ extends Area2D
 onready var animation = $Animation
 onready var sprite = $Sprite
 onready var collider = $CollisionShape2D
+onready var sound = $Sound
 
 var speed = 0
 var damage = 0
@@ -16,6 +17,7 @@ func _ready():
 	sprite.flip_v = flip_v
 	set_as_toplevel(true)
 	animation.play("fly")
+	sound.play()
 
 func fire(new_global_transform, angle, projectile_damage, projectile_speed):
 	damage = projectile_damage

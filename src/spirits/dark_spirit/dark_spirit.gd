@@ -88,14 +88,32 @@ var upgrade_dictionary = {
 			1: {
 				'discription': 'add new spell on spirit',
 				'cd': 30,
-				'projectile_count': 6,
+				'projectile_count': 2,
 				'projectile_speed': 5.0
 			},
 			2: {
-				'discription': 'base damage + 10%',
-				'cd': 25,
-				'projectile_count': 10,
+				'discription': 'more count orb',
+				'cd': 30,
+				'projectile_count': 4,
 				'projectile_speed': 5.0
+			},
+			3: {
+				'discription': 'cd -5sec',
+				'cd': 25,
+				'projectile_count': 4,
+				'projectile_speed': 5.0
+			},
+			4: {
+				'discription': 'more count orb',
+				'cd': 25,
+				'projectile_count': 6,
+				'projectile_speed': 5.0
+			},
+			5: {
+				'discription': 'more orb speed',
+				'cd': 25,
+				'projectile_count': 6,
+				'projectile_speed': 7.0
 			}
 		}
 	},
