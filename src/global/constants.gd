@@ -1,0 +1,36 @@
+extends Node2D
+
+enum DAMAGE_TYPE_ENUM {
+	PHYSIC,
+	DARK,
+	WINDOW,
+	LIGHTING,
+	FIRE
+}
+
+enum CAST_TYPE_ENUM {
+	BASE,
+	CRITICAL,
+	HEAL
+}
+
+enum WEAPON_TYPES {
+	SWORD,
+	BOW,
+}
+
+enum ABILITY_TYPE_ENUM {
+	ACTIVE,
+	PASSIVE
+}
+
+enum DOT_TYPE_ENUM {
+	BLEED,
+	POISION,
+	BURN
+}
+
+enum ITEM_TYPE_ENUM {
+	WEAPON,
+	ARTIFACT
+}

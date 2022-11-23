@@ -1,0 +1,73 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://src/ui/abilities_nodes/trees/physic_tree/Physic_tree.gd" type="Script" id=1]
+[ext_resource path="res://src/ui/abilities_nodes/ability_button/ability_button.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/abilities/arrow_multishot/icon.png" type="Texture" id=3]
+[ext_resource path="res://src/abilities/dash/icon.png" type="Texture" id=4]
+[ext_resource path="res://src/abilities/passive/physic/attack_speed/icon.png" type="Texture" id=5]
+[ext_resource path="res://src/abilities/passive/physic/bleed/icon.png" type="Texture" id=6]
+
+[node name="Physic_tree" type="VBoxContainer"]
+script = ExtResource( 1 )
+
+[node name="Tier_3" type="HBoxContainer" parent="."]
+margin_right = 100.0
+margin_bottom = 48.0
+alignment = 1
+
+[node name="dash" parent="Tier_3" instance=ExtResource( 2 )]
+
+[node name="TextureButton" parent="Tier_3/dash" index="0"]
+texture_normal = ExtResource( 4 )
+
+[node name="ability_button3" parent="Tier_3" instance=ExtResource( 2 )]
+margin_left = 52.0
+margin_right = 100.0
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+margin_top = 52.0
+margin_right = 100.0
+margin_bottom = 62.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="Tier_2" type="HBoxContainer" parent="."]
+margin_top = 66.0
+margin_right = 100.0
+margin_bottom = 114.0
+alignment = 1
+
+[node name="bleed" parent="Tier_2" instance=ExtResource( 2 )]
+
+[node name="TextureButton" parent="Tier_2/bleed" index="0"]
+texture_normal = ExtResource( 6 )
+
+[node name="arrow_multishot" parent="Tier_2" instance=ExtResource( 2 )]
+margin_left = 52.0
+margin_right = 100.0
+
+[node name="TextureButton" parent="Tier_2/arrow_multishot" index="0"]
+texture_normal = ExtResource( 3 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_top = 118.0
+margin_right = 100.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="Tier_1" type="HBoxContainer" parent="."]
+margin_top = 132.0
+margin_right = 100.0
+margin_bottom = 180.0
+alignment = 1
+
+[node name="attack_speed" parent="Tier_1" instance=ExtResource( 2 )]
+margin_left = 26.0
+margin_right = 74.0
+
+[node name="TextureButton" parent="Tier_1/attack_speed" index="0"]
+texture_normal = ExtResource( 5 )
+
+[editable path="Tier_3/dash"]
+[editable path="Tier_2/bleed"]
+[editable path="Tier_2/arrow_multishot"]
+[editable path="Tier_1/attack_speed"]

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/ui/abilities_nodes/tree_button/tree_button.gd" type="Script" id=1]
+
+[node name="button" type="Button"]
+margin_top = 42.0
+margin_right = 70.0
+margin_bottom = 62.0
+text = "Lightning"
+script = ExtResource( 1 )

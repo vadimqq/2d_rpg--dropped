@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/entities/base_spirit/base_spirit.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/spirits/void_spirit/void_spirit.gd" type="Script" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+
+[node name="void_spirit" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="." index="1"]
+margin_left = -16.6667
+margin_top = -46.6667
+margin_right = 23.3333
+margin_bottom = -32.6667
+text = "VOID"
+
+[connection signal="cast_first_skill" from="." to="." method="_on_void_spirit_cast_first_skill"]

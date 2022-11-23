@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/shaders/whiten_shader.gdshader" type="Shader" id=1]
+[ext_resource path="res://src/abilities/dash/dash_ghost.gd" type="Script" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 1 )
+shader_param/whiten = true
+shader_param/mix_weight = 1.0
+
+[node name="Sprite" type="Sprite"]
+material = SubResource( 1 )
+texture = ExtResource( 3 )
+script = ExtResource( 2 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/entities/base_DOT/base_DOT.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/attacks/DOT/bleed/bleed.gd" type="Script" id=2]
+
+[node name="bleed" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[connection signal="apply_damage" from="." to="." method="_on_bleed_apply_damage"]

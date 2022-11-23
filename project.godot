@@ -8,23 +8,113 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "CanvasLayer",
+"class": "Ability_board",
+"language": "GDScript",
+"path": "res://src/ui/abilities_nodes/ability_board/ability_board.gd"
+}, {
+"base": "Node2D",
+"class": "Base_DOT",
+"language": "GDScript",
+"path": "res://src/entities/base_DOT/base_DOT.gd"
+}, {
+"base": "Node2D",
+"class": "Base_ability",
+"language": "GDScript",
+"path": "res://src/entities/base_ability/base_ability.gd"
+}, {
+"base": "Area2D",
+"class": "Base_attack",
+"language": "GDScript",
+"path": "res://src/entities/base_attack/base_attack.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Base_body",
+"language": "GDScript",
+"path": "res://src/entities/base_body/base_body.gd"
+}, {
+"base": "Node2D",
+"class": "Base_item",
+"language": "GDScript",
+"path": "res://src/entities/base_item/base_item.gd"
+}, {
+"base": "Base_attack",
+"class": "Base_melee_attack",
+"language": "GDScript",
+"path": "res://src/entities/base_melee_attack/base_melee_attack.gd"
+}, {
+"base": "Base_attack",
+"class": "Base_projectile",
+"language": "GDScript",
+"path": "res://src/entities/base_projectile/base_projectile.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Base_spirit",
+"language": "GDScript",
+"path": "res://src/entities/base_spirit/base_spirit.gd"
+}, {
+"base": "Node2D",
+"class": "Base_weapon",
+"language": "GDScript",
+"path": "res://src/entities/base_weapon/base_weapon.gd"
+}, {
+"base": "Base_body",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://src/entities/enemy/enemy.gd"
+}, {
+"base": "CanvasLayer",
+"class": "Game_ui",
+"language": "GDScript",
+"path": "res://src/ui/game_ui/game_ui.gd"
+}, {
+"base": "Base_item",
+"class": "Item_with_popup",
+"language": "GDScript",
+"path": "res://src/items/item_with_popup/item_with_popup.gd"
+}, {
+"base": "Base_body",
+"class": "Player",
+"language": "GDScript",
+"path": "res://src/player/Player.gd"
+} ]
+_global_script_class_icons={
+"Ability_board": "",
+"Base_DOT": "",
+"Base_ability": "",
+"Base_attack": "",
+"Base_body": "",
+"Base_item": "",
+"Base_melee_attack": "",
+"Base_projectile": "",
+"Base_spirit": "",
+"Base_weapon": "",
+"Enemy": "",
+"Game_ui": "",
+"Item_with_popup": "",
+"Player": ""
+}
+
 [application]
 
-config/name="2d_rouglike"
-run/main_scene="res://ui/Root_menu.tscn"
+config/name="2d_rpg"
+run/main_scene="res://src/ui/root_menu/root_menu.tscn"
+config/icon="res://icon.png"
 
 [autoload]
 
-GAME_CORE="*res://src/global_scripts/GAME_CORE.gd"
+CONSTANTS="*res://src/global/constants.gd"
+GAME_CORE="*res://src/global/GAME_CORE.gd"
+WEAPON_MANAGER="*res://src/global/WEAPON_MANAGER.gd"
+SKILL_MANAGER="*res://src/global/SKILL_MANAGER.gd"
+OBJECT_MANAGER="*res://src/global/OBJECT_MANAGER.gd"
+UTILS="*res://src/global/UTILS.gd"
 
 [display]
 
-window/size/width=1920
-window/size/height=1080
-window/size/test_width=1280
-window/size/test_height=720
-window/stretch/mode="2d"
-window/stretch/aspect="keep"
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 
 [importer_defaults]
 
@@ -72,40 +162,87 @@ move_down={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
-attack_click={
-"deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
- ]
-}
-click_skill_1={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":81,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
-}
-click_skill_2={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
-}
 dash={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
+weapon_skill={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+first_skill={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+second_skill={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":81,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+third_skill={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+fourth_skill={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":82,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+select_first_spirit={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":49,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+select_second_spirit={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":50,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+select_third_spirit={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":51,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+select_fourth_spirit={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":52,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+weapon_swap={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777237,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+info_panel={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":73,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+set_ability={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+take_item={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":70,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [layer_names]
 
-2d_render/layer_5="Player"
-2d_render/layer_6="Enemy"
-2d_physics/layer_1="Ground"
-2d_physics/layer_2="Neutral object"
-2d_physics/layer_5="Player"
-2d_physics/layer_6="Player Hitbox"
-2d_physics/layer_7="Player Hurtbox"
-2d_physics/layer_8="Player attack"
-2d_physics/layer_9="Enemy"
-2d_physics/layer_10="Enemy Hitbox"
-2d_physics/layer_11="Enemy Hurtbox"
+2d_physics/layer_1="Map"
+2d_physics/layer_2="Neutral_object"
+2d_physics/layer_3="Player"
+2d_physics/layer_4="Player_hitbox"
+2d_physics/layer_5="Player_hurtbox"
+2d_physics/layer_6="Enemy"
+2d_physics/layer_7="Enemy_hitbox"
+2d_physics/layer_8="Enemy_hurtbox"
 
 [physics]
 
@@ -113,9 +250,4 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-quality/driver/driver_name="GLES2"
-quality/directional_shadow/size=1920
-quality/directional_shadow/size.mobile=1080
-quality/shadow_atlas/size=1920
-quality/shadow_atlas/size.mobile=1080
 environment/default_environment="res://default_env.tres"

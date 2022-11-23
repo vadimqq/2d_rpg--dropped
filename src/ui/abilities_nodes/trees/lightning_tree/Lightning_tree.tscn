@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/ui/abilities_nodes/trees/lightning_tree/Lightning_tree.gd" type="Script" id=1]
+[ext_resource path="res://src/ui/abilities_nodes/ability_button/ability_button.tscn" type="PackedScene" id=2]
+
+[node name="Lightning_tree" type="VBoxContainer"]
+script = ExtResource( 1 )
+
+[node name="Tier_3" type="HBoxContainer" parent="."]
+margin_right = 152.0
+margin_bottom = 48.0
+alignment = 1
+
+[node name="ability_button" parent="Tier_3" instance=ExtResource( 2 )]
+
+[node name="ability_button2" parent="Tier_3" instance=ExtResource( 2 )]
+margin_left = 52.0
+margin_right = 100.0
+
+[node name="ability_button3" parent="Tier_3" instance=ExtResource( 2 )]
+margin_left = 104.0
+margin_right = 152.0
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+margin_top = 52.0
+margin_right = 152.0
+margin_bottom = 62.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="Tier_2" type="HBoxContainer" parent="."]
+margin_top = 66.0
+margin_right = 152.0
+margin_bottom = 114.0
+alignment = 1
+
+[node name="ability_button" parent="Tier_2" instance=ExtResource( 2 )]
+margin_left = 26.0
+margin_right = 74.0
+
+[node name="ability_button2" parent="Tier_2" instance=ExtResource( 2 )]
+margin_left = 78.0
+margin_right = 126.0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_top = 118.0
+margin_right = 152.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="Tier_1" type="HBoxContainer" parent="."]
+margin_top = 132.0
+margin_right = 152.0
+margin_bottom = 180.0
+alignment = 1
+
+[node name="ability_button" parent="Tier_1" instance=ExtResource( 2 )]
+margin_left = 52.0
+margin_right = 100.0
