@@ -1,6 +1,7 @@
 extends KinematicBody2D
 class_name Base_body
 
+var hit_particle_src = preload("res://src/effects/Hit_particle.tscn")
 var floating_indicator = preload("res://src/ui/floating_indicator/floating_indicator.tscn")
 const Stat_system = preload("res://src/scripts/stat_system.gd").STAT_SYSTEM
  
@@ -15,7 +16,6 @@ onready var weapon_slot: Node2D = $RayCast/Weapon_slot
 onready var off_wepon_slot: Node2D = $Off_wepon_slot
 onready var hurtbox_shape: CollisionShape2D = $Hurtbox/CollisionShape2D
 onready var passive_list: Node2D = $Passive_list
-
 onready var DOT_list: Node2D = $DOT_list
 onready var DOT_bleed: Base_DOT = $DOT_list/bleed
 
@@ -30,24 +30,27 @@ var STATS :Stat_system = null
 enum {
 	MOVE,
 	IDLE,
+	ATTACK
 }
 var state = IDLE
 
 signal death
 
-func on_stats_init():
-	health_bar.max_value = STATS.MAX_HP
-	health_bar.value = STATS.HP
+func _ready():
+	STATS = Stat_system.new()
+	health_bar.max_value = STATS.get_max_health()
+	health_bar.value = STATS.CURRENT_HEALTH
+	
 
 func _physics_process(delta):
-	health_bar.value = STATS.HP
+	health_bar.value = STATS.CURRENT_HEALTH
 
 	match state:
 		IDLE:
 			state_idle(delta)
 		MOVE:
 			state_move(delta)
-	
+		
 	if axis == Vector2.ZERO:
 		state = IDLE
 	else:
@@ -73,11 +76,11 @@ func apply_movement(accel, speed):
 	Motion = Motion.clamped(speed)
 
 func state_idle(delta):
-	apply_friction((STATS.MOVE_SPEED * 10) * delta)
+	apply_friction((STATS.get_move_speed() * 10) * delta)
 	animation_tree.get("parameters/playback").travel("idle")
 
 func state_move(delta):
-	apply_movement(axis * (STATS.MOVE_SPEED * 10) * delta, STATS.MOVE_SPEED)
+	apply_movement(axis * (STATS.get_move_speed() * 10) * delta, STATS.get_move_speed())
 
 func take_damage(type, damage: int, attack_type = CONSTANTS.CAST_TYPE_ENUM.BASE):
 	var damage_view = floating_indicator.instance()
@@ -86,12 +89,15 @@ func take_damage(type, damage: int, attack_type = CONSTANTS.CAST_TYPE_ENUM.BASE)
 	get_tree().get_root().add_child(damage_view)
 	damage_view.execute(self, applied_damage, attack_type)
 	
-	if STATS.HP <= 0:
+	if STATS.CURRENT_HEALTH <= 0:
 		emit_signal('death')
 
 func _on_Hurtbox_area_entered(attack: Base_attack):
 	take_damage(attack.type, attack.damage, attack.attack_type)
 	check_DOT(attack)
+	var hit_particle = hit_particle_src.instance()
+	get_tree().get_root().add_child(hit_particle)
+	hit_particle.swich_rotation(attack, self)
 
 func check_DOT(attack: Base_attack):
 	if attack.DOT_tags.has(CONSTANTS.DOT_TYPE_ENUM.BLEED):
@@ -100,10 +106,8 @@ func check_DOT(attack: Base_attack):
 
 #РЕГУЛЯРНЫЙ РЕГЕН ХП И МАНЫ
 func _on_Regen_timer_timeout():
-	if (STATS.HP < STATS.MAX_HP):
-		STATS.regen_helth()
-	if (STATS.MANA < STATS.MAX_MANA):
-		STATS.regen_mana()
+	STATS.regen_helth()
+	STATS.regen_mana()
 
 #РЕГУЛЯРНЫЙ УРОН ОТ ДОТ
 func _on_Damage_timer_timeout():

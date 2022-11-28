@@ -1,8 +1,11 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://src/entities/base_body/base_body.gd" type="Script" id=1]
 [ext_resource path="res://src/material/whiten_material.tres" type="Material" id=2]
 [ext_resource path="res://src/attacks/DOT/bleed/bleed.tscn" type="PackedScene" id=3]
+
+[sub_resource type="AnimationNodeAnimation" id=15]
+animation = "attack"
 
 [sub_resource type="AnimationNodeAnimation" id=4]
 animation = "idle-left"
@@ -56,14 +59,24 @@ blend_mode = 1
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=14]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=16]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=17]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=18]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=19]
+
 [sub_resource type="AnimationNodeStateMachine" id=1]
+states/attack/node = SubResource( 15 )
+states/attack/position = Vector2( 637.588, 231.071 )
 states/idle/node = SubResource( 3 )
 states/idle/position = Vector2( 544, 122 )
 states/move/node = SubResource( 12 )
 states/move/position = Vector2( 724, 122 )
-transitions = [ "idle", "move", SubResource( 13 ), "move", "idle", SubResource( 14 ) ]
+transitions = [ "idle", "move", SubResource( 13 ), "move", "idle", SubResource( 14 ), "idle", "attack", SubResource( 16 ), "attack", "idle", SubResource( 17 ), "move", "attack", SubResource( 18 ), "attack", "move", SubResource( 19 ) ]
 start_node = "idle"
-graph_offset = Vector2( -39.412, 0 )
+graph_offset = Vector2( -39.412, 80.0707 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=2]
 

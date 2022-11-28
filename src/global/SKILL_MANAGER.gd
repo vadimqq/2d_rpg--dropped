@@ -7,17 +7,18 @@ var physic_bleed: Base_ability = load_passive_instance("physic", "bleed")
 #ACTIVE===========================================================
 var lightning_bolt: Base_ability = load_instance("lightning_bolt")
 var arrow_multishot: Base_ability = load_instance("arrow_multishot")
+var sword_vortex: Base_ability = load_instance("sword_vortex")
 var dash: Base_ability = load_instance("dash")
 
-var weapon_1_tier_1_ability = null
-var weapon_1_tier_2_ability = null
-var weapon_1_tier_3_ability = null
-var weapon_1_tier_4_ability = null
+var weapon_1_tier_1_ability: Base_ability = null
+var weapon_1_tier_2_ability: Base_ability = null
+var weapon_1_tier_3_ability: Base_ability = null
+var weapon_1_tier_4_ability: Base_ability = null
 
-var weapon_2_tier_1_ability = null
-var weapon_2_tier_2_ability = null
-var weapon_2_tier_3_ability = null
-var weapon_2_tier_4_ability = null
+var weapon_2_tier_1_ability: Base_ability = null
+var weapon_2_tier_2_ability: Base_ability = null
+var weapon_2_tier_3_ability: Base_ability = null
+var weapon_2_tier_4_ability: Base_ability = null
 
 var passive_abilities = []
 
@@ -73,12 +74,34 @@ func set_active_ability(ability_name):
 func reset_weapon_ability(weapon):
 	match weapon:
 		1:
+			if weapon_1_tier_1_ability != null && weapon_1_tier_1_ability.has_method("disable"):
+				weapon_1_tier_1_ability.disable()
 			weapon_1_tier_1_ability = null
+
+			if weapon_1_tier_2_ability != null && weapon_1_tier_2_ability.has_method("disable"):
+				weapon_1_tier_2_ability.disable()
 			weapon_1_tier_2_ability = null
+
+			if weapon_1_tier_3_ability != null && weapon_1_tier_3_ability.has_method("disable"):
+				weapon_1_tier_3_ability.disable()
 			weapon_1_tier_3_ability = null
+
+			if weapon_1_tier_4_ability != null && weapon_1_tier_4_ability.has_method("disable"):
+				weapon_1_tier_4_ability.disable()
 			weapon_1_tier_4_ability = null
 		2:
+			if weapon_2_tier_1_ability != null && weapon_2_tier_1_ability.has_method("disable"):
+				weapon_2_tier_1_ability.disable()
 			weapon_2_tier_1_ability = null
+
+			if weapon_2_tier_2_ability != null && weapon_2_tier_2_ability.has_method("disable"):
+				weapon_2_tier_2_ability.disable()
 			weapon_2_tier_2_ability = null
+
+			if weapon_2_tier_3_ability != null && weapon_2_tier_3_ability.has_method("disable"):
+				weapon_2_tier_3_ability.disable()
 			weapon_2_tier_3_ability = null
+
+			if weapon_2_tier_4_ability != null && weapon_2_tier_4_ability.has_method("disable"):
+				weapon_2_tier_4_ability.disable()
 			weapon_2_tier_4_ability = null

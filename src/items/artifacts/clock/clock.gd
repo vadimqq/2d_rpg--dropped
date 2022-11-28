@@ -6,6 +6,6 @@ func _init():
 	item_name = "Clock"
 	description = "reduce CDR"
 	stats = {
-		"CDR": -40
+		"GAIN_CDR": 40
 	}
 

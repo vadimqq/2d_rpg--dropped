@@ -27,5 +27,5 @@ func take_item(item: Item_with_popup):
 			"count": 1
 		}
 	)
-	GAME_CORE.game_ui.add_artifact_icon(item.item_name)
+	GAME_CORE.game_ui.add_artifact_icon(item.name)
 	GAME_CORE.player.STATS.apply_buff(item.stats)

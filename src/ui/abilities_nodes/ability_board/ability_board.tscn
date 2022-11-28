@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/ui/abilities_nodes/ability_board/ability_board.gd" type="Script" id=1]
 [ext_resource path="res://src/ui/abilities_nodes/current_abilities/current_abilities.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/ui/abilities_nodes/trees/lightning_tree/Lightning_tree.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/ui/abilities_nodes/tree_button/tree_button.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/ui/abilities_nodes/trees/physic_tree/Physic_tree.tscn" type="PackedScene" id=5]
 
@@ -22,10 +21,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -113.0
-margin_top = -76.0
-margin_right = 113.0
-margin_bottom = 76.0
+margin_left = -285.0
+margin_top = -139.5
+margin_right = 285.0
+margin_bottom = 139.5
 alignment = 1
 
 [node name="Ability_list" parent="VBoxContainer" instance=ExtResource( 2 )]
@@ -33,70 +32,52 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 278.0
+margin_right = 570.0
 margin_bottom = 40.0
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 margin_top = 44.0
-margin_right = 278.0
+margin_right = 570.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 0, 20 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 68.0
-margin_right = 278.0
-margin_bottom = 248.0
+margin_right = 570.0
+margin_bottom = 279.0
 
 [node name="GridContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 margin_right = 98.0
-margin_bottom = 180.0
+margin_bottom = 211.0
 alignment = 1
 
-[node name="Lightning_button" parent="VBoxContainer/HBoxContainer/GridContainer" instance=ExtResource( 4 )]
-margin_top = 25.0
-margin_right = 98.0
-margin_bottom = 45.0
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/GridContainer"]
-margin_top = 49.0
-margin_right = 98.0
-margin_bottom = 69.0
-rect_min_size = Vector2( 20, 20 )
-
 [node name="Physic_button" parent="VBoxContainer/HBoxContainer/GridContainer" instance=ExtResource( 4 )]
-margin_top = 73.0
+margin_top = 64.0
 margin_right = 98.0
-margin_bottom = 93.0
+margin_bottom = 84.0
 text = "Physic"
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/HBoxContainer/GridContainer"]
-margin_top = 97.0
+margin_top = 88.0
 margin_right = 98.0
-margin_bottom = 137.0
+margin_bottom = 128.0
 rect_min_size = Vector2( 20, 40 )
 
 [node name="Material_counter" type="Label" parent="VBoxContainer/HBoxContainer/GridContainer"]
-margin_top = 141.0
+margin_top = 132.0
 margin_right = 98.0
-margin_bottom = 155.0
+margin_bottom = 146.0
 text = "Soul stones: 10"
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
 margin_left = 102.0
 margin_right = 122.0
-margin_bottom = 180.0
+margin_bottom = 211.0
 rect_min_size = Vector2( 20, 0 )
 
-[node name="Lightning_tree" parent="VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
-margin_left = 126.0
-margin_right = 278.0
-margin_bottom = 180.0
-
 [node name="Physic_tree" parent="VBoxContainer/HBoxContainer" instance=ExtResource( 5 )]
-visible = false
-margin_left = 254.0
-margin_right = 354.0
-margin_bottom = 152.0
+margin_left = 126.0
+margin_right = 570.0
+margin_bottom = 211.0
 
-[connection signal="button_down" from="VBoxContainer/HBoxContainer/GridContainer/Lightning_button" to="." method="_on_Lightning_button_button_down"]
 [connection signal="button_down" from="VBoxContainer/HBoxContainer/GridContainer/Physic_button" to="." method="_on_Physic_button_button_down"]

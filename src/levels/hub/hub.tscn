@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/levels/buildings/portal.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/levels/buildings/platform.tscn" type="PackedScene" id=2]
@@ -6,9 +6,12 @@
 [ext_resource path="res://src/tile_map/tile_map.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/levels/buildings/shrine.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/enemies/dummy/dummy.tscn" type="PackedScene" id=6]
-[ext_resource path="res://src/enemies/test/test.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/items/artifacts/health_potion/health_potion.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/items/weapons/bow/bow.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/items/artifacts/clock/clock.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/NPC/portal_master/portal_mater.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/items/artifacts/mana_potion/mana_potion.tscn" type="PackedScene" id=11]
+[ext_resource path="res://src/enemies/void_imp/void_imp.tscn" type="PackedScene" id=12]
 
 [node name="Hub" type="Node2D"]
 script = ExtResource( 3 )
@@ -48,13 +51,18 @@ position = Vector2( 312, 218 )
 position = Vector2( 344, 218 )
 
 [node name="Bow" parent="YSort" instance=ExtResource( 8 )]
-position = Vector2( -48, 231 )
-
-[node name="test" parent="YSort" instance=ExtResource( 7 )]
-position = Vector2( 236, 326 )
+position = Vector2( -45, 389 )
 
 [node name="clock" parent="YSort" instance=ExtResource( 9 )]
-position = Vector2( -140, 357 )
+position = Vector2( -124, 387 )
 
-[node name="clock2" parent="YSort" instance=ExtResource( 9 )]
-position = Vector2( -106, 335 )
+[node name="health_potion" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( -182, 400 )
+
+[node name="mana_potion" parent="YSort" instance=ExtResource( 11 )]
+
+[node name="portal_mater" parent="YSort" instance=ExtResource( 10 )]
+position = Vector2( -196, 76 )
+
+[node name="void_imp" parent="." instance=ExtResource( 12 )]
+position = Vector2( 239, 346 )

@@ -12,6 +12,7 @@ var area_size = 0
 var speed = 0
 var attack_type = CONSTANTS.CAST_TYPE_ENUM.BASE
 var DOT_tags = []
+var damage_tags = []
 
 func check_crit_chance(c_chance, c_damage):
 	if is_percent_proc(crit_chance):
@@ -23,9 +24,9 @@ func is_percent_proc(chance):
 	return percent < chance / 100
 
 func check_DOT_chance(s):
-	check_amount_DOT(s.STATS.CHANCE_BLEED, CONSTANTS.DOT_TYPE_ENUM.BLEED)
-	check_amount_DOT(s.STATS.CHANCE_POISION, CONSTANTS.DOT_TYPE_ENUM.POISION)
-	check_amount_DOT(s.STATS.CHANCE_BURN, CONSTANTS.DOT_TYPE_ENUM.BURN)
+	check_amount_DOT(s.STATS.get_chance_bleed(), CONSTANTS.DOT_TYPE_ENUM.BLEED)
+	check_amount_DOT(s.STATS.get_chance_poison(), CONSTANTS.DOT_TYPE_ENUM.POISON)
+	check_amount_DOT(s.STATS.get_chance_burn(), CONSTANTS.DOT_TYPE_ENUM.BURN)
 
 func check_amount_DOT(percent, type):
 	if percent > 100:
@@ -40,17 +41,18 @@ func check_amount_DOT(percent, type):
 		if is_percent_proc(percent):
 			DOT_tags.push_back(type)
 
-func load_info(s, spawn_position, projectile_rotation):
+func load_info(s, spawn_position, projectile_rotation, tags = [], ability_damage = 0.0):
 	owner_body = s
-	damage = s.STATS.DAMAGE
-	crit_chance = s.STATS.CRIT_CHANCE
-	crit_damage = s.STATS.CRIT_DAMAGE
-	speed = s.STATS.PROJECTILE_SPEED
+	damage = ability_damage
+	crit_chance = s.STATS.get_critical_chance()
+	crit_damage = s.STATS.get_critical_damage()
+	speed = s.STATS.get_projectile_speed()
 	transform = spawn_position
 	rotation = projectile_rotation
+	damage_tags = tags
 
-	scale.x = scale.x + scale.x / 100 * s.STATS.INCREASE_AREA
-	scale.y = scale.y + scale.y / 100 * s.STATS.INCREASE_AREA
+	scale.x = scale.x / 100 * s.STATS.get_increase_area()
+	scale.y = scale.y / 100 * s.STATS.get_increase_area()
 
 	self.collision_layer = s.attack_layer
 	self.collision_mask = s.attack_mask

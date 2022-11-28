@@ -21,7 +21,8 @@ var acceleration = Vector2.ZERO
 enum AI_STATE {
 	CHASE,
 	COMBAT,
-	PATROOL
+	PATROOL,
+	ATTACK
 }
 
 signal cast_base_attack
@@ -37,6 +38,9 @@ func _ready():
 	interest.resize(num_rays)
 	danger.resize(num_rays)
 	ray_directions.resize(num_rays)
+	STATS.apply_buff({
+		"GAIN_MOVE_SPEED": -50
+	})
 	for i in num_rays:
 		var angle = i * 2 * PI / num_rays
 		ray_directions[i] = Vector2.RIGHT.rotated(angle)
@@ -47,12 +51,13 @@ func _physics_process(delta):
 			state_chase()
 		AI_STATE.PATROOL:
 			state_patrool()
+		AI_STATE.ATTACK:
+			animation_tree.get("parameters/playback").travel("attack")
 	
-	match state:
-		MOVE:
-			animation_tree.get("parameters/playback").travel("move")
-			animation_tree.set("parameters/idle/blend_position", Motion)
-			animation_tree.set("parameters/move/blend_position", Motion)
+	if  state == MOVE && ai_state != AI_STATE.ATTACK:
+		animation_tree.get("parameters/playback").travel("move")
+	animation_tree.set("parameters/idle/blend_position", Motion)
+	animation_tree.set("parameters/move/blend_position", Motion)
 	
 	if player != null:
 		ray_cast.look_at(player.global_position)
@@ -83,7 +88,6 @@ func set_interest():
 		set_default_interest()
 
 func set_default_interest():
-	STATS.MOVE_SPEED = STATS.BASE_MOVE_SPEED
 	for i in num_rays:
 		var d = ray_directions[i].rotated(rotation).dot(transform.x)
 		interest[i] = max(0, d)
@@ -106,14 +110,16 @@ func choose_direction():
 	chosen_dir = chosen_dir.normalized()
 
 func _on_detection_zone_body_entered(body):
-	STATS.MOVE_SPEED = STATS.BASE_MOVE_SPEED
 	ai_state = AI_STATE.CHASE
 	pass
 
 func _on_switch_direction_timer_timeout():
-	STATS.MOVE_SPEED = STATS.BASE_MOVE_SPEED / 2
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	var dir_x = rng.randf_range(-1, 1)
 	var dir_y = rng.randf_range(-1, 1)
 	axis = Vector2(dir_x, dir_y)
+
+func _on_enemy_death():
+	CURRENCY_MANAGER.create_soul_coin(20, global_position)
+	call_deferred('free')

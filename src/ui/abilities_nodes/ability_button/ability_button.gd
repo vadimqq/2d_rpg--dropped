@@ -12,12 +12,6 @@ var max_lvl = 0
 var pick_lock = true
 var ability_type = CONSTANTS.ABILITY_TYPE_ENUM.ACTIVE
 
-func _process(delta):
-	if GAME_CORE.soul_stones < price || lvl == max_lvl:
-		button.disabled = true
-	else:
-		button.disabled = false
-
 func _on_TextureButton_button_down():
 	if ability_name != null:
 		SKILL_MANAGER.upgrade_ability(ability_name)
@@ -48,9 +42,18 @@ func load_info():
 			if ability.tags.has(tag):
 				pick_lock = false
 	lock.visible = pick_lock
+	
+	if CURRENCY_MANAGER.soul_coins < price || lvl == max_lvl:
+		button.disabled = true
+		button.modulate = "#6d6d6d"
+	else:
+		button.disabled = false
+		button.modulate = "#ffffff"
 
 func _on_TextureButton_gui_input(event: InputEvent):
 	if event.is_action_pressed("set_ability") && !pick_lock && int(lvl_label.text) > 0:
 		match ability_type:
 			CONSTANTS.ABILITY_TYPE_ENUM.ACTIVE:
+				SKILL_MANAGER.set_active_ability(ability_name)
+			CONSTANTS.ABILITY_TYPE_ENUM.MAINTAIN:
 				SKILL_MANAGER.set_active_ability(ability_name)

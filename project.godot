@@ -19,6 +19,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/entities/base_DOT/base_DOT.gd"
 }, {
+"base": "Base_body",
+"class": "Base_NPC",
+"language": "GDScript",
+"path": "res://src/NPC/base_NPC/base_NPC.gd"
+}, {
 "base": "Node2D",
 "class": "Base_ability",
 "language": "GDScript",
@@ -74,6 +79,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/items/item_with_popup/item_with_popup.gd"
 }, {
+"base": "CanvasLayer",
+"class": "Level_master",
+"language": "GDScript",
+"path": "res://src/ui/level_master/level_master.gd"
+}, {
 "base": "Base_body",
 "class": "Player",
 "language": "GDScript",
@@ -82,6 +92,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Ability_board": "",
 "Base_DOT": "",
+"Base_NPC": "",
 "Base_ability": "",
 "Base_attack": "",
 "Base_body": "",
@@ -93,6 +104,7 @@ _global_script_class_icons={
 "Enemy": "",
 "Game_ui": "",
 "Item_with_popup": "",
+"Level_master": "",
 "Player": ""
 }
 
@@ -105,11 +117,14 @@ config/icon="res://icon.png"
 [autoload]
 
 CONSTANTS="*res://src/global/constants.gd"
+UTILS="*res://src/global/UTILS.gd"
 GAME_CORE="*res://src/global/GAME_CORE.gd"
+LOCATION_MANAGER="*res://src/global/LOCATION_MANAGER.gd"
+HIT_REGISTRATOR="*res://src/global/HIT_REGISTRATOR.gd"
 WEAPON_MANAGER="*res://src/global/WEAPON_MANAGER.gd"
 SKILL_MANAGER="*res://src/global/SKILL_MANAGER.gd"
 OBJECT_MANAGER="*res://src/global/OBJECT_MANAGER.gd"
-UTILS="*res://src/global/UTILS.gd"
+CURRENCY_MANAGER="*res://src/global/CURRENCY_MANAGER.gd"
 
 [display]
 
@@ -227,7 +242,7 @@ set_ability={
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
-take_item={
+action={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":70,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]

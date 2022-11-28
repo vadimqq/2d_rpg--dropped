@@ -11,17 +11,8 @@ func _init():
 func _ready():
 	attack_range = 100
 
-func apply_stats(s: Base_body):
-	s.STATS.apply_buff(STATS)
-
-const STATS = {
-	"ATTACK_SPEED": 0,
-	"PROJECTILE_SPEED": 0,
-	"DAMAGE": 0
-}
-
 func _on_Bow_use_weapon_ability():
-	animation.playback_speed = owner_body.STATS.ATTACK_SPEED
+	animation.playback_speed = owner_body.STATS.get_attack_speed()
 	animation.play("attack")
 
 func weapon_ability():

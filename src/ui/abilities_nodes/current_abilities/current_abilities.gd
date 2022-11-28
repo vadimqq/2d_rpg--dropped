@@ -5,6 +5,8 @@ onready var slot_2: TextureProgress = $Slot_2
 onready var slot_3: TextureProgress = $Slot_3
 onready var slot_4: TextureProgress = $Slot_4
 
+var default_sprite = load("res://panel_skill.png")
+
 func _process(delta):
 	var current_weapon: Base_weapon = WEAPON_MANAGER.active
 	if current_weapon != null:
@@ -16,30 +18,42 @@ func _process(delta):
 		if first_ability != null:
 			slot_1.max_value = first_ability.CD
 			slot_1.value = first_ability.cd_timer.time_left
+			slot_1.is_active = first_ability.is_active if first_ability.type == CONSTANTS.ABILITY_TYPE_ENUM.MAINTAIN  else false
 		else:
 			slot_1.max_value = 1
 			slot_1.value = 0
+			slot_1.is_active = false 
+			slot_1.texture_under = default_sprite
 		
 		if second_ability != null:
 			slot_2.max_value = second_ability.CD
 			slot_2.value = second_ability.cd_timer.time_left
+			slot_2.is_active = second_ability.is_active if second_ability.type == CONSTANTS.ABILITY_TYPE_ENUM.MAINTAIN else false
 		else:
 			slot_2.max_value = 1
 			slot_2.value = 0
+			slot_2.is_active = false
+			slot_2.texture_under = default_sprite
 		
 		if third_ability != null:
 			slot_3.max_value = third_ability.CD
 			slot_3.value = third_ability.cd_timer.time_left
+			slot_3.is_active = third_ability.is_active if third_ability.type == CONSTANTS.ABILITY_TYPE_ENUM.MAINTAIN else false
 		else:
 			slot_3.max_value = 1
 			slot_3.value = 0
+			slot_3.is_active = false
+			slot_3.texture_under = default_sprite
 		
 		if fourth_ability != null:
 			slot_4.max_value = fourth_ability.CD
 			slot_4.value = fourth_ability.cd_timer.time_left
+			slot_4.is_active = fourth_ability.is_active if fourth_ability.type == CONSTANTS.ABILITY_TYPE_ENUM.MAINTAIN else false
 		else:
 			slot_4.max_value = 1
 			slot_4.value = 0
+			slot_4.is_active = false
+			slot_4.texture_under = default_sprite
 
 func set_ability_icon_by_slot(slot, ability_name):
 	match slot:

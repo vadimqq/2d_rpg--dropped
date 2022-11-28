@@ -10,7 +10,7 @@ var is_monitoring = false
 var description = ''
 
 func _process(delta):
-	if Input.is_action_just_pressed("take_item") && is_monitoring:
+	if Input.is_action_just_pressed("action") && is_monitoring:
 		match type:
 			CONSTANTS.ITEM_TYPE_ENUM.WEAPON:
 				WEAPON_MANAGER.take_weapon(self)

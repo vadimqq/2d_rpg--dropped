@@ -42,7 +42,6 @@ func load_weapon(s: Base_body, name):
 		instance.use_in_hand()
 		active = instance
 		weapon_2 = instance
-	instance.apply_stats(s)
 
 func swap_weapon(s: Base_body):
 	if can_swap_weapon:
@@ -67,5 +66,6 @@ func swap_weapon(s: Base_body):
 		can_swap_weapon = true
 
 func take_weapon(s: Base_item):
+#	SKILL_MANAGER.reset_weapon_ability(active_id)
 	OBJECT_MANAGER.load_weapon_item(GAME_CORE.player.global_position, active.weapon_name)
 	load_weapon(GAME_CORE.player, s.item_name)

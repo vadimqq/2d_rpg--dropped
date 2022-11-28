@@ -9,35 +9,28 @@ func _init():
 	element = "physic"
 
 func apply_buff(s: Base_body):
-	var value = s.STATS.get_percent_attack_speed(attack_spped)
-	s.STATS.modify_attack_speed(value)
-
-func reset_buff(s: Base_body):
-	var value = s.STATS.get_percent_attack_speed(attack_spped)
-	s.STATS.modify_attack_speed(-value)
+	s.STATS.apply_buff({
+		"GAIN_ATTACK_SPEED": attack_spped
+	})
 
 func _on_attack_speed_upgrade(s: Base_body, new_lvl):
 	match new_lvl:
 		1:
 			apply_buff(s)
 		2:
-			reset_buff(s)
-			attack_spped = 11
+			attack_spped = 5
 			price = 30
 			apply_buff(s)
 		3: 
-			reset_buff(s)
-			attack_spped = 12
+			attack_spped = 5
 			price = 40
 			apply_buff(s)
 		4: 
-			reset_buff(s)
-			attack_spped = 13
+			attack_spped = 5
 			price = 40
 			apply_buff(s)
 		5: 
-			reset_buff(s)
-			attack_spped = 15
+			attack_spped = 5
 			price = 40
 			apply_buff(s)
 	lvl = new_lvl

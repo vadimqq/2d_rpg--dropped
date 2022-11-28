@@ -7,7 +7,6 @@ onready var sprite = $Sprite
 var flip_v = false
 var is_hit = false
 
-
 func _ready():
 	sprite.flip_v = flip_v
 

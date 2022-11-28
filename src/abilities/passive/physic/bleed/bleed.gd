@@ -1,6 +1,6 @@
 extends Base_ability
 
-var percent = 10
+var percent = 100
 
 func _init():
 	type = CONSTANTS.ABILITY_TYPE_ENUM.PASSIVE
@@ -9,33 +9,28 @@ func _init():
 	element = "physic"
 
 func apply_buff(s: Base_body):
-	s.STATS.modify_bleed_chance(percent)
-
-func reset_buff(s: Base_body):
-	s.STATS.modify_bleed_chance(-percent)
+	s.STATS.apply_buff({
+		"CHANCE_BLEED": percent
+	})
 
 func _on_bleed_upgrade(s: Base_body, new_lvl):
 		match new_lvl:
 			1:
 				apply_buff(s)
 			2:
-				reset_buff(s)
-				percent = 11
+				percent = 2
 				price = 30
 				apply_buff(s)
 			3: 
-				reset_buff(s)
-				percent = 12
+				percent = 2
 				price = 40
 				apply_buff(s)
 			4: 
-				reset_buff(s)
-				percent = 13
+				percent = 2
 				price = 40
 				apply_buff(s)
 			5: 
-				reset_buff(s)
-				percent = 50
+				percent = 2
 				price = 40
 				apply_buff(s)
 		lvl = new_lvl
