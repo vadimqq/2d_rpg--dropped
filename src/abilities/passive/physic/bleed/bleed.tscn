@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=2]
-
-[ext_resource path="res://src/entities/base_ability/base_ability.tscn" type="PackedScene" id=1]
-[ext_resource path="res://src/abilities/passive/physic/bleed/bleed.gd" type="Script" id=2]
-
-[node name="bleed" instance=ExtResource( 1 )]
-script = ExtResource( 2 )
-
-[connection signal="upgrade" from="." to="." method="_on_bleed_upgrade"]

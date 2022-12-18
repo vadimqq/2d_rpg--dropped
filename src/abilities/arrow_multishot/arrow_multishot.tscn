@@ -1,9 +1,15 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://src/abilities/arrow_multishot/arrow_multishot.gd" type="Script" id=1]
-[ext_resource path="res://src/entities/base_ability/base_ability.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/abilities/ENTITY/base_ability/base_ability.tscn" type="PackedScene" id=2]
 
 [node name="arrow_multishot" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
+max_lvl = 3
+mana_cost = 1
+weapon_tags = [ 1 ]
+CD = 10
+projectile_speed = 200
 
+[connection signal="execute" from="." to="." method="_on_arrow_multishot_execute"]
 [connection signal="upgrade" from="." to="." method="_on_arrow_multishot_upgrade"]

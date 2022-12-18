@@ -1,10 +1,12 @@
 extends Node
 
-var soul_coins = 10000
+signal change_upgrade_points
 
-func modify_soul_coins(amount):
-	soul_coins += amount
-	GAME_CORE.game_ui.update_souil_coins_count(soul_coins)
+var upgrade_points = 10
+
+func modify_upgrade_points(amount):
+	upgrade_points += amount
+	emit_signal("change_upgrade_points")
 
 func load_instance(name):
 	var scene = load("res://src/currency/" + name + "/" + name + ".tscn")

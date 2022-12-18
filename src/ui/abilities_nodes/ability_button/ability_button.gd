@@ -1,59 +1,41 @@
 extends TextureRect
 
 onready var lvl_label = $Lvl
-onready var price_label = $Price
 onready var button = $TextureButton
 onready var lock = $Lock
 
-var ability_name = null
-var price = 0
-var lvl = 0
-var max_lvl = 0
-var pick_lock = true
-var ability_type = CONSTANTS.ABILITY_TYPE_ENUM.ACTIVE
+export (String) var ability_name = ''
+var price = 1
+var is_max_lvl = false
+var disabled_color = "#5b5a5a"
+var active_color = "#ffffff"
+
+func _ready():
+	CURRENCY_MANAGER.connect("change_upgrade_points", self, "on_change_upgrade_points")
+
+func set_unlock():
+	lock.visible = false
+	button.disabled = false
+	on_change_upgrade_points()
+
+func set_ability_name_label():
+	pass
+
+func set_ability_lvl_label(new_lvl):
+	lvl_label.text = str(new_lvl)
 
 func _on_TextureButton_button_down():
-	if ability_name != null:
-		SKILL_MANAGER.upgrade_ability(ability_name)
-		load_info()
+	var ability: Base_ability = GAME_CORE.player.ability_list.get_node(ability_name)
+	ability.upgrade()
+	CURRENCY_MANAGER.modify_upgrade_points(-ability.price)
+	set_ability_lvl_label(ability.lvl)
+	is_max_lvl = ability.is_max_lvl
+	on_change_upgrade_points()
 
-func load_info():
-	var ability: Base_ability = SKILL_MANAGER.get_ability_by_name(ability_name)
-	lvl_label.text = str(ability.lvl)
-	lvl = ability.lvl
-	max_lvl = ability.max_lvl
-	price = ability.price
-	if (ability.max_lvl == ability.lvl):
-		price_label.text = ''
-	else:
-		price_label.text = str(ability.price)
-
-	pick_lock = true
-	lock.visible = true
-
-	if ability.tags.size() > WEAPON_MANAGER.active.tags.size():
-		for tag in ability.tags:
-			if WEAPON_MANAGER.active.tags.has(tag):
-				pick_lock = false
-	elif ability.tags.size() == 0:
-		pick_lock = false
-	else:
-		for tag in WEAPON_MANAGER.active.tags:
-			if ability.tags.has(tag):
-				pick_lock = false
-	lock.visible = pick_lock
-	
-	if CURRENCY_MANAGER.soul_coins < price || lvl == max_lvl:
-		button.disabled = true
-		button.modulate = "#6d6d6d"
-	else:
+func on_change_upgrade_points():
+	if price <= CURRENCY_MANAGER.upgrade_points && !lock.visible && !is_max_lvl:
 		button.disabled = false
-		button.modulate = "#ffffff"
-
-func _on_TextureButton_gui_input(event: InputEvent):
-	if event.is_action_pressed("set_ability") && !pick_lock && int(lvl_label.text) > 0:
-		match ability_type:
-			CONSTANTS.ABILITY_TYPE_ENUM.ACTIVE:
-				SKILL_MANAGER.set_active_ability(ability_name)
-			CONSTANTS.ABILITY_TYPE_ENUM.MAINTAIN:
-				SKILL_MANAGER.set_active_ability(ability_name)
+		button.modulate = active_color
+	else:
+		button.disabled = true
+		button.modulate = disabled_color

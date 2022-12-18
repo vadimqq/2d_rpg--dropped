@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/attacks/DOT/base_DOT/base_DOT.gd" type="Script" id=1]
+
+[node name="Base_DOT" type="Node"]
+script = ExtResource( 1 )
+duration = 5.0
+one_tick = 1.0
+
+[node name="Duration" type="Timer" parent="."]
+
+[node name="Tick" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[connection signal="timeout" from="Duration" to="." method="_on_Duration_timeout"]
+[connection signal="timeout" from="Tick" to="." method="_on_Tick_timeout"]

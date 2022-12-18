@@ -14,10 +14,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/ui/abilities_nodes/ability_board/ability_board.gd"
 }, {
-"base": "Node2D",
+"base": "TextureProgress",
+"class": "Ability_ui",
+"language": "GDScript",
+"path": "res://src/ui/abilities_nodes/current_abilities/ability_ui/ability_ui.gd"
+}, {
+"base": "Node",
 "class": "Base_DOT",
 "language": "GDScript",
-"path": "res://src/entities/base_DOT/base_DOT.gd"
+"path": "res://src/attacks/DOT/base_DOT/base_DOT.gd"
 }, {
 "base": "Base_body",
 "class": "Base_NPC",
@@ -27,42 +32,62 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Base_ability",
 "language": "GDScript",
-"path": "res://src/entities/base_ability/base_ability.gd"
+"path": "res://src/abilities/ENTITY/base_ability/base_ability.gd"
 }, {
 "base": "Area2D",
 "class": "Base_attack",
 "language": "GDScript",
-"path": "res://src/entities/base_attack/base_attack.gd"
+"path": "res://src/attacks/base_attack/base_attack.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Base_body",
 "language": "GDScript",
 "path": "res://src/entities/base_body/base_body.gd"
 }, {
+"base": "Base_ability",
+"class": "Base_distance_ability",
+"language": "GDScript",
+"path": "res://src/abilities/ENTITY/base_distance_ability/Base_distance_ability.gd"
+}, {
 "base": "Node2D",
 "class": "Base_item",
 "language": "GDScript",
 "path": "res://src/entities/base_item/base_item.gd"
 }, {
-"base": "Base_attack",
-"class": "Base_melee_attack",
+"base": "Node",
+"class": "Base_passive",
 "language": "GDScript",
-"path": "res://src/entities/base_melee_attack/base_melee_attack.gd"
+"path": "res://src/abilities/ENTITY/base_passive/base_passive.gd"
 }, {
 "base": "Base_attack",
 "class": "Base_projectile",
 "language": "GDScript",
-"path": "res://src/entities/base_projectile/base_projectile.gd"
+"path": "res://src/attacks/projectiles/base_projectile/base_projectile.gd"
+}, {
+"base": "HBoxContainer",
+"class": "Base_quest",
+"language": "GDScript",
+"path": "res://src/quests/base_quest/base_quest.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Base_spirit",
 "language": "GDScript",
 "path": "res://src/entities/base_spirit/base_spirit.gd"
 }, {
+"base": "Base_ability",
+"class": "Base_togle_ability",
+"language": "GDScript",
+"path": "res://src/abilities/ENTITY/base_togle_ability/Base_togle_ability.gd"
+}, {
 "base": "Node2D",
 "class": "Base_weapon",
 "language": "GDScript",
 "path": "res://src/entities/base_weapon/base_weapon.gd"
+}, {
+"base": "TextureButton",
+"class": "Choise_button",
+"language": "GDScript",
+"path": "res://src/ui/abilities_nodes/current_abilities/choise_ability_button/choise_ability_button.gd"
 }, {
 "base": "Base_body",
 "class": "Enemy",
@@ -73,6 +98,11 @@ _global_script_classes=[ {
 "class": "Game_ui",
 "language": "GDScript",
 "path": "res://src/ui/game_ui/game_ui.gd"
+}, {
+"base": "Base_attack",
+"class": "Homing_projectile",
+"language": "GDScript",
+"path": "res://src/attacks/projectiles/homing_projectile/homing_projectile.gd"
 }, {
 "base": "Base_item",
 "class": "Item_with_popup",
@@ -88,24 +118,42 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://src/player/Player.gd"
+}, {
+"base": "Node",
+"class": "Stat_system",
+"language": "GDScript",
+"path": "res://src/entities/stats_system/stats_system.gd"
+}, {
+"base": "Node",
+"class": "Weapon_manager",
+"language": "GDScript",
+"path": "res://src/player/weapon_manager/weapon_manager.gd"
 } ]
 _global_script_class_icons={
 "Ability_board": "",
+"Ability_ui": "",
 "Base_DOT": "",
 "Base_NPC": "",
 "Base_ability": "",
 "Base_attack": "",
 "Base_body": "",
+"Base_distance_ability": "",
 "Base_item": "",
-"Base_melee_attack": "",
+"Base_passive": "",
 "Base_projectile": "",
+"Base_quest": "",
 "Base_spirit": "",
+"Base_togle_ability": "",
 "Base_weapon": "",
+"Choise_button": "",
 "Enemy": "",
 "Game_ui": "",
+"Homing_projectile": "",
 "Item_with_popup": "",
 "Level_master": "",
-"Player": ""
+"Player": "",
+"Stat_system": "",
+"Weapon_manager": ""
 }
 
 [application]
@@ -120,16 +168,19 @@ CONSTANTS="*res://src/global/constants.gd"
 UTILS="*res://src/global/UTILS.gd"
 GAME_CORE="*res://src/global/GAME_CORE.gd"
 LOCATION_MANAGER="*res://src/global/LOCATION_MANAGER.gd"
-HIT_REGISTRATOR="*res://src/global/HIT_REGISTRATOR.gd"
-WEAPON_MANAGER="*res://src/global/WEAPON_MANAGER.gd"
-SKILL_MANAGER="*res://src/global/SKILL_MANAGER.gd"
 OBJECT_MANAGER="*res://src/global/OBJECT_MANAGER.gd"
 CURRENCY_MANAGER="*res://src/global/CURRENCY_MANAGER.gd"
+QUEST_MANAGER="*res://src/global/QUEST_MANAGER.gd"
 
 [display]
 
+window/vsync/use_vsync=false
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
+
+[global]
+
+vs=false
 
 [importer_defaults]
 
@@ -245,6 +296,11 @@ set_ability={
 action={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":70,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+toggle_fullscreen={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":16777217,"unicode":0,"echo":false,"script":null)
  ]
 }
 

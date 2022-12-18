@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/attacks/base_attack/base_attack.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/attacks/projectiles/homing_projectile/homing_projectile.gd" type="Script" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 6, 3 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 135.033
+
+[node name="homing_projectile" instance=ExtResource( 1 )]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource( 2 )
+lifetime = 20.0
+drag_factor = 0.05
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="." index="1"]
+scale = Vector2( 0.2, 0.1 )
+texture = ExtResource( 3 )
+
+[node name="Enemy_detector" type="Area2D" parent="." index="2"]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy_detector" index="0"]
+shape = SubResource( 2 )
+
+[connection signal="area_entered" from="." to="." method="_on_homing_projectile_area_entered"]
+[connection signal="body_entered" from="Enemy_detector" to="." method="_on_Enemy_detector_body_entered"]
+[connection signal="body_exited" from="Enemy_detector" to="." method="_on_Enemy_detector_body_exited"]

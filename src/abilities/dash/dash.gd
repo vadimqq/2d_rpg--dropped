@@ -7,14 +7,13 @@ var dash_ghost = preload("res://src/abilities/dash/dash_ghost.tscn")
 
 var sprite: Sprite
 
-var dash_speed = 0
+var dash_speed = 300.0
 var normal_speed = 0
 
 var dash_time = 0.3
 
 func _init():
 	tier = 2
-	price = 10
 	CD = 2.0
 	max_lvl = 3
 
@@ -23,11 +22,11 @@ func execute(s: Base_body, spawn_position):
 	self.sprite = s.sprite
 	sprite.material.set_shader_param("mix_weight", 0.7)
 	sprite.material.set_shader_param("whiten", true)
-	
 	s.hurtbox_shape.disabled = true
-	normal_speed = s.STATS.MOVE_SPEED
-	dash_speed = s.STATS.MOVE_SPEED * 3
-	s.STATS.MOVE_SPEED = dash_speed
+	s.STATS.apply_buff({
+		"GAIN_MOVE_SPEED": dash_speed
+	})
+	
 	duration_timer.wait_time = dash_time
 	duration_timer.start()
 	ghost_spawn_timer.start()
@@ -50,7 +49,9 @@ func is_dashing():
 func end_dash():
 	ghost_spawn_timer.stop()
 	sprite.material.set_shader_param("whiten", false)
-	owner_body.STATS.MOVE_SPEED = normal_speed
+	owner_body.STATS.apply_buff({
+		"GAIN_MOVE_SPEED": -dash_speed
+	})
 	owner_body.hurtbox_shape.disabled = false
 
 func _on_duration_timeout():
@@ -61,12 +62,12 @@ func _on_ghost_spawn_timeout():
 	add_dash_ghost()
 
 
-func _on_Dash_upgrade(s: Base_body, new_lvl):
+func _on_Dash_upgrade(new_lvl):
 	match new_lvl:
 		1:
-			price = 20
+			pass
 		2:
-			price = 30
+			pass
 		3:
-			price = 40
+			pass
 	lvl = new_lvl

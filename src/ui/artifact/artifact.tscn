@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://src/abilities/passive/physic/attack_speed/icon.png" type="Texture" id=1]
+[ext_resource path="res://src/abilities/passive/attack_speed/icon.png" type="Texture" id=1]
 [ext_resource path="res://src/ui/artifact/artifact.gd" type="Script" id=2]
 
 [node name="TextureRect" type="TextureRect"]

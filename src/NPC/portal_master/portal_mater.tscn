@@ -46,6 +46,7 @@ radius = 48.0
 
 [node name="portal_mater" instance=ExtResource( 1 )]
 collision_layer = 1
+collision_mask = 0
 script = ExtResource( 3 )
 
 [node name="Sprite" parent="." index="2"]

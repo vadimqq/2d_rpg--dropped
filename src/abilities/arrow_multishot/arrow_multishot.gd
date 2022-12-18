@@ -4,38 +4,33 @@ var arrow = load("res://src/attacks/projectiles/arrow/arrow.tscn")
 
 const RANDOM_ANGLE = PI / 2.0
 var count = 12
+var count_pierce = 0
+export (int) var projectile_speed = 200
 
-func _init():
-	price = 10
-	tags = [CONSTANTS.WEAPON_TYPES.BOW]
-	CD = 5.0
-	max_lvl = 3
-	mana_cost = 10
-	damage_tags = [CONSTANTS.DAMAGE_TYPE_ENUM.PHYSIC]
-	damage_incounter = 0.2
-
-func execute(s: Base_body, spawn_position):
-	owner_body = s
-	for i in count:
-		var direction =  Vector2.UP.rotated(s.ray_cast.rotation)
-		var instance = arrow.instance()
-		instance.load_info(s, spawn_position, rand_range(s.ray_cast.rotation - 0.5, s.ray_cast.rotation + 0.5), damage_tags, s.STATS.get_physic_damage() * damage_incounter)
-		get_node("/root").add_child(instance)
-	start_cd()
-	s.STATS.modify_current_mana(-mana_cost)
-
-func _on_arrow_multishot_upgrade(s: Base_body, new_lvl):
+func _on_arrow_multishot_upgrade(new_lvl):
 	match new_lvl:
 		1:
 			count = 12
-			mana_cost = 12
-			price = 20
 		2:
 			count = 15
-			mana_cost = 14
-			price = 30
 		3:
 			count = 20
-			mana_cost = 15
-			price = 40
 	lvl = new_lvl
+
+func _on_arrow_multishot_execute(spawn_position, damage, damage_weight):
+	for i in count:
+		var new_rotation = owner_body.ray_cast.rotation + 0.03 * i if i%2 else owner_body.ray_cast.rotation - 0.03 * i
+		var instance: Base_projectile = arrow.instance()
+		instance.set_owner_body(owner_body)
+		instance.set_count_pierce(count_pierce)
+		instance.set_transform(spawn_position)
+		instance.set_collisions(owner_body.attack_layer, owner_body.attack_mask)
+		instance.set_rotation(new_rotation)
+		instance.set_damage(damage, damage_weight)
+		instance.set_damage_type(damage_type)
+		instance.set_projectile_speed(owner_body.STATS.get_projectile_speed(projectile_speed))
+		instance.set_effect_tags(effect_tags)
+		get_node("/root").add_child(instance)
+	start_cd()
+#	Доработать кд скаляцию от скорости атаки!
+#	Проверить калькуляцию урона

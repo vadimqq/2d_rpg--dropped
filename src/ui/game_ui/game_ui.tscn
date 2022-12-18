@@ -1,12 +1,20 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://src/ui/game_ui/game_ui.gd" type="Script" id=1]
-[ext_resource path="res://panel_skill.png" type="Texture" id=2]
+[ext_resource path="res://src/ui/abilities_nodes/current_abilities/ability_ui/ability_ui.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/ui/game_ui/Circle01.png" type="Texture" id=3]
 [ext_resource path="res://src/ui/abilities_nodes/current_abilities/current_abilities.tscn" type="PackedScene" id=4]
-[ext_resource path="res://src/ui/game_ui/BarV5_ProgressBar.png" type="Texture" id=5]
+[ext_resource path="res://src/ui/game_ui/health_progress.png" type="Texture" id=5]
 [ext_resource path="res://src/ui/game_ui/BarV5_ProgressBarBorder.png" type="Texture" id=6]
-[ext_resource path="res://src/ui/game_ui/BarV2_ProgressBar.png" type="Texture" id=7]
+[ext_resource path="res://src/ui/game_ui/mana_progress_bar.png" type="Texture" id=7]
+[ext_resource path="res://src/ui/game_ui/mana_lock_progress.png" type="Texture" id=8]
+[ext_resource path="res://src/ui/DEBUG/DEBUG.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/ui/game_timer/game_timer.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/ui/game_ui/exp_bar.png" type="Texture" id=11]
+[ext_resource path="res://src/ui/game_ui/exp_progress.png" type="Texture" id=12]
+[ext_resource path="res://assets/RobotoBold18.tres" type="DynamicFont" id=13]
+[ext_resource path="res://assets/RobotoBold24.tres" type="DynamicFont" id=14]
+[ext_resource path="res://src/ui/cursor/cursor.tscn" type="PackedScene" id=15]
 
 [node name="Game_ui" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -20,106 +28,121 @@ margin_right = -20.0
 margin_bottom = -20.0
 stretch = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ViewportContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ViewportContainer"]
 margin_right = 40.0
 margin_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ViewportContainer/VBoxContainer"]
+margin_right = 334.0
+margin_bottom = 66.0
 alignment = 1
 
-[node name="NinePatchRect" type="NinePatchRect" parent="ViewportContainer/HBoxContainer"]
-margin_right = 84.0
-margin_bottom = 84.0
-rect_min_size = Vector2( 84, 84 )
+[node name="CenterContainer" type="CenterContainer" parent="ViewportContainer/VBoxContainer/HBoxContainer"]
+margin_right = 50.0
+margin_bottom = 66.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="ViewportContainer/VBoxContainer/HBoxContainer/CenterContainer"]
+margin_top = 8.0
+margin_right = 50.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 50, 50 )
 texture = ExtResource( 3 )
 
-[node name="CenterContainer" type="CenterContainer" parent="ViewportContainer/HBoxContainer/NinePatchRect"]
+[node name="CenterContainer" type="CenterContainer" parent="ViewportContainer/VBoxContainer/HBoxContainer/CenterContainer/NinePatchRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="lvl" type="Label" parent="ViewportContainer/HBoxContainer/NinePatchRect/CenterContainer"]
-margin_left = 34.0
-margin_top = 35.0
-margin_right = 50.0
-margin_bottom = 49.0
+[node name="lvl" type="Label" parent="ViewportContainer/VBoxContainer/HBoxContainer/CenterContainer/NinePatchRect/CenterContainer"]
+margin_left = 11.0
+margin_top = 10.0
+margin_right = 39.0
+margin_bottom = 39.0
+custom_fonts/font = ExtResource( 14 )
 text = "12"
 align = 1
 valign = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ViewportContainer/HBoxContainer"]
-margin_left = 88.0
-margin_right = 368.0
-margin_bottom = 84.0
+[node name="VBoxContainer" type="VBoxContainer" parent="ViewportContainer/VBoxContainer/HBoxContainer"]
+margin_left = 54.0
+margin_right = 334.0
+margin_bottom = 66.0
 alignment = 1
 
-[node name="HBoxContainer" type="CenterContainer" parent="ViewportContainer/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="CenterContainer" parent="ViewportContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 margin_right = 280.0
 margin_bottom = 31.0
 
-[node name="Health" type="TextureProgress" parent="ViewportContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Health" type="TextureProgress" parent="ViewportContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 margin_right = 280.0
 margin_bottom = 31.0
 rect_min_size = Vector2( 100, 0 )
-value = 30.0
+value = 100.0
 texture_under = ExtResource( 6 )
 texture_over = ExtResource( 6 )
 texture_progress = ExtResource( 5 )
 texture_progress_offset = Vector2( 5, 5 )
 
-[node name="Label" type="Label" parent="ViewportContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
-margin_left = 113.0
-margin_top = 8.0
-margin_right = 166.0
-margin_bottom = 22.0
+[node name="Label" type="Label" parent="ViewportContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 106.0
+margin_top = 4.0
+margin_right = 173.0
+margin_bottom = 26.0
+custom_fonts/font = ExtResource( 13 )
 text = "100/100"
 
-[node name="HBoxContainer2" type="CenterContainer" parent="ViewportContainer/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="CenterContainer" parent="ViewportContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 margin_top = 35.0
 margin_right = 280.0
 margin_bottom = 66.0
 
-[node name="Mana" type="TextureProgress" parent="ViewportContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="Mana" type="TextureProgress" parent="ViewportContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
 margin_right = 280.0
 margin_bottom = 31.0
 rect_min_size = Vector2( 100, 0 )
-value = 23.0
+value = 100.0
 texture_under = ExtResource( 6 )
 texture_over = ExtResource( 6 )
 texture_progress = ExtResource( 7 )
 texture_progress_offset = Vector2( 5, 5 )
 
-[node name="Label" type="Label" parent="ViewportContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
-margin_left = 121.0
-margin_top = 8.0
-margin_right = 158.0
-margin_bottom = 22.0
+[node name="Mana_lock" type="TextureProgress" parent="ViewportContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 280.0
+margin_bottom = 31.0
+texture_under = ExtResource( 6 )
+texture_over = ExtResource( 6 )
+texture_progress = ExtResource( 8 )
+texture_progress_offset = Vector2( 5, 5 )
+fill_mode = 1
+
+[node name="Label" type="Label" parent="ViewportContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 116.0
+margin_top = 4.0
+margin_right = 163.0
+margin_bottom = 26.0
+custom_fonts/font = ExtResource( 13 )
 text = "50/50"
 
-[node name="Soul_coins" type="Label" parent="ViewportContainer/HBoxContainer/VBoxContainer"]
+[node name="EXP_bar" type="TextureProgress" parent="ViewportContainer/VBoxContainer"]
 margin_top = 70.0
-margin_right = 280.0
-margin_bottom = 84.0
-text = "soul coins: 0"
+margin_right = 334.0
+margin_bottom = 80.0
+value = 50.0
+texture_under = ExtResource( 11 )
+texture_progress = ExtResource( 12 )
+nine_patch_stretch = true
+stretch_margin_top = 10
 
 [node name="Weapon_container" type="HBoxContainer" parent="ViewportContainer"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = -40.0
 grow_vertical = 0
 alignment = 1
 
-[node name="Active_weapon" type="TextureProgress" parent="ViewportContainer/Weapon_container"]
+[node name="Weapon_ability" parent="ViewportContainer/Weapon_container" instance=ExtResource( 2 )]
 margin_left = 332.0
 margin_right = 372.0
-margin_bottom = 40.0
-step = 0.01
-texture_under = ExtResource( 2 )
-texture_progress = ExtResource( 2 )
-fill_mode = 4
-tint_progress = Color( 0, 0, 0, 1 )
-nine_patch_stretch = true
-stretch_margin_left = 20
-stretch_margin_top = 20
-stretch_margin_right = 20
-stretch_margin_bottom = 20
 
 [node name="MarginContainer" type="MarginContainer" parent="ViewportContainer/Weapon_container"]
 margin_left = 376.0
@@ -154,3 +177,20 @@ margin_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
 columns = 20
+
+[node name="Quest_list" type="VBoxContainer" parent="ViewportContainer"]
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+alignment = 1
+
+[node name="DEBUG" parent="ViewportContainer" instance=ExtResource( 9 )]
+
+[node name="game_timer" parent="ViewportContainer" instance=ExtResource( 10 )]
+anchor_top = 0.925
+anchor_bottom = 0.925
+margin_top = 0.0
+margin_right = 0.0
+margin_bottom = 0.0
+
+[node name="cursor" parent="." instance=ExtResource( 15 )]

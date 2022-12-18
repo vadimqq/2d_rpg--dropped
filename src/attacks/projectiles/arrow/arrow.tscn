@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://src/attacks/projectiles/lightning_bolt/lightning_bolt.gd" type="Script" id=1]
-[ext_resource path="res://src/entities/base_projectile/base_projectile.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/attacks/projectiles/arrow/arrow.gd" type="Script" id=1]
+[ext_resource path="res://src/attacks/projectiles/base_projectile/base_projectile.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/attacks/projectiles/arrow/assets/Arrow.png" type="Texture" id=3]
 
 [sub_resource type="Animation" id=2]
@@ -52,14 +52,19 @@ tracks/0/keys = {
 }
 
 [sub_resource type="CapsuleShape2D" id=5]
-radius = 1.0
-height = 12.0
+radius = 0.999982
+height = 8.00004
+
+[sub_resource type="Curve" id=6]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 
 [node name="arrow" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
+trail_length = 100
 
 [node name="Sprite" parent="." index="0"]
 rotation = -1.5708
+scale = Vector2( 0.6, 1 )
 texture = ExtResource( 3 )
 
 [node name="Animation" type="AnimationPlayer" parent="." index="1"]
@@ -71,5 +76,14 @@ anims/hit = SubResource( 4 )
 rotation = 1.5708
 shape = SubResource( 5 )
 
-[connection signal="area_entered" from="." to="." method="_on_arrow_area_entered"]
-[connection signal="body_entered" from="." to="." method="_on_arrow_body_entered"]
+[node name="Trail" type="Line2D" parent="." index="3"]
+width = 2.0
+width_curve = SubResource( 6 )
+default_color = Color( 1, 1, 1, 0.490196 )
+
+[node name="Trail_postion" type="Position2D" parent="." index="4"]
+position = Vector2( -7, 0 )
+rotation = -1.5708
+scale = Vector2( 0.6, 1 )
+
+[connection signal="destroy" from="." to="." method="_on_arrow_destroy"]

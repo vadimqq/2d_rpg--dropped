@@ -4,6 +4,7 @@ class_name Base_weapon
 onready var sprite = $Sprite
 onready var spawn_position = $Position
 
+onready var base_ability_slot = $Base_ability_slot
 onready var slot_1 = $Abilities/Slot_1
 onready var slot_2 = $Abilities/Slot_2
 onready var slot_3 = $Abilities/Slot_3
@@ -32,6 +33,14 @@ func use_sheath():
 func use_in_hand():
 	in_sheath = false
 	emit_signal("use_in_hand")
+
+func get_base_ability():
+	return base_ability_slot.get_child(0)
+
+func get_ability_by_slot(id: int):
+	if self["slot_" + str(id)].get_child_count() > 0:
+		return self["slot_" + str(id)].get_child(0)
+	return null
 
 func set_ability_by_tier(ability: Base_ability):
 	match ability.tier:
@@ -91,17 +100,6 @@ func fourth_ability():
 func remove_slot(slot: Node2D):
 	for n in slot.get_children():
 		slot.remove_child(n)
-
-func get_ability_by_slot_id(id):
-	match id:
-		1:
-			return  slot_1.get_child(0) if slot_1.get_child_count() > 0 else null
-		2:
-			return slot_2.get_child(0) if slot_2.get_child_count() > 0 else null
-		3:
-			return slot_3.get_child(0) if slot_3.get_child_count() > 0 else null
-		4:
-			return slot_4.get_child(0) if slot_4.get_child_count() > 0 else null
 
 func reset_all_ability():
 	remove_slot(slot_1)

@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/tile_map/tile_map.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/levels/buildings/portal.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/levels/glade/glade.gd" type="Script" id=3]
 [ext_resource path="res://src/enemies/spawner/spawner.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/enemies/void_imp/void_imp.tscn" type="PackedScene" id=5]
-[ext_resource path="res://src/items/artifacts/clock/clock.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/enemies/bosses/test_boss/test_boss.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/levels/buildings/shrines/big_shrine/item_shrine.tscn" type="PackedScene" id=7]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 3 )
@@ -25,25 +26,45 @@ tile_data = PoolIntArray( -2031650, 12, 0, -2097121, 11, 0, -1966114, 9, 0, -203
 position = Vector2( 0, -1 )
 
 [node name="Spawner" parent="." instance=ExtResource( 4 )]
+visible = false
 position = Vector2( 1, -434 )
 spawning_scene = ExtResource( 5 )
 
 [node name="Spawner2" parent="." instance=ExtResource( 4 )]
+visible = false
 position = Vector2( 447, -4 )
 spawning_scene = ExtResource( 5 )
 
 [node name="Spawner3" parent="." instance=ExtResource( 4 )]
+visible = false
 position = Vector2( -3, 372 )
 spawning_scene = ExtResource( 5 )
 
 [node name="Spawner4" parent="." instance=ExtResource( 4 )]
+visible = false
 position = Vector2( -475, 0 )
 spawning_scene = ExtResource( 5 )
 
 [node name="YSort" type="YSort" parent="."]
 
-[node name="clock" parent="." instance=ExtResource( 6 )]
-position = Vector2( -294, -357 )
+[node name="item_shrine" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 307, -324 )
 
-[node name="clock2" parent="." instance=ExtResource( 6 )]
-position = Vector2( -406, -264 )
+[node name="item_shrine2" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 313, 227 )
+
+[node name="item_shrine3" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( -380, -327 )
+
+[node name="item_shrine4" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( -340, 228 )
+
+[node name="Spawner5" parent="." instance=ExtResource( 4 )]
+visible = false
+position = Vector2( 1, 2 )
+spawning_scene = ExtResource( 6 )
+spawn_time = 30
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

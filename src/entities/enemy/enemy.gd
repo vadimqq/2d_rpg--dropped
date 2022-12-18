@@ -4,11 +4,11 @@ class_name Enemy
 
 onready var switch_direction_timer = $switch_direction_timer
 
-export var steer_force = 0.1
+export var steer_force = 1
 export var look_ahead = 50
 export var num_rays = 32
 var player :KinematicBody2D = null
-
+var lvl = 1
 # context array
 var ray_directions = []
 var interest = []
@@ -22,7 +22,8 @@ enum AI_STATE {
 	CHASE,
 	COMBAT,
 	PATROOL,
-	ATTACK
+	ATTACK,
+	TAKE_HIT
 }
 
 signal cast_base_attack
@@ -31,16 +32,14 @@ var ai_state = AI_STATE.PATROOL
 
 var attack_layer = 64
 var attack_mask = 17
+var enemy_body_layer = 4
+var knockback = Vector2.ZERO
 
 func _ready():
-	yield(get_tree(), "idle_frame")
-	player = GAME_CORE.player
 	interest.resize(num_rays)
 	danger.resize(num_rays)
 	ray_directions.resize(num_rays)
-	STATS.apply_buff({
-		"GAIN_MOVE_SPEED": -50
-	})
+
 	for i in num_rays:
 		var angle = i * 2 * PI / num_rays
 		ray_directions[i] = Vector2.RIGHT.rotated(angle)
@@ -48,17 +47,10 @@ func _ready():
 func _physics_process(delta):
 	match ai_state:
 		AI_STATE.CHASE:
+			state = MOVE
 			state_chase()
 		AI_STATE.PATROOL:
 			state_patrool()
-		AI_STATE.ATTACK:
-			animation_tree.get("parameters/playback").travel("attack")
-	
-	if  state == MOVE && ai_state != AI_STATE.ATTACK:
-		animation_tree.get("parameters/playback").travel("move")
-	animation_tree.set("parameters/idle/blend_position", Motion)
-	animation_tree.set("parameters/move/blend_position", Motion)
-	
 	if player != null:
 		ray_cast.look_at(player.global_position)
 	if ray_cast.is_colliding(): 
@@ -73,7 +65,6 @@ func state_chase():
 	var desired_velocity = chosen_dir.rotated(rotation)
 	axis = velocity.linear_interpolate(desired_velocity, steer_force)
 	rotation = velocity.angle()
-	
 
 func state_patrool():
 	switch_direction_timer.autostart = true
@@ -110,8 +101,8 @@ func choose_direction():
 	chosen_dir = chosen_dir.normalized()
 
 func _on_detection_zone_body_entered(body):
+	player = body
 	ai_state = AI_STATE.CHASE
-	pass
 
 func _on_switch_direction_timer_timeout():
 	var rng = RandomNumberGenerator.new()
@@ -121,5 +112,10 @@ func _on_switch_direction_timer_timeout():
 	axis = Vector2(dir_x, dir_y)
 
 func _on_enemy_death():
-	CURRENCY_MANAGER.create_soul_coin(20, global_position)
+	CURRENCY_MANAGER.create_soul_coin(30, global_position)
+	GAME_CORE.add_kill()
 	call_deferred('free')
+
+func start_chase():
+	player = GAME_CORE.player
+	ai_state = AI_STATE.CHASE

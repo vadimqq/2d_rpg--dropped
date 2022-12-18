@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/abilities/ENTITY/base_ability/base_ability.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/abilities/fireball_shot/fireball_shot.gd" type="Script" id=2]
+
+[node name="fireball_shot" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+mana_cost = 1
+scaling_tags = [ 0, 5 ]
+weapon_tags = [ 3 ]
+damage_type = 4
+count_pierce = 0
+count_rebound = 0
+projectile_speed = 100
+
+[connection signal="execute" from="." to="." method="_on_arrow_shot_execute"]
+[connection signal="upgrade" from="." to="." method="_on_fireball_shot_upgrade"]

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/abilities/ENTITY/base_passive/base_passive.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/abilities/passive/fast_projectiles/fast_projectiles.gd" type="Script" id=2]
+
+[node name="fast_projectiles" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[connection signal="apply_buff" from="." to="." method="_on_fast_projectiles_apply_buff"]
+[connection signal="destroy_buff" from="." to="." method="_on_fast_projectiles_destroy_buff"]

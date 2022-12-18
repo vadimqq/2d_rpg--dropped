@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/abilities/ENTITY/base_ability/base_ability.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/abilities/ENTITY/base_distance_ability/Base_distance_ability.gd" type="Script" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+
+[node name="Base_distance_ability" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+texture = ExtResource( 3 )
+duration = 0.5
+step_time = 0.1
+max_size = Vector2( 3, 3 )
+
+[node name="Tween" type="Tween" parent="." index="1"]

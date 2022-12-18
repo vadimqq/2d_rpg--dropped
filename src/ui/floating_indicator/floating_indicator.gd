@@ -9,14 +9,11 @@ var max_size = Vector2(1, 1)
 func execute(node: KinematicBody2D, amount, type):
 	label.text = str(amount)
 	self.global_position = node.global_position
-#	get_tree().get_root().add_child(self)
 
 	match type:
-		CONSTANTS.CAST_TYPE_ENUM.HEAL:
-			label.set("custom_colors/font_color", Color("2eff27"))
-		CONSTANTS.CAST_TYPE_ENUM.BASE:
+		CONSTANTS.DAMAGE_WEIGHT_ENUM.BASE:
 			label.set("custom_colors/font_color", Color("f1be0e"))
-		CONSTANTS.CAST_TYPE_ENUM.CRITICAL:
+		CONSTANTS.DAMAGE_WEIGHT_ENUM.CRITICAL:
 			label.set("custom_colors/font_color", Color("ff3131"))
 			max_size = Vector2(1.5, 1.5)
 			

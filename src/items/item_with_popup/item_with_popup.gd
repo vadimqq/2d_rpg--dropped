@@ -13,7 +13,8 @@ func _process(delta):
 	if Input.is_action_just_pressed("action") && is_monitoring:
 		match type:
 			CONSTANTS.ITEM_TYPE_ENUM.WEAPON:
-				WEAPON_MANAGER.take_weapon(self)
+				pass
+#				WEAPON_MANAGER.take_weapon(self)
 			CONSTANTS.ITEM_TYPE_ENUM.ARTIFACT:
 				OBJECT_MANAGER.take_item(self)
 		queue_free()

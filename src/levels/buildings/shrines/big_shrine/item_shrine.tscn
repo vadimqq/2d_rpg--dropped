@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/levels/buildings/shrines/big_shrine/item_shrine.gd" type="Script" id=1]
+[ext_resource path="res://src/levels/buildings/shrines/big_shrine/big_shrine_progress.png" type="Texture" id=2]
+[ext_resource path="res://src/levels/buildings/shrines/big_shrine/big_shrine.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 12, 19.75 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 81.0
+
+[node name="item_shrine" type="Node2D"]
+script = ExtResource( 1 )
+time = 5
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+
+[node name="TextureProgress" type="TextureProgress" parent="."]
+margin_left = -20.0
+margin_top = -14.0
+margin_right = 22.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 42, 42 )
+texture_progress = ExtResource( 2 )
+fill_mode = 3
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 0, 40 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 0, 12.75 )
+shape = SubResource( 1 )
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 2.0
+default_color = Color( 0.4, 0.501961, 1, 1 )
+
+[node name="PlayerDetectionZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionZone"]
+shape = SubResource( 2 )
+
+[connection signal="value_changed" from="TextureProgress" to="." method="_on_TextureProgress_value_changed"]
+[connection signal="body_entered" from="PlayerDetectionZone" to="." method="_on_PlayerDetectionZone_body_entered"]
+[connection signal="body_exited" from="PlayerDetectionZone" to="." method="_on_PlayerDetectionZone_body_exited"]

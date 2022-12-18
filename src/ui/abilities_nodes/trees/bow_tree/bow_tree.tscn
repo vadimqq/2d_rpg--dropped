@@ -1,0 +1,91 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://src/ui/abilities_nodes/trees/bow_tree/bow_tree.gd" type="Script" id=1]
+[ext_resource path="res://src/ui/abilities_nodes/ability_button/ability_button.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/abilities/arrow_multishot/icon.png" type="Texture" id=3]
+[ext_resource path="res://src/abilities/dash/icon.png" type="Texture" id=4]
+[ext_resource path="res://src/ui/abilities_nodes/trees/BarV9_Bar.png" type="Texture" id=8]
+[ext_resource path="res://src/ui/abilities_nodes/trees/BarV9_ProgressBar.png" type="Texture" id=9]
+[ext_resource path="res://src/abilities/aura_agility/icon.png" type="Texture" id=11]
+
+[node name="Bow_tree" type="VBoxContainer"]
+script = ExtResource( 1 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 400.0
+margin_bottom = 48.0
+
+[node name="Tier_1" type="VBoxContainer" parent="HBoxContainer"]
+margin_right = 48.0
+margin_bottom = 48.0
+alignment = 1
+
+[node name="arrow_multishot" parent="HBoxContainer/Tier_1" instance=ExtResource( 2 )]
+ability_name = "arrow_multishot"
+
+[node name="TextureButton" parent="HBoxContainer/Tier_1/arrow_multishot" index="0"]
+texture_normal = ExtResource( 3 )
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer"]
+margin_left = 52.0
+margin_right = 62.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 10, 10 )
+
+[node name="Tier_2" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 66.0
+margin_right = 114.0
+margin_bottom = 48.0
+alignment = 1
+
+[node name="dash" parent="HBoxContainer/Tier_2" instance=ExtResource( 2 )]
+ability_name = "dash"
+
+[node name="TextureButton" parent="HBoxContainer/Tier_2/dash" index="0"]
+texture_normal = ExtResource( 4 )
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+margin_left = 118.0
+margin_right = 128.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 10, 0 )
+
+[node name="Tier_3" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 132.0
+margin_right = 180.0
+margin_bottom = 48.0
+alignment = 1
+
+[node name="aura_agility" parent="HBoxContainer/Tier_3" instance=ExtResource( 2 )]
+ability_name = "aura_agility"
+
+[node name="TextureButton" parent="HBoxContainer/Tier_3/aura_agility" index="0"]
+texture_normal = ExtResource( 11 )
+
+[node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer"]
+margin_left = 184.0
+margin_right = 194.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 10, 0 )
+
+[node name="ProgressBar" type="TextureProgress" parent="."]
+margin_top = 52.0
+margin_right = 400.0
+margin_bottom = 83.0
+rect_min_size = Vector2( 400, 31 )
+texture_under = ExtResource( 8 )
+texture_progress = ExtResource( 9 )
+nine_patch_stretch = true
+
+[node name="Button" type="Button" parent="."]
+margin_top = 87.0
+margin_right = 400.0
+margin_bottom = 107.0
+text = " =>"
+icon_align = 1
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+
+[editable path="HBoxContainer/Tier_1/arrow_multishot"]
+[editable path="HBoxContainer/Tier_2/dash"]
+[editable path="HBoxContainer/Tier_3/aura_agility"]

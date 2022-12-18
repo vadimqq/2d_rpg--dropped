@@ -44,7 +44,9 @@ func load_weapon(s: Base_body, name):
 		weapon_2 = instance
 
 func swap_weapon(s: Base_body):
-	if can_swap_weapon:
+	var is_have_unactive_weapon: bool = s.off_wepon_slot.get_child_count() > 0
+	
+	if can_swap_weapon && is_have_unactive_weapon:
 		var active_weapon: Base_weapon = s.weapon_slot.get_child(0)
 		var unactive_weapon: Base_weapon = s.off_wepon_slot.get_child(0)
 		s.weapon_slot.remove_child(active_weapon)
@@ -66,6 +68,9 @@ func swap_weapon(s: Base_body):
 		can_swap_weapon = true
 
 func take_weapon(s: Base_item):
-#	SKILL_MANAGER.reset_weapon_ability(active_id)
 	OBJECT_MANAGER.load_weapon_item(GAME_CORE.player.global_position, active.weapon_name)
 	load_weapon(GAME_CORE.player, s.item_name)
+
+func reset_all_weapons():
+	weapon_1 = null
+	weapon_2 = null

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://src/levels/buildings/portal.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/levels/buildings/platform.tscn" type="PackedScene" id=2]
@@ -7,14 +7,173 @@
 [ext_resource path="res://src/levels/buildings/shrine.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/enemies/dummy/dummy.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/items/artifacts/health_potion/health_potion.tscn" type="PackedScene" id=7]
-[ext_resource path="res://src/items/weapons/bow/bow.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/items/weapons/hammer/hammer.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/items/artifacts/clock/clock.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/NPC/portal_master/portal_mater.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/items/artifacts/mana_potion/mana_potion.tscn" type="PackedScene" id=11]
-[ext_resource path="res://src/enemies/void_imp/void_imp.tscn" type="PackedScene" id=12]
+[ext_resource path="res://src/levels/buildings/shrines/big_shrine/item_shrine.tscn" type="PackedScene" id=12]
+[ext_resource path="res://src/levels/hub/parallax-space-backgound.png" type="Texture" id=13]
+[ext_resource path="res://src/levels/hub/parallax-space-far-planets.png" type="Texture" id=14]
+[ext_resource path="res://src/levels/hub/parallax-space-ring-planet.png" type="Texture" id=15]
+[ext_resource path="res://src/levels/hub/parallax-space-stars.png" type="Texture" id=16]
+[ext_resource path="res://src/levels/hub/parallax-space-big-planet.png" type="Texture" id=17]
 
 [node name="Hub" type="Node2D"]
 script = ExtResource( 3 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+offset = Vector2( -160, 250 )
+transform = Transform2D( 1, 0, 0, 1, -160, 250 )
+follow_viewport_enable = true
+follow_viewport_scale = 0.8
+
+[node name="Space" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color( 0.286275, 0.278431, 0.278431, 1 )
+scale = Vector2( 5, 5 )
+motion_scale = Vector2( 0.1, 0.1 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Space"]
+texture = ExtResource( 13 )
+
+[node name="Stars" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.2, 0.2 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Stars"]
+texture = ExtResource( 16 )
+
+[node name="Sprite2" type="Sprite" parent="ParallaxBackground/Stars"]
+position = Vector2( -109, -118 )
+texture = ExtResource( 16 )
+
+[node name="Sprite3" type="Sprite" parent="ParallaxBackground/Stars"]
+position = Vector2( -206, -54 )
+texture = ExtResource( 16 )
+
+[node name="Sprite4" type="Sprite" parent="ParallaxBackground/Stars"]
+position = Vector2( 239, 42 )
+texture = ExtResource( 16 )
+
+[node name="Sprite5" type="Sprite" parent="ParallaxBackground/Stars"]
+position = Vector2( -184, -172 )
+texture = ExtResource( 16 )
+
+[node name="Sprite6" type="Sprite" parent="ParallaxBackground/Stars"]
+position = Vector2( 68, -56 )
+texture = ExtResource( 16 )
+
+[node name="Sprite7" type="Sprite" parent="ParallaxBackground/Stars"]
+position = Vector2( -154, 142 )
+texture = ExtResource( 16 )
+
+[node name="Sprite8" type="Sprite" parent="ParallaxBackground/Stars"]
+position = Vector2( -304, 9 )
+texture = ExtResource( 16 )
+
+[node name="Sprite9" type="Sprite" parent="ParallaxBackground/Stars"]
+position = Vector2( 118, 115 )
+texture = ExtResource( 16 )
+
+[node name="Sprite10" type="Sprite" parent="ParallaxBackground/Stars"]
+position = Vector2( 13, 178 )
+texture = ExtResource( 16 )
+
+[node name="Sprite11" type="Sprite" parent="ParallaxBackground/Stars"]
+position = Vector2( 310, -74 )
+texture = ExtResource( 16 )
+
+[node name="Sprite12" type="Sprite" parent="ParallaxBackground/Stars"]
+position = Vector2( 68, -184 )
+texture = ExtResource( 16 )
+
+[node name="Sprite13" type="Sprite" parent="ParallaxBackground/Stars"]
+position = Vector2( 320, 219 )
+texture = ExtResource( 16 )
+
+[node name="Sprite14" type="Sprite" parent="ParallaxBackground/Stars"]
+position = Vector2( 175, 272 )
+texture = ExtResource( 16 )
+
+[node name="Sprite15" type="Sprite" parent="ParallaxBackground/Stars"]
+position = Vector2( 40, 369 )
+texture = ExtResource( 16 )
+
+[node name="Sprite16" type="Sprite" parent="ParallaxBackground/Stars"]
+position = Vector2( -35, 362 )
+texture = ExtResource( 16 )
+
+[node name="Sprite17" type="Sprite" parent="ParallaxBackground/Stars"]
+position = Vector2( -349, 290 )
+texture = ExtResource( 16 )
+
+[node name="Sprite18" type="Sprite" parent="ParallaxBackground/Stars"]
+position = Vector2( -452, 136 )
+texture = ExtResource( 16 )
+
+[node name="Sprite19" type="Sprite" parent="ParallaxBackground/Stars"]
+position = Vector2( -255, -249 )
+texture = ExtResource( 16 )
+
+[node name="Sprite20" type="Sprite" parent="ParallaxBackground/Stars"]
+position = Vector2( -6, -298 )
+texture = ExtResource( 16 )
+
+[node name="Sprite21" type="Sprite" parent="ParallaxBackground/Stars"]
+position = Vector2( 253, -318 )
+texture = ExtResource( 16 )
+
+[node name="Sprite22" type="Sprite" parent="ParallaxBackground/Stars"]
+position = Vector2( 342, -178 )
+texture = ExtResource( 16 )
+
+[node name="Sprite23" type="Sprite" parent="ParallaxBackground/Stars"]
+position = Vector2( -106, -325 )
+texture = ExtResource( 16 )
+
+[node name="Sprite24" type="Sprite" parent="ParallaxBackground/Stars"]
+position = Vector2( -342, -310 )
+texture = ExtResource( 16 )
+
+[node name="black_whole" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.1, 0.1 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/black_whole"]
+position = Vector2( 370, -140 )
+texture = ExtResource( 15 )
+
+[node name="Sprite2" type="Sprite" parent="ParallaxBackground/black_whole"]
+position = Vector2( -454, -134 )
+texture = ExtResource( 15 )
+
+[node name="Sprite3" type="Sprite" parent="ParallaxBackground/black_whole"]
+position = Vector2( -285, -309 )
+texture = ExtResource( 15 )
+
+[node name="Planet" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.3, 0.3 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Planet"]
+position = Vector2( -409, -335 )
+texture = ExtResource( 14 )
+
+[node name="Sprite2" type="Sprite" parent="ParallaxBackground/Planet"]
+position = Vector2( -41, 37 )
+texture = ExtResource( 14 )
+
+[node name="Sprite3" type="Sprite" parent="ParallaxBackground/Planet"]
+position = Vector2( 398, 169 )
+texture = ExtResource( 14 )
+
+[node name="Sprite4" type="Sprite" parent="ParallaxBackground/Planet"]
+position = Vector2( -394, 77 )
+texture = ExtResource( 14 )
+
+[node name="Sprite5" type="Sprite" parent="ParallaxBackground/Planet"]
+position = Vector2( 127, 265 )
+texture = ExtResource( 17 )
+
+[node name="Sprite7" type="Sprite" parent="ParallaxBackground/Planet"]
+position = Vector2( -53, -340 )
+texture = ExtResource( 17 )
 
 [node name="grass" parent="." instance=ExtResource( 4 )]
 cell_size = Vector2( 8, 8 )
@@ -50,9 +209,6 @@ position = Vector2( 312, 218 )
 [node name="dummy3" parent="YSort" instance=ExtResource( 6 )]
 position = Vector2( 344, 218 )
 
-[node name="Bow" parent="YSort" instance=ExtResource( 8 )]
-position = Vector2( -45, 389 )
-
 [node name="clock" parent="YSort" instance=ExtResource( 9 )]
 position = Vector2( -124, 387 )
 
@@ -64,5 +220,11 @@ position = Vector2( -182, 400 )
 [node name="portal_mater" parent="YSort" instance=ExtResource( 10 )]
 position = Vector2( -196, 76 )
 
-[node name="void_imp" parent="." instance=ExtResource( 12 )]
-position = Vector2( 239, 346 )
+[node name="clock2" parent="YSort" instance=ExtResource( 9 )]
+position = Vector2( -136, 362 )
+
+[node name="hammer" parent="YSort" instance=ExtResource( 8 )]
+position = Vector2( -77, 387 )
+
+[node name="item_shrine" parent="YSort" instance=ExtResource( 12 )]
+position = Vector2( 111, 132 )

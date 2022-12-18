@@ -2,27 +2,19 @@ extends CanvasLayer
 
 class_name Ability_board
 
-onready var physic_tree = $VBoxContainer/HBoxContainer/Physic_tree
+onready var bow_tree = $VBoxContainer/HBoxContainer/bow_tree
 
-onready var physic_button = $VBoxContainer/HBoxContainer/GridContainer/Physic_button
+onready var bow_button = $VBoxContainer/HBoxContainer/GridContainer/Bow_tree_button
 onready var material_counter = $VBoxContainer/HBoxContainer/GridContainer/Material_counter
-onready var ability_list = $VBoxContainer/Ability_list
 
 onready var dict = {
-	"physic_tree": physic_tree
+	"bow_tree": bow_tree
 }
 
-var active_tree: VBoxContainer = physic_tree
-
-func _ready():
-	active_tree = dict["physic_tree"]
+var active_tree: VBoxContainer = bow_tree
 
 func _process(delta):
-	material_counter.text =  "Soul stones: " + str(CURRENCY_MANAGER.soul_coins)
-
-func open():
-	active_tree.load_info()
-	ability_list.set_icons()
+	material_counter.text =  "POINTS: " + str(CURRENCY_MANAGER.upgrade_points)
 
 func open_tree(name):
 	active_tree.visible = false
@@ -30,5 +22,5 @@ func open_tree(name):
 	active_tree.load_info()
 	active_tree.visible = true
 
-func _on_Physic_button_button_down():
-	open_tree("physic_tree")
+func _on_Bow_tree_button_button_down():
+	open_tree("bow_tree")

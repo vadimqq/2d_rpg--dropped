@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/effects/ice_particle_white.png" type="Texture" id=1]
+
+[sub_resource type="Curve" id=11]
+_data = [ Vector2( 0, 0.35061 ), 0.0, 0.0, 0, 0, Vector2( 0.14, 0.992886 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.221545 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=12]
+curve = SubResource( 11 )
+
+[sub_resource type="ParticlesMaterial" id=13]
+emission_shape = 1
+emission_sphere_radius = 16.0
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 200.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = -850.0
+linear_accel_random = 0.58
+damping = 150.0
+damping_random = 0.45
+scale = 0.2
+scale_curve = SubResource( 12 )
+
+[node name="HitParticles" type="Particles2D"]
+position = Vector2( 0, -39 )
+emitting = false
+amount = 6
+lifetime = 0.3
+one_shot = true
+preprocess = 0.03
+explosiveness = 0.8
+randomness = 0.59
+local_coords = false
+process_material = SubResource( 13 )
+texture = ExtResource( 1 )
