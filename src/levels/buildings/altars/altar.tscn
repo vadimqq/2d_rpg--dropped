@@ -1,0 +1,77 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://src/levels/buildings/altars/altar.gd" type="Script" id=1]
+[ext_resource path="res://src/tile_map/tile_map.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/currency/soul_coin/floaty_64.png" type="Texture" id=4]
+
+[sub_resource type="CanvasItemMaterial" id=2]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 7
+particles_anim_v_frames = 7
+particles_anim_loop = false
+
+[sub_resource type="ParticlesMaterial" id=3]
+resource_local_to_scene = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 100.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 360.0
+angle_random = 1.0
+color = Color( 0.368627, 0.368627, 0.368627, 1 )
+anim_speed = 1.0
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 43.1856
+
+[node name="altar" type="Node2D"]
+script = ExtResource( 1 )
+not_cleared_color = Color( 0.415686, 0.00784314, 0.00784314, 1 )
+cleared_color = Color( 0.603922, 0.603922, 0.603922, 1 )
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 2.0
+
+[node name="TileMap" parent="." instance=ExtResource( 2 )]
+cell_size = Vector2( 8, 8 )
+tile_data = PoolIntArray( -458755, 33, 0 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+material = SubResource( 2 )
+position = Vector2( 0, -55 )
+lifetime = 5.0
+process_material = SubResource( 3 )
+texture = ExtResource( 4 )
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 1 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 0, 20 )
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

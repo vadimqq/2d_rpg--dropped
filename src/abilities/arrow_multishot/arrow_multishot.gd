@@ -3,18 +3,24 @@ extends Base_ability
 var arrow = load("res://src/attacks/projectiles/arrow/arrow.tscn")
 
 const RANDOM_ANGLE = PI / 2.0
-var count = 12
+var count = 4
 var count_pierce = 0
 export (int) var projectile_speed = 200
 
 func _on_arrow_multishot_upgrade(new_lvl):
 	match new_lvl:
 		1:
-			count = 12
+			count = 4
 		2:
-			count = 15
+			count = 6
 		3:
-			count = 20
+			count = 8
+		4:
+			count = 10
+		5:
+			count = 12
+		6:
+			count = 14
 	lvl = new_lvl
 
 func _on_arrow_multishot_execute(spawn_position, damage, damage_weight):

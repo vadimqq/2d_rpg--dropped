@@ -2,9 +2,12 @@ extends Node2D
 
 var Room = preload("res://src/levels/procedure_gen_level/Room.tscn")
 const Shrine = preload("res://src/levels/buildings/shrines/big_shrine/item_shrine.tscn")
-const Test = preload("res://src/enemies/bosses/test_boss/test_boss.tscn")
+const Altar = preload("res://src/levels/buildings/altars/altar.tscn")
 const Exit = preload("res://src/levels/procedure_gen_level/ExitDoor.tscn")
 const Dummy = preload("res://src/enemies/dummy/dummy.tscn")
+const Weapon_enchanter = preload("res://src/NPC/weapon_enchanter/weapon_enchanter.tscn")
+
+const TEST = preload("res://src/levels/buildings/chest/chest.tscn")
 
 onready var Map: TileMap = $TileMap
 onready var Floor = $Floor
@@ -15,8 +18,8 @@ onready var Rooms = $Rooms
 
 var tile_size = 32  # size of a tile in the TileMap
 var num_rooms = 10  # number of rooms to generate
-var min_size = 4  # minimum room size (in tiles)
-var max_size = 10  # maximum room size (in tiles)
+var min_size = 7  # minimum room size (in tiles)
+var max_size = 8  # maximum room size (in tiles)
 var hspread = 4  # horizontal spread (in pixels)
 var cull = 0  # chance to cull room
 
@@ -25,6 +28,7 @@ var start_room = null
 var end_room = null
 
 var corridors_points = []
+
 
 func add_player():
 	y_sort.add_child(GAME_CORE.player)
@@ -60,9 +64,8 @@ func make_rooms():
 	generate_floor()
 	generate_undermap()
 	genetate_corridors()
-#	generate_enemies()
+	generate_altars()
 	generate_dummy()
-	generate_shrines()
 	generate_exit()
 
 #FOR DEBUG!!!=======================================
@@ -90,7 +93,6 @@ func make_rooms():
 
 func reload_level():
 	y_sort.remove_child(GAME_CORE.player)
-#	get_tree().reload_current_scene()
 	LOCATION_MANAGER.load_location(LOCATION_MANAGER.generate_level)
 
 func _input(event):
@@ -237,24 +239,24 @@ func generate_undermap():
 		for y in range(positions_tuple[0].y, positions_tuple[1].y):
 			UnderMap.set_cell(x, y, 37)
 
-func generate_enemies():
-	for i in GAME_CORE.game_lvl:
-		for room in $Rooms.get_children():
-			var instance = Test.instance()
+func generate_altars():
+	for room in $Rooms.get_children():
+		if room != start_room && room != end_room:
+			var instance = Altar.instance()
 			y_sort.add_child(instance)
-			instance.global_position = room.position
+			instance.global_position = room.global_position
 
 func generate_dummy():
-	var instance = Dummy.instance()
+	var instance = TEST.instance()
 	y_sort.add_child(instance)
 	instance.global_position = start_room.position
-	
 
 func generate_shrines():
 	var random_rooms = []
 	for room in $Rooms.get_children():
-		if randi()  % 100 + 1 < 15:
-			random_rooms.append(room)
+		if room != start_room && room != end_room:
+			if randi()  % 100 + 1 < 15:
+				random_rooms.append(room)
 	place_object_in_rooms(Shrine, random_rooms)
 
 func place_object_in_rooms(scene: PackedScene, rooms):
@@ -266,6 +268,12 @@ func place_object_in_rooms(scene: PackedScene, rooms):
 
 func generate_exit():
 	var exit = Exit.instance()
-	y_sort.add_child(exit)
+	end_room.add_child(exit)
 	exit.global_position = end_room.position
 	exit.connect("leaving_level", self, "reload_level")
+
+func generate_weapon_enchanter():
+	var instance = Weapon_enchanter.instance()
+	y_sort.add_child(instance)
+	instance.global_position = start_room.position
+	

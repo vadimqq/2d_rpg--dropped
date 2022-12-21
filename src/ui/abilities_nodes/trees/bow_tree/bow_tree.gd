@@ -34,12 +34,12 @@ func on_change_upgrade_points():
 		grade_button.disabled = false
 
 var stats = {
-	"HEALTH": 5,
-	"HEALTH_REGEN": 0.2,
-	"MANA": 2,
-	"GAIN_ATTACK_SPEED": 1,
-	"GAIN_DAMAGE": 0.3,
-	"GAIN_PROJECTILE_SPEED": 0.3,
-	"PHYSIC_DAMAGE": 1,
-	"PHYSIC_RESIST": 0.3
+	"HEALTH": 2,
+	"HEALTH_REGEN": 0.05,
+	"MANA": 1,
+	"GAIN_ATTACK_SPEED": 2,
+	"GAIN_DAMAGE": 0.1,
+	"GAIN_PROJECTILE_SPEED": 0.5,
+	"PHYSIC_DAMAGE": 0.3,
+	"PHYSIC_RESIST": 0.01
 }

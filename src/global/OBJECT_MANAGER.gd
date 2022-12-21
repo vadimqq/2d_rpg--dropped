@@ -5,7 +5,8 @@ var item_list = []
 var item_name_list = [
 	"clock",
 	"health_potion",
-	"mana_potion"
+	"mana_potion",
+	"jagged_steel"
 ]
 
 func load_weapon_item(postion: Vector2, item_name):
@@ -34,7 +35,7 @@ func take_item(item: Item_with_popup):
 			"count": 1
 		}
 	)
-	GAME_CORE.player.game_ui.add_artifact_icon(item.id)
+	GAME_CORE.player.add_artifact_icon(item.id)
 	GAME_CORE.player.STATS.apply_buff(item.stats)
 
 func reset_all_items():

@@ -1,13 +1,13 @@
 extends Base_weapon
 
 onready var animation = $Animation
-onready var  arrow_shot = $Base_ability_slot/arrow_shot
 
 func _init():
 	tags = [CONSTANTS.WEAPON_TYPES.BOW]
 	weapon_name = 'bow'
 
 func _ready():
+	base_ability = GAME_CORE.player.ability_list.get_node("arrow_shot")
 	attack_range = 100
 
 func _on_Bow_use_weapon_ability():
@@ -15,10 +15,10 @@ func _on_Bow_use_weapon_ability():
 	animation.play("attack")
 
 func weapon_ability():
-	arrow_shot.execute(owner_body, spawn_position.global_transform)
+	base_ability.execute(owner_body, spawn_position.global_transform)
 
 func get_base_ability_mana_cost():
-	return arrow_shot.mana_cost
+	return base_ability.mana_cost
 
 func _on_Bow_use_in_hand():
 	animation.play("in_hand")

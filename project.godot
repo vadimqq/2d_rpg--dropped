@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/ui/abilities_nodes/ability_board/ability_board.gd"
 }, {
+"base": "Item_with_popup",
+"class": "Ability_scroll",
+"language": "GDScript",
+"path": "res://src/items/ability_scroll/ability_scroll.gd"
+}, {
 "base": "TextureProgress",
 "class": "Ability_ui",
 "language": "GDScript",
@@ -109,11 +114,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/items/item_with_popup/item_with_popup.gd"
 }, {
-"base": "CanvasLayer",
-"class": "Level_master",
-"language": "GDScript",
-"path": "res://src/ui/level_master/level_master.gd"
-}, {
 "base": "Base_body",
 "class": "Player",
 "language": "GDScript",
@@ -131,6 +131,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Ability_board": "",
+"Ability_scroll": "",
 "Ability_ui": "",
 "Base_DOT": "",
 "Base_NPC": "",
@@ -150,7 +151,6 @@ _global_script_class_icons={
 "Game_ui": "",
 "Homing_projectile": "",
 "Item_with_popup": "",
-"Level_master": "",
 "Player": "",
 "Stat_system": "",
 "Weapon_manager": ""
@@ -170,10 +170,11 @@ GAME_CORE="*res://src/global/GAME_CORE.gd"
 LOCATION_MANAGER="*res://src/global/LOCATION_MANAGER.gd"
 OBJECT_MANAGER="*res://src/global/OBJECT_MANAGER.gd"
 CURRENCY_MANAGER="*res://src/global/CURRENCY_MANAGER.gd"
-QUEST_MANAGER="*res://src/global/QUEST_MANAGER.gd"
+PACT_MANAGER="*res://src/global/PACT_MANAGER.gd"
 
 [display]
 
+window/size/fullscreen=true
 window/vsync/use_vsync=false
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
@@ -318,7 +319,14 @@ toggle_fullscreen={
 [physics]
 
 common/enable_pause_aware_picking=true
+2d/thread_model=2
 
 [rendering]
 
+quality/intended_usage/framebuffer_allocation=0
+quality/intended_usage/framebuffer_allocation.mobile=0
+quality/shadow_atlas/quadrant_0_subdiv=0
+quality/shadow_atlas/quadrant_1_subdiv=0
+quality/shadow_atlas/quadrant_2_subdiv=0
+quality/shadow_atlas/quadrant_3_subdiv=0
 environment/default_environment="res://default_env.tres"

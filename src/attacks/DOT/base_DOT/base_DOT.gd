@@ -25,10 +25,10 @@ func update_info(body_1, body_2, stack_amount):
 	duration_timer.start()
 
 func calculate_duration_time():
-	duration_timer.wait_time = duration
+	duration_timer.wait_time = owner_body.STATS.get_dot_duration(duration)
 
 func calculate_one_tick_time():
-	one_tick_timer.wait_time = one_tick
+	one_tick_timer.wait_time = owner_body.STATS.get_dot_tick_time(one_tick)
 
 func _on_Tick_timeout():
 	if stack > 0:

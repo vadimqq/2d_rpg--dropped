@@ -7,7 +7,7 @@
 script = ExtResource( 2 )
 mana_cost = 1
 scaling_tags = [ 0, 5 ]
-weapon_tags = [ 3 ]
+weapon_tags = [ 4 ]
 damage_type = 4
 count_pierce = 0
 count_rebound = 0

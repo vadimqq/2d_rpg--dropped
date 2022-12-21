@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/items/artifacts/jagged_steel/jagged_steel.gd" type="Script" id=1]
+[ext_resource path="res://src/items/item_with_popup/item_with_popup.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/items/artifacts/jagged_steel/icon.png" type="Texture" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 11.0
+
+[node name="jagged_steel" instance=ExtResource( 2 )]
+script = ExtResource( 1 )
+id = "jagged_steel"
+item_name = "Jagged steel"
+description = "increases the chance of bleeding on abilities with the BLEED category"
+GAIN_CHANCE_BLEED = 5
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( 0, 8 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2( 0, 7 )
+shape = SubResource( 1 )
+
+[connection signal="item_entered" from="." to="." method="_on_jagged_steel_item_entered"]
+[connection signal="item_exited" from="." to="." method="_on_jagged_steel_item_exited"]

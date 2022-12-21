@@ -1,34 +1,30 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/entities/base_body/base_body.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/NPC/base_NPC/base_NPC.gd" type="Script" id=2]
 [ext_resource path="res://src/NPC/base_NPC/clue.png" type="Texture" id=3]
+[ext_resource path="res://src/shaders/on_hit_shader.gdshader" type="Shader" id=4]
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=1]
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 4 )
+shader_param/hit = false
+shader_param/mix_weight = 1.0
 
 [node name="base_NPC" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="AnimationTree" parent="." index="4"]
-parameters/playback = SubResource( 1 )
+[node name="Sprite" parent="." index="1"]
+material = SubResource( 1 )
 
-[node name="Hurtbox" parent="." index="7"]
+[node name="Hurtbox" parent="." index="6"]
 collision_mask = 4
 monitorable = false
 
-[node name="Regen_timer" parent="." index="8"]
+[node name="Regen_timer" parent="." index="7"]
 autostart = false
 
-[node name="Damage_timer" parent="." index="9"]
-autostart = false
-
-[node name="Helth_bar" parent="." index="10"]
-visible = false
-
-[node name="Passive_list" parent="." index="11"]
-visible = false
-
-[node name="DOT_list" parent="." index="12"]
+[node name="Helth_bar" parent="." index="8"]
 visible = false
 
 [node name="Clue" type="Sprite" parent="." index="13"]

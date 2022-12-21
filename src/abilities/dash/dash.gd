@@ -17,21 +17,6 @@ func _init():
 	CD = 2.0
 	max_lvl = 3
 
-func execute(s: Base_body, spawn_position):
-	owner_body = s
-	self.sprite = s.sprite
-	sprite.material.set_shader_param("mix_weight", 0.7)
-	sprite.material.set_shader_param("whiten", true)
-	s.hurtbox_shape.disabled = true
-	s.STATS.apply_buff({
-		"GAIN_MOVE_SPEED": dash_speed
-	})
-	
-	duration_timer.wait_time = dash_time
-	duration_timer.start()
-	ghost_spawn_timer.start()
-	start_cd()
-
 func add_dash_ghost():
 	var ghost_instance = dash_ghost.instance()
 	get_node("/root").add_child(ghost_instance)
@@ -48,7 +33,7 @@ func is_dashing():
 
 func end_dash():
 	ghost_spawn_timer.stop()
-	sprite.material.set_shader_param("whiten", false)
+	sprite.material.set_shader_param("hit", false)
 	owner_body.STATS.apply_buff({
 		"GAIN_MOVE_SPEED": -dash_speed
 	})
@@ -71,3 +56,18 @@ func _on_Dash_upgrade(new_lvl):
 		3:
 			pass
 	lvl = new_lvl
+
+
+func _on_dash_execute(spawn_position, _1, _2):
+	self.sprite = owner_body.sprite
+	sprite.material.set_shader_param("mix_weight", 0.7)
+	sprite.material.set_shader_param("hit", true)
+	owner_body.hurtbox_shape.disabled = true
+	owner_body.STATS.apply_buff({
+		"GAIN_MOVE_SPEED": dash_speed
+	})
+	
+	duration_timer.wait_time = dash_time
+	duration_timer.start()
+	ghost_spawn_timer.start()
+	start_cd()

@@ -3,14 +3,14 @@
 [ext_resource path="res://src/shaders/on_hit_shader.gdshader" type="Shader" id=1]
 [ext_resource path="res://src/entities/base_body/base_body.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/player/Girl-Sheet.png" type="Texture" id=3]
+[ext_resource path="res://src/abilities/arrow_shot/arrow_shot.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/player/Player.gd" type="Script" id=5]
 [ext_resource path="res://src/ui/game_ui/game_ui.tscn" type="PackedScene" id=6]
-[ext_resource path="res://src/player/ability_manager/ability_manager.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/abilities/fireball_shot/fireball_shot.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/player/weapon_manager/weapon_manager.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/abilities/arrow_multishot/arrow_multishot.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/abilities/aura_agility/aura_agility.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/abilities/dash/Dash.tscn" type="PackedScene" id=11]
-[ext_resource path="res://src/abilities/passive/fast_projectiles/fast_projectiles.tscn" type="PackedScene" id=12]
 
 [sub_resource type="ShaderMaterial" id=58]
 resource_local_to_scene = true
@@ -328,25 +328,17 @@ collision_layer = 4
 collision_mask = 5
 script = ExtResource( 5 )
 
-[node name="STATS" parent="." index="0"]
+[node name="STATS" parent="." index="1"]
 HEALTH = 100
 MANA = 30
 MOVE_SPEED = 75.0
 
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" parent="." index="2"]
 material = SubResource( 58 )
 scale = Vector2( 0.8, 0.8 )
 texture = ExtResource( 3 )
 hframes = 44
 frame = 1
-
-[node name="RayCast" parent="." index="2"]
-position = Vector2( 0, 3 )
-rotation = 1.36136
-z_index = 6
-
-[node name="Weapon_slot" parent="RayCast" index="0"]
-position = Vector2( 4, 0 )
 
 [node name="Camera2D" type="Camera2D" parent="." index="3"]
 current = true
@@ -354,7 +346,15 @@ zoom = Vector2( 0.4, 0.4 )
 process_mode = 0
 smoothing_enabled = true
 
-[node name="AnimationPlayer" parent="." index="5"]
+[node name="RayCast" parent="." index="4"]
+position = Vector2( 0, 3 )
+rotation = 1.36136
+z_index = 6
+
+[node name="Weapon_slot" parent="RayCast" index="0"]
+position = Vector2( 4, 0 )
+
+[node name="AnimationPlayer" parent="." index="6"]
 anims/RESET = SubResource( 2 )
 anims/dead = SubResource( 14 )
 anims/idle-down = SubResource( 7 )
@@ -366,25 +366,17 @@ anims/move-left = SubResource( 4 )
 anims/move-right = SubResource( 5 )
 anims/move-up = SubResource( 6 )
 
-[node name="CollisionShape2D" parent="." index="6"]
+[node name="CollisionShape2D" parent="." index="7"]
 position = Vector2( 0, 1.5 )
 shape = SubResource( 59 )
 
-[node name="Hurtbox" parent="." index="7"]
+[node name="Hurtbox" parent="." index="8"]
 collision_layer = 16
 collision_mask = 64
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2( -0.5, 1.5 )
 shape = SubResource( 13 )
-
-[node name="fast_projectiles" parent="Passive_list" index="0" instance=ExtResource( 12 )]
-
-[node name="arrow_multishot" parent="Ability_list" index="0" instance=ExtResource( 9 )]
-
-[node name="dash" parent="Ability_list" index="1" instance=ExtResource( 11 )]
-
-[node name="aura_agility" parent="Ability_list" index="2" instance=ExtResource( 10 )]
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="14"]
 tree_root = SubResource( 56 )
@@ -396,8 +388,16 @@ parameters/move/blend_position = Vector2( -0.49683, 0.0806211 )
 
 [node name="Game_ui" parent="." index="15" instance=ExtResource( 6 )]
 
-[node name="Ability_manager" parent="." index="16" instance=ExtResource( 7 )]
+[node name="Weapon_manager" parent="." index="16" instance=ExtResource( 8 )]
 
-[node name="Weapon_manager" parent="." index="17" instance=ExtResource( 8 )]
+[node name="arrow_multishot" parent="Ability_list" index="0" instance=ExtResource( 9 )]
 
-[connection signal="death" from="." to="." method="_on_Player_death"]
+[node name="dash" parent="Ability_list" index="1" instance=ExtResource( 11 )]
+
+[node name="aura_agility" parent="Ability_list" index="2" instance=ExtResource( 10 )]
+
+[node name="arrow_shot" parent="Ability_list" index="3" instance=ExtResource( 4 )]
+
+[node name="fireball_shot" parent="Ability_list" index="4" instance=ExtResource( 7 )]
+
+[connection signal="set_new_item" from="." to="." method="_on_Player_set_new_item"]

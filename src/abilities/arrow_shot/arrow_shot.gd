@@ -10,9 +10,38 @@ export (int) var projectile_count = 1
 func _on_arrow_shot_upgrade(new_lvl):
 	match new_lvl:
 		1:
-			damage_incounter = 100
+			damage_incounter += 5
 		2:
-			damage_incounter = 200
+			damage_incounter += 5
+		3:
+			damage_incounter += 5
+		4:
+			damage_incounter += 5
+		5:
+			damage_incounter += 5
+			bleed_chance += 10
+		6:
+			damage_incounter += 5
+		7:
+			damage_incounter += 5
+		8:
+			damage_incounter += 5
+		9:
+			damage_incounter += 5
+		10:
+			damage_incounter += 5
+			bleed_chance += 10			
+		11:
+			damage_incounter += 5
+		12:
+			damage_incounter += 5
+		13:
+			damage_incounter += 5
+		14:
+			damage_incounter += 5
+		15:
+			damage_incounter += 5
+			bleed_chance += 10
 	lvl = new_lvl
 
 func _on_arrow_shot_execute(spawn_position, damage, damage_weight):

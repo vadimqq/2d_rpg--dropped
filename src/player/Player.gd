@@ -5,8 +5,7 @@ class_name Player
 onready var camera: Camera2D = $Camera2D
 onready var animation_tree: AnimationTree = $AnimationTree
 onready var game_ui = $Game_ui
-onready var A_M = $Ability_manager
-onready var W_M = $Weapon_manager
+onready var W_M: Weapon_manager = $Weapon_manager
 
 var freeze_slow = 0.4
 
@@ -64,3 +63,6 @@ func freeze_time():
 func restart():
 	Engine.time_scale = 1
 	GAME_CORE.end_game()
+
+func _on_Player_set_new_item(item):
+	game_ui.update_item_info(item)

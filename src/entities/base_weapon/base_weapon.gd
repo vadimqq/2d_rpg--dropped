@@ -4,11 +4,11 @@ class_name Base_weapon
 onready var sprite = $Sprite
 onready var spawn_position = $Position
 
-onready var base_ability_slot = $Base_ability_slot
-onready var slot_1 = $Abilities/Slot_1
-onready var slot_2 = $Abilities/Slot_2
-onready var slot_3 = $Abilities/Slot_3
-onready var slot_4 = $Abilities/Slot_4
+onready var base_ability: Base_ability = null
+onready var ability_1: Base_ability = null
+onready var ability_2: Base_ability = null
+onready var ability_3: Base_ability = null
+onready var ability_4: Base_ability = null
 
 var tags = []
 var weapon_name = ''
@@ -35,27 +35,23 @@ func use_in_hand():
 	emit_signal("use_in_hand")
 
 func get_base_ability():
-	return base_ability_slot.get_child(0)
+	return base_ability
 
 func get_ability_by_slot(id: int):
-	if self["slot_" + str(id)].get_child_count() > 0:
-		return self["slot_" + str(id)].get_child(0)
-	return null
+	return self["ability_" + str(id)]
 
 func set_ability_by_tier(ability: Base_ability):
+	var player: Base_body = find_parent("Player")
+	
 	match ability.tier:
 		1:
-			remove_slot(slot_1)
-			slot_1.add_child(ability)
+			ability_1 = ability
 		2:
-			remove_slot(slot_2)
-			slot_2.add_child(ability)
+			ability_2 = ability
 		3:
-			remove_slot(slot_3)
-			slot_3.add_child(ability)
+			ability_3 = ability
 		4:
-			remove_slot(slot_4)
-			slot_4.add_child(ability)
+			ability_4 = ability
 		
 func use_weapon_ability(s):
 	owner_body = s
@@ -78,31 +74,25 @@ func use_fourth_ability(s):
 	fourth_ability()
 
 func first_ability():
-	if slot_1.get_child_count() > 0:
-		var ability: Base_ability = slot_1.get_child(0)
-		ability.execute(owner_body, spawn_position.global_transform)
+	if ability_1 != null:
+		ability_1.execute(owner_body, spawn_position.global_transform)
 
 func second_ability():
-	if slot_2.get_child_count() > 0:
-		var ability: Base_ability = slot_2.get_child(0)
-		ability.execute(owner_body, spawn_position.global_transform)
+	if ability_2 != null:
+		ability_2.execute(owner_body, spawn_position.global_transform)
 
 func third_ability():
-	if slot_3.get_child_count() > 0:
-		var ability: Base_ability = slot_3.get_child(0)
-		ability.execute(owner_body, spawn_position.global_transform)
+	if ability_3 != null:
+		ability_3.execute(owner_body, spawn_position.global_transform)
 
 func fourth_ability():
-	if slot_4.get_child_count() > 0:
-		var ability: Base_ability = slot_4.get_child(0)
-		ability.execute(owner_body, spawn_position.global_transform)
+	if ability_4 != null:
+		ability_4.execute(owner_body, spawn_position.global_transform)
 
 func remove_slot(slot: Node2D):
 	for n in slot.get_children():
 		slot.remove_child(n)
 
-func reset_all_ability():
-	remove_slot(slot_1)
-	remove_slot(slot_2)
-	remove_slot(slot_3)
-	remove_slot(slot_4)
+func upgrade_base_ability_by_lvl():
+	var player = find_parent("Player")
+	get_base_ability().upgrade(player.STATS.LVL)

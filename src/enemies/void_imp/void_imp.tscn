@@ -1,18 +1,16 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://src/entities/enemy/enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/enemies/void_imp/void_imp.png" type="Texture" id=2]
 [ext_resource path="res://src/enemies/void_imp/void_imp.gd" type="Script" id=3]
-[ext_resource path="res://src/attacks/base_attack/base_attack.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/shaders/on_hit_shader.gdshader" type="Shader" id=5]
+[ext_resource path="res://src/abilities/arrow_shot/arrow_shot.tscn" type="PackedScene" id=6]
 
 [sub_resource type="ShaderMaterial" id=58]
 resource_local_to_scene = true
 shader = ExtResource( 5 )
 shader_param/hit = false
 shader_param/mix_weight = 1.0
-
-[sub_resource type="CircleShape2D" id=15]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 94.5304
@@ -46,26 +44,14 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 7, 8, 9, 10 ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("RayCast/Weapon_slot/Attack/CollisionShape2D:disabled")
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.6, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ true, false, true ]
-}
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0.4, 0.9 ),
+"times": PoolRealArray( 0.4, 0.8 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
@@ -75,13 +61,13 @@ tracks/2/keys = {
 "method": "start_chase"
 } ]
 }
-tracks/3/type = "value"
-tracks/3/path = NodePath("RayCast:enabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
+tracks/2/type = "value"
+tracks/2/path = NodePath("RayCast:enabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
 "times": PoolRealArray( 0.3, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
@@ -411,26 +397,22 @@ graph_offset = Vector2( -7.412, 107.595 )
 [node name="void_imp" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 
-[node name="Sprite" parent="." index="0"]
+[node name="STATS" parent="." index="1"]
+HEALTH = 5
+
+[node name="Sprite" parent="." index="2"]
 material = SubResource( 58 )
 texture = ExtResource( 2 )
 hframes = 7
 vframes = 4
 
-[node name="RayCast" parent="." index="1"]
-cast_to = Vector2( 22, 0 )
-
-[node name="Attack" parent="RayCast/Weapon_slot" index="0" instance=ExtResource( 4 )]
-position = Vector2( 12, 0 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RayCast/Weapon_slot/Attack" index="0"]
-shape = SubResource( 15 )
-disabled = true
-
 [node name="CollisionShape2D" parent="detection_zone" index="0"]
 shape = SubResource( 1 )
 
-[node name="AnimationPlayer" parent="." index="4"]
+[node name="RayCast" parent="." index="4"]
+cast_to = Vector2( 90, 0 )
+
+[node name="AnimationPlayer" parent="." index="7"]
 anims/RESET = SubResource( 2 )
 anims/attack = SubResource( 14 )
 anims/idle-down = SubResource( 10 )
@@ -443,7 +425,7 @@ anims/move-right = SubResource( 5 )
 anims/move-up = SubResource( 6 )
 anims/take_hit = SubResource( 16 )
 
-[node name="CollisionShape2D" parent="." index="6"]
+[node name="CollisionShape2D" parent="." index="9"]
 shape = SubResource( 8 )
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
@@ -456,5 +438,8 @@ active = true
 parameters/playback = SubResource( 57 )
 parameters/idle/blend_position = Vector2( 0.429253, 0 )
 parameters/move/blend_position = Vector2( -1.00427, 0.0245811 )
+
+[node name="arrow_shot" parent="Ability_list" index="0" instance=ExtResource( 6 )]
+projectile_speed = 100
 
 [connection signal="take_damage" from="." to="." method="_on_void_imp_take_damage"]

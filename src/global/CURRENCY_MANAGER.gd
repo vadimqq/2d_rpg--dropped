@@ -2,7 +2,7 @@ extends Node
 
 signal change_upgrade_points
 
-var upgrade_points = 10
+var upgrade_points = 0
 
 func modify_upgrade_points(amount):
 	upgrade_points += amount

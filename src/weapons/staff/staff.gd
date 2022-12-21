@@ -2,13 +2,12 @@ extends Base_weapon
 
 onready var animation = $Animation
 
-onready var fireball_shot: Base_ability = $Base_ability_slot/fireball_shot
-
 func _init():
-	tags = [CONSTANTS.WEAPON_TYPES.BOW]
-	weapon_name = 'bow'
+	tags = [CONSTANTS.WEAPON_TYPES.STAFF]
+	weapon_name = 'staff'
 
 func _ready():
+	base_ability = GAME_CORE.player.ability_list.get_node("fireball_shot")
 	attack_range = 100
 
 func _process(delta):
@@ -19,10 +18,10 @@ func _process(delta):
 		scale.y = 1
 
 func weapon_ability():
-	fireball_shot.execute(owner_body, spawn_position.global_transform)
+	base_ability.execute(owner_body, spawn_position.global_transform)
 
 func get_base_ability_mana_cost():
-	return fireball_shot.mana_cost
+	return base_ability.mana_cost
 
 func _on_staff_use_in_hand():
 	animation.play("in_hand")

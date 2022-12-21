@@ -7,7 +7,7 @@
 script = ExtResource( 1 )
 max_lvl = 5
 scaling_tags = [ 0, 4 ]
-weapon_tags = [ 1 ]
+weapon_tags = [ 2 ]
 count_pierce = 0
 count_rebound = 0
 projectile_speed = 300

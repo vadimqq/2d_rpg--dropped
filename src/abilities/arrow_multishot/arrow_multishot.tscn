@@ -5,9 +5,9 @@
 
 [node name="arrow_multishot" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
-max_lvl = 3
+max_lvl = 6
 mana_cost = 1
-weapon_tags = [ 1 ]
+weapon_tags = [ 2 ]
 CD = 10
 projectile_speed = 200
 

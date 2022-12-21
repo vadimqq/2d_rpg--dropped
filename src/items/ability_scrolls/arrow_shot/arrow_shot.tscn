@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/items/ability_scroll/ability_scroll.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/items/ability_scrolls/arrow_shot/arrow_shot.gd" type="Script" id=2]
+
+[node name="arrow_shot" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+id = "arrow_shot"
+item_name = "Arrow shot scroll"
+
+[connection signal="add_pierce_count" from="." to="." method="_on_arrow_shot_add_pierce_count"]
+[connection signal="add_projectile_speed" from="." to="." method="_on_arrow_shot_add_projectile_speed"]
+[connection signal="add_rebound_count" from="." to="." method="_on_arrow_shot_add_rebound_count"]
+[connection signal="gain_damage" from="." to="." method="_on_arrow_shot_gain_damage"]
+[connection signal="take_ability_scroll" from="." to="." method="_on_arrow_shot_take_ability_scroll"]
+[connection signal="upgrade_count_projectile" from="." to="." method="_on_arrow_shot_upgrade_count_projectile"]

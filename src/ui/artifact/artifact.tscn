@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://src/abilities/passive/attack_speed/icon.png" type="Texture" id=1]
+[ext_resource path="res://src/items/artifacts/mana_potion/icon.png" type="Texture" id=1]
 [ext_resource path="res://src/ui/artifact/artifact.gd" type="Script" id=2]
 
-[node name="TextureRect" type="TextureRect"]
+[node name="artifact" type="TextureRect"]
 margin_right = 20.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 20, 20 )

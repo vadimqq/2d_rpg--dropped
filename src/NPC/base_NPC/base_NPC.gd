@@ -16,4 +16,3 @@ func _on_Hurtbox_body_entered(body):
 func _on_Hurtbox_body_exited(body):
 		clue.visible = false
 		in_range = false
-		GAME_CORE.level_master.hide()

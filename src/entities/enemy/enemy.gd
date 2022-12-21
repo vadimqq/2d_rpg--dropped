@@ -6,7 +6,7 @@ onready var switch_direction_timer = $switch_direction_timer
 
 export var steer_force = 1
 export var look_ahead = 50
-export var num_rays = 32
+export var num_rays = 64
 var player :KinematicBody2D = null
 var lvl = 1
 # context array
@@ -36,9 +36,11 @@ var enemy_body_layer = 4
 var knockback = Vector2.ZERO
 
 func _ready():
+	STATS.apply_buff(PACT_MANAGER.enemy_buff_dict)
 	interest.resize(num_rays)
 	danger.resize(num_rays)
 	ray_directions.resize(num_rays)
+	start_chase()
 
 	for i in num_rays:
 		var angle = i * 2 * PI / num_rays
@@ -47,14 +49,12 @@ func _ready():
 func _physics_process(delta):
 	match ai_state:
 		AI_STATE.CHASE:
-			state = MOVE
 			state_chase()
+			state = MOVE
 		AI_STATE.PATROOL:
 			state_patrool()
 	if player != null:
 		ray_cast.look_at(player.global_position)
-	if ray_cast.is_colliding(): 
-		emit_signal("cast_base_attack")
 
 func state_chase():
 	switch_direction_timer.autostart = false
@@ -101,8 +101,7 @@ func choose_direction():
 	chosen_dir = chosen_dir.normalized()
 
 func _on_detection_zone_body_entered(body):
-	player = body
-	ai_state = AI_STATE.CHASE
+	start_chase()
 
 func _on_switch_direction_timer_timeout():
 	var rng = RandomNumberGenerator.new()
@@ -112,9 +111,9 @@ func _on_switch_direction_timer_timeout():
 	axis = Vector2(dir_x, dir_y)
 
 func _on_enemy_death():
-	CURRENCY_MANAGER.create_soul_coin(30, global_position)
-	GAME_CORE.add_kill()
-	call_deferred('free')
+	CURRENCY_MANAGER.create_soul_coin(5 * PACT_MANAGER.enemy_lvl, global_position)
+	PACT_MANAGER.add_kill()
+	call_deferred("free")
 
 func start_chase():
 	player = GAME_CORE.player

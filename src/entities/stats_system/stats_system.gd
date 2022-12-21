@@ -5,7 +5,7 @@ class_name Stat_system
 signal modify_health
 signal modify_mana
 signal modify_EXP
-signal modify_LVL
+signal modify_lvl
 
 var LVL = 1
 var CURRENT_EXP = 0
@@ -53,7 +53,7 @@ var CURRENT_MANA = 0.0
 
 #	GAIN STATS IN PERCENT:
 export (int) var GAIN_HEALTH = 0
-var GAIN_HEALTH_REGEN = 0
+export (int) var GAIN_HEALTH_REGEN = 0
 
 export (int) var GAIN_MANA = 0
 export (int) var GAIN_MANA_REGEN = 0
@@ -96,6 +96,9 @@ export (int) var GAIN_DAMAGE_OVER_TIME = 0
 export (int) var GAIN_PROJECTILE_DAMAGE = 0
 export (int) var GAIN_ATTACK_DAMAGE = 0
 export (int) var GAIN_SPELL_DAMAGE = 0
+
+export (int) var GAIN_DOT_DURATION = 0
+export (int) var GAIN_DOT_SPEED_TICK = 0
 
 #	AMPLIFY STATS IN PERCENT
 export (int) var AMPLIFICATION_HEALTH = 0
@@ -142,6 +145,9 @@ export (int) var AMPLIFICATION_PROJECTILE_DAMAGE = 0
 export (int) var AMPLIFICATION_ATTACK_DAMAGE = 0
 export (int) var AMPLIFICATION_SPELL_DAMAGE = 0
 
+export (int) var AMPLIFICATION_DOT_DURATION = 0
+export (int) var AMPLIFICATION_DOT_SPEED_TICK = 0
+
 func _ready():
 	CURRENT_HEALTH = HEALTH
 	CURRENT_MANA = MANA
@@ -184,12 +190,12 @@ func get_calculated_damage(ability: Base_ability):
 
 	match ability.damage_type:
 		CONSTANTS.DAMAGE_TYPE_ENUM.PHYSIC:
-			flat_damage = PHYSIC_DAMAGE
-			gain_damage = GAIN_PHYSIC_DAMAGE
+			flat_damage += PHYSIC_DAMAGE
+			gain_damage += GAIN_PHYSIC_DAMAGE
 			amplification_damage = AMPLIFICATION_PHYSIC_DAMAGE
 		CONSTANTS.DAMAGE_TYPE_ENUM.FIRE:
-			flat_damage = FIRE_DAMAGE
-			gain_damage = GAIN_FIRE_DAMAGE
+			flat_damage += FIRE_DAMAGE
+			gain_damage += GAIN_FIRE_DAMAGE
 			amplification_damage = AMPLIFICATION_FIRE_DAMAGE
 
 	for tag in ability.scaling_tags:
@@ -266,6 +272,11 @@ func get_cd_by_value(value):
 func get_knockback_power():
 	return get_incremented_value(KNOCKBACK_POWER, GAIN_KNOCKBACK_POWER, AMPLIFICATION_KNOCKBACK_POWER)
 
+func get_dot_duration(duration):
+	return get_incremented_value(duration, GAIN_DOT_DURATION, AMPLIFICATION_DOT_DURATION)
+
+func get_dot_tick_time(tick_time):
+	return get_incremented_value(tick_time, GAIN_DOT_SPEED_TICK, AMPLIFICATION_DOT_SPEED_TICK)
 
 func apply_damage_and_return(type, amount: int):
 	var applied_damage = 0

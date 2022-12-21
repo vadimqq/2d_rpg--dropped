@@ -17,10 +17,9 @@ func get_active_weapon():
 	return active
 
 func load_weapon(name):
-	yield(get_tree(),"idle_frame")
 	var weapon = load("res://src/weapons/" + name + "/" + name + ".tscn")
 	var instance: Base_weapon = weapon.instance()
-	
+	get_parent().STATS.connect("modify_lvl", instance, "upgrade_base_ability_by_lvl")
 	if weapon_1 == null:
 		get_parent().weapon_slot.add_child(instance)
 		instance.use_in_hand()

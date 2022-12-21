@@ -1,0 +1,20 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "export (String) var name = ''
+export (String) var victim_description = ''
+export (String) var gift_description =  ''
+
+func apply_victim():
+	PACT_MANAGER.modify_enemy_spawn_count(2)
+	PACT_MANAGER.modify_enemy_lvl(2)
+
+func apply_gift():
+	print('gift')
+"
+
+[resource]
+script = SubResource( 1 )
+name = "More enemy"
+victim_description = "ololo + 2"
+gift_description = "bip"

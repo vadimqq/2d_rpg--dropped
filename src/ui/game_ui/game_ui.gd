@@ -22,8 +22,8 @@ signal modify_LVL
 func connect_stats_system(stats: Stat_system):
 	stats.connect("modify_health", self, "set_health_info", [stats])
 	stats.connect("modify_mana", self, "set_mana_info", [stats])
-	stats.connect("modify_EXP", self, "set_health_info", [stats])
-	stats.connect("modify_LVL", self, "set_lvl_info", [stats])
+	stats.connect("modify_EXP", self, "set_exp_info", [stats])
+	stats.connect("modify_lvl", self, "set_lvl_info", [stats])
 	
 	set_health_info(stats)
 	set_lvl_info(stats)
@@ -77,15 +77,22 @@ func set_weapon_ability(weapon_manager: Weapon_manager):
 #	instance.texture = load("res://src/abilities/passive/" + element + "/" + name + "/icon.png")
 #	passive_list.add_child(instance)
 #	print(element, name)
-#
-#func add_artifact_icon(id):
-#	var artifact_icon_src = load("res://src/ui/artifact/artifact.tscn")
-#	var instance = artifact_icon_src.instance()
-#	instance.id = id
-#	instance.texture = load("res://src/items/artifacts/" + id + "/icon.png")
-#	artifact_list.add_child(instance)
-#
-#func update_artifact_count(id):
-#	for item in artifact_list.get_children():
-#		if item.id == id:
-#			item.add_count()
+
+func check_is_new_item(id):
+	for item in artifact_list.get_children():
+		if item.id == id:
+			return false
+	return true
+
+func update_item_info(new_item: Base_item):
+	if check_is_new_item(new_item.id):
+		var artifact_icon_src = load("res://src/ui/artifact/artifact.tscn")
+		var instance = artifact_icon_src.instance()
+		instance.id = new_item.id
+		instance.texture = load("res://src/items/artifacts/" + new_item.id + "/icon.png")
+		artifact_list.add_child(instance)
+	else:
+		for item in artifact_list.get_children():
+			if item.id == new_item.id:
+				item.add_count()
+

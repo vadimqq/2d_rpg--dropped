@@ -11,5 +11,6 @@ func _process(delta):
 	global_position = global_position.move_toward(GAME_CORE.player.global_position, delta * move_speed)
 
 func _on_Area2D_body_entered(body: Player):
-	body.STATS.modify_exp(count)
+	if body:
+		body.STATS.modify_exp(count)
 	queue_free()

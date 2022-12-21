@@ -18,11 +18,14 @@ script = ExtResource( 2 )
 [node name="Slot_2" parent="." instance=ExtResource( 4 )]
 margin_left = 44.0
 margin_right = 84.0
+tier = 2
 
 [node name="Slot_3" parent="." instance=ExtResource( 4 )]
 margin_left = 88.0
 margin_right = 128.0
+tier = 3
 
 [node name="Slot_4" parent="." instance=ExtResource( 4 )]
 margin_left = 132.0
 margin_right = 172.0
+tier = 4

@@ -68,6 +68,7 @@ tracks/0/keys = {
 
 [node name="aura_agility" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+weapon_tags = [ 0 ]
 
 [node name="Sprite" parent="Area2D/CollisionShape2D" index="0"]
 modulate = Color( 1, 1, 1, 0.392157 )

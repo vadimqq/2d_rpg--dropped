@@ -29,7 +29,10 @@ func set_projectile_speed(amount: int):
 	speed = amount
 
 func _on_Area2D_area_entered(area):
-	emit_signal("destroy")
+	if count_pierce == 0:
+		emit_signal("destroy")
+	else:
+		count_pierce -= 1
 
 func _on_Area2D_body_entered(body):
 	if count_rebound > 0:

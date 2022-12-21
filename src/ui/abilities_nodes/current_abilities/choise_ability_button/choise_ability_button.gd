@@ -2,13 +2,15 @@ extends TextureButton
 
 class_name Choise_button
 
-var ability_name = ''
+signal set_new_abillity
 
-func set_ability_name(a_name):
-	ability_name = a_name
+var ability: Base_ability = null
 
-func set_ability_texture(texture):
-	texture_normal = texture
+func set_ability(new_ability: Base_ability):
+	texture_normal = load("res://src/abilities/" + new_ability.name + "/icon.png")
+	ability = new_ability
 
 func _on_TextureButton_button_up():
-	print(ability_name)
+	var player: Base_body = find_parent("Player")
+	player.W_M.get_active_weapon().set_ability_by_tier(ability)
+	emit_signal("set_new_abillity", ability)

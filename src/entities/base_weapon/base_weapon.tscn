@@ -10,15 +10,3 @@ rotation = -1.5708
 hframes = 6
 
 [node name="Position" type="Position2D" parent="."]
-
-[node name="Abilities" type="Node" parent="."]
-
-[node name="Slot_1" type="Node" parent="Abilities"]
-
-[node name="Slot_2" type="Node" parent="Abilities"]
-
-[node name="Slot_3" type="Node" parent="Abilities"]
-
-[node name="Slot_4" type="Node" parent="Abilities"]
-
-[node name="Base_ability_slot" type="Node" parent="."]
