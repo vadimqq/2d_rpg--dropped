@@ -17,6 +17,6 @@ func apply_gift():
 
 [resource]
 script = SubResource( 1 )
-name = "Move speed enemy"
-victim_description = "olol"
-gift_description = "trololo"
+name = "Abyss acceleration"
+victim_description = "10% faster enemy movement"
+gift_description = "none"

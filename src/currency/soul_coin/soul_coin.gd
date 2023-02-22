@@ -3,8 +3,8 @@ extends Node2D
 var move_speed = 200
 var count = 1
 
-func _ready():
-	scale += scale  / 100 * count
+#func _ready():
+#	scale += scale  / 100 * count
 
 func _process(delta):
 	look_at(GAME_CORE.player.global_position)

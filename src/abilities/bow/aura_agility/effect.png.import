@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/effect.png-cef295b4ec4a0b517975c515f595070f.stex"
+path="res://.import/effect.png-4929c69a553155945a32167a5260a125.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/abilities/aura_agility/effect.png"
-dest_files=[ "res://.import/effect.png-cef295b4ec4a0b517975c515f595070f.stex" ]
+source_file="res://src/abilities/bow/aura_agility/effect.png"
+dest_files=[ "res://.import/effect.png-4929c69a553155945a32167a5260a125.stex" ]
 
 [params]
 

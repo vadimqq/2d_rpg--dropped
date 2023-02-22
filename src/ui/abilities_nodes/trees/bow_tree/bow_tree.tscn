@@ -2,11 +2,11 @@
 
 [ext_resource path="res://src/ui/abilities_nodes/trees/bow_tree/bow_tree.gd" type="Script" id=1]
 [ext_resource path="res://src/ui/abilities_nodes/ability_button/ability_button.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/abilities/arrow_multishot/icon.png" type="Texture" id=3]
+[ext_resource path="res://src/abilities/bow/arrow_multishot/icon.png" type="Texture" id=3]
 [ext_resource path="res://src/abilities/dash/icon.png" type="Texture" id=4]
 [ext_resource path="res://src/ui/abilities_nodes/trees/BarV9_Bar.png" type="Texture" id=8]
 [ext_resource path="res://src/ui/abilities_nodes/trees/BarV9_ProgressBar.png" type="Texture" id=9]
-[ext_resource path="res://src/abilities/aura_agility/icon.png" type="Texture" id=11]
+[ext_resource path="res://src/abilities/bow/aura_agility/icon.png" type="Texture" id=11]
 
 [node name="Bow_tree" type="VBoxContainer"]
 script = ExtResource( 1 )

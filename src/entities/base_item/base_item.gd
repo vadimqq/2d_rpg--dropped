@@ -1,4 +1,4 @@
-extends Node2D
+extends RigidBody2D
 
 class_name Base_item
 
@@ -19,3 +19,8 @@ func set_item(body):
 
 func remove_item(body):
 	emit_signal("item_exited", body)
+
+func _ready():
+	yield(get_tree().create_timer(rand_range(0.5, 2)),"timeout")
+	gravity_scale = 0
+	mode = RigidBody2D.MODE_STATIC

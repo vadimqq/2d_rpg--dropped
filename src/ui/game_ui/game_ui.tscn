@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://src/ui/game_ui/game_ui.gd" type="Script" id=1]
 [ext_resource path="res://src/ui/abilities_nodes/current_abilities/ability_ui/ability_ui.tscn" type="PackedScene" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://assets/RobotoBold18.tres" type="DynamicFont" id=13]
 [ext_resource path="res://assets/RobotoBold24.tres" type="DynamicFont" id=14]
 [ext_resource path="res://src/ui/cursor/cursor.tscn" type="PackedScene" id=15]
+[ext_resource path="res://src/currency/coin/icon.png" type="Texture" id=16]
 
 [node name="Game_ui" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -131,6 +132,24 @@ texture_under = ExtResource( 11 )
 texture_progress = ExtResource( 12 )
 nine_patch_stretch = true
 stretch_margin_top = 10
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ViewportContainer/VBoxContainer"]
+margin_top = 84.0
+margin_right = 334.0
+margin_bottom = 116.0
+
+[node name="TextureRect" type="TextureRect" parent="ViewportContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 32.0
+margin_bottom = 32.0
+texture = ExtResource( 16 )
+
+[node name="Label" type="Label" parent="ViewportContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 36.0
+margin_top = 5.0
+margin_right = 46.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 13 )
+text = "0"
 
 [node name="Weapon_container" type="HBoxContainer" parent="ViewportContainer"]
 anchor_top = 1.0

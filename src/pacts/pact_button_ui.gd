@@ -1,12 +1,18 @@
 extends TextureButton
 
-export (Resource) var pact = null
+onready var title = $VBoxContainer/Title
+onready var victim = $VBoxContainer/Victim
+onready var gift = $VBoxContainer/Gift
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	pass # Replace with function body.
 
+func set_title(val: String):
+	title.text = val
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func set_victim_description(val: String):
+	victim.text = val
+
+func set_gift_description(val: String):
+	gift.text = val

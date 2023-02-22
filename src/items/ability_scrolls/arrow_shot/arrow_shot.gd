@@ -11,7 +11,7 @@ func _ready():
 	magic_pool = ["add_projectile_speed" ]
 	rare_pool = ["add_rebound_count", "add_pierce_count"]
 	legendary_pool = ["upgrade_count_projectile"]
-
+	unic_pool = ["upgrade_count_projectile"]
 	current_upgrade = get_random_upgrade()
 	item_name = upgrades_info[current_upgrade].name
 	description = upgrades_info[current_upgrade].description

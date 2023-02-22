@@ -54,7 +54,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/abilities/ENTITY/base_distance_ability/Base_distance_ability.gd"
 }, {
-"base": "Node2D",
+"base": "RigidBody2D",
 "class": "Base_item",
 "language": "GDScript",
 "path": "res://src/entities/base_item/base_item.gd"

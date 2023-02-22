@@ -18,7 +18,7 @@ func connect_ability(new_ability: Base_ability):
 	if new_ability != null:
 		if new_ability.is_connected('use_ability', self, "on_use_ability"):
 			new_ability.disconnect('use_ability', self, "on_use_ability")
-		texture_under = load("res://src/abilities/" + new_ability.name + "/icon.png")
+		texture_under = new_ability.icon
 		new_ability.connect('use_ability', self, "on_use_ability", [new_ability])
 		max_value = new_ability.CD
 		ability = new_ability

@@ -2,10 +2,10 @@ extends CanvasLayer
 
 class_name Ability_board
 
-onready var bow_tree = $VBoxContainer/HBoxContainer/bow_tree
+onready var bow_tree = $PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer/bow_tree
 
-onready var bow_button = $VBoxContainer/HBoxContainer/GridContainer/Bow_tree_button
-onready var material_counter = $VBoxContainer/HBoxContainer/GridContainer/Material_counter
+onready var bow_button = $PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer/GridContainer/Bow_tree_button
+onready var material_counter = $PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer/GridContainer/Material_counter
 
 onready var dict = {
 	"bow_tree": bow_tree

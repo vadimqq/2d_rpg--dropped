@@ -23,14 +23,15 @@ func _process(delta):
 				emit_signal("take_ability_scroll")
 		queue_free()
 
-func _on_Item_with_popup_body_entered(body):
+func _on_Area2D_body_entered(body):
 	player_body = body
 	popup_name.text = "<< " + item_name + " >>"
 	popup_description.text = "Description: " + description
 	popup.popup()
 	is_monitoring = true
 
-func _on_Item_with_popup_body_exited(body):
+
+func _on_Area2D_body_exited(body):
 	player_body = null
 	popup.hide()
 	is_monitoring = false

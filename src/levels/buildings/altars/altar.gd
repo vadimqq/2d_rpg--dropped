@@ -9,9 +9,8 @@ onready var chest_spawn_position = $Position2D
 
 const void_imp = preload("res://src/enemies/void_imp/void_imp.tscn")
 const spawner = preload("res://src/enemies/spawner/spawner.tscn")
-const pact_button = preload("res://src/pacts/pact_button_ui.tscn")
+const pact_ui = preload("res://src/pacts/pact_button_ui.tscn")
 const reward_chest = preload("res://src/levels/buildings/chest/chest.tscn")
-const TEST = preload("res://src/items/ability_scrolls/arrow_shot/arrow_shot.tscn")
 
 export (Color) var not_cleared_color = "610000"
 export (Color) var cleared_color = "5e5e5e"
@@ -34,10 +33,12 @@ func _ready():
 	draw_custom_circle()
 	var pacts = PACT_MANAGER.get_random_pacts()
 	for pact in pacts:
-		var button: TextureButton = pact_button.instance()
-		button.hint_tooltip = pact.name
-		button_wrapper.add_child(button)
-		button.connect("button_up", self, "_on_pact_button_up", [pact])
+		var pact_button: TextureButton = pact_ui.instance()
+		button_wrapper.add_child(pact_button)
+		pact_button.set_title(pact.name)
+		pact_button.set_victim_description(pact.victim_description)
+		pact_button.set_gift_description(pact.gift_description)
+		pact_button.connect("button_up", self, "_on_pact_button_up", [pact])
 
 func draw_custom_circle():
 	for i in range(0, 361):
@@ -77,7 +78,7 @@ func get_player_rewards():
 	PACT_MANAGER.disconnect("enemy_killed", self, "on_enemy_killed")
 	particle.process_material.color = cleared_color
 	current_pact.apply_gift()
-	var chest = TEST.instance()
+	var chest = reward_chest.instance()
 	chest.global_position = chest_spawn_position.global_position
 	get_parent().add_child(chest)
 

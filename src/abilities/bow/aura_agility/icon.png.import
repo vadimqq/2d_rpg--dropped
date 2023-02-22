@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon.png-908d72f4eb9f00427b735eac8eff70d2.stex"
+path="res://.import/icon.png-0c6f6e9c5c2ad4c74aecfeeba92aa46e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/abilities/arrow_multishot/icon.png"
-dest_files=[ "res://.import/icon.png-908d72f4eb9f00427b735eac8eff70d2.stex" ]
+source_file="res://src/abilities/bow/aura_agility/icon.png"
+dest_files=[ "res://.import/icon.png-0c6f6e9c5c2ad4c74aecfeeba92aa46e.stex" ]
 
 [params]
 

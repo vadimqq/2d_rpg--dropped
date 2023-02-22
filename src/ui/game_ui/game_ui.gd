@@ -13,6 +13,7 @@ onready var ability_list = $ViewportContainer/Weapon_container/Ability_list
 onready var passive_list = $ViewportContainer/Passive_list
 onready var artifact_list = $ViewportContainer/Artifact_list
 onready var quest_list: VBoxContainer = $ViewportContainer/Quest_list
+onready var coin_label: Label = $ViewportContainer/VBoxContainer/HBoxContainer2/Label
 
 signal modify_health
 signal modify_mana
@@ -24,6 +25,7 @@ func connect_stats_system(stats: Stat_system):
 	stats.connect("modify_mana", self, "set_mana_info", [stats])
 	stats.connect("modify_EXP", self, "set_exp_info", [stats])
 	stats.connect("modify_lvl", self, "set_lvl_info", [stats])
+	CURRENCY_MANAGER.connect("modify_coins", self, "set_coins_info")
 	
 	set_health_info(stats)
 	set_lvl_info(stats)
@@ -43,6 +45,9 @@ func set_mana_info(stats: Stat_system):
 	mana_bar.value = stats.CURRENT_MANA
 	mana_lock_bar.value = stats.get_mana_locked()
 	mana_label.text = str(ceil(stats.CURRENT_MANA)) + "/" + str(stats.get_max_mana())
+
+func set_coins_info():
+	coin_label.text = str(CURRENCY_MANAGER.coins)
 
 func set_exp_info(stats: Stat_system):
 	exp_bar.max_value = stats.MAX_EXP

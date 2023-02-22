@@ -9,12 +9,14 @@ var normal_pool := []
 var magic_pool := []
 var rare_pool := []
 var legendary_pool := []
+var unic_pool := []
 
 var scroll_rarity_weights := {
 	"normal_pool": 60,
 	"magic_pool": 27,
 	"rare_pool": 9,
-	"legendary_pool": 3
+	"legendary_pool": 3,
+	"unic_pool": 1
 }
 
 var current_upgrade = null

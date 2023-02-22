@@ -37,6 +37,7 @@ var knockback = Vector2.ZERO
 
 func _ready():
 	STATS.apply_buff(PACT_MANAGER.enemy_buff_dict)
+	STATS.CURRENT_HEALTH = STATS.HEALTH
 	interest.resize(num_rays)
 	danger.resize(num_rays)
 	ray_directions.resize(num_rays)

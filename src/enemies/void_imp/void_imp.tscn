@@ -4,7 +4,7 @@
 [ext_resource path="res://src/enemies/void_imp/void_imp.png" type="Texture" id=2]
 [ext_resource path="res://src/enemies/void_imp/void_imp.gd" type="Script" id=3]
 [ext_resource path="res://src/shaders/on_hit_shader.gdshader" type="Shader" id=5]
-[ext_resource path="res://src/abilities/arrow_shot/arrow_shot.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/abilities/bow/arrow_shot/arrow_shot.tscn" type="PackedScene" id=6]
 
 [sub_resource type="ShaderMaterial" id=58]
 resource_local_to_scene = true

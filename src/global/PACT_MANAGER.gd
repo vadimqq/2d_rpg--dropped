@@ -3,6 +3,8 @@ extends Node
 const more_enemies_pact = preload("res://src/pacts/more_enemies_pact.tres")
 const move_speed_enemies_pact = preload("res://src/pacts/move_speed_enemies_pact.tres")
 
+const coin = preload("res://src/currency/coin/coin.tscn")
+
 const clock = preload("res://src/items/artifacts/clock/clock.tscn")
 const health_potion = preload("res://src/items/artifacts/health_potion/health_potion.tscn")
 const mana_potion = preload("res://src/items/artifacts/mana_potion/mana_potion.tscn")
@@ -17,18 +19,21 @@ var count_enemy_spawn = 5
 var total_enemy_killed = 0
 var enemy_buff_dict: Dictionary= {}
 
-var NORAMAL_REWARDS_POOL = [health_potion, mana_potion]
-var MAGIC_REWARDS_POOL = [clock]
-var RARE_REWARDS_POOL = [jagged_steel]
-var LEGENDARY_REWARDS_POOL = [arrow_shot_srcoll]
+var NORAMAL_REWARDS_POOL = [coin]
+var MAGIC_REWARDS_POOL = [coin]
+var RARE_REWARDS_POOL = [health_potion, mana_potion]
+var LEGENDARY_REWARDS_POOL = [jagged_steel, clock]
 
-var rewards_counts = 5
+var UNIC_REWARDS_POOL = [arrow_shot_srcoll]
+
+var rewards_counts = 10
 
 var reward_rarity_weights := {
-	"NORAMAL_REWARDS_POOL": 60,
-	"MAGIC_REWARDS_POOL": 27,
-	"RARE_REWARDS_POOL": 9,
-	"LEGENDARY_REWARDS_POOL": 3
+	"NORAMAL_REWARDS_POOL": 62,
+	"MAGIC_REWARDS_POOL": 29,
+	"RARE_REWARDS_POOL": 5,
+	"LEGENDARY_REWARDS_POOL": 3,
+	"UNIC_REWARDS_POOL": 1
 }
 
 func get_random_reward():
@@ -62,6 +67,8 @@ func modify_enemy_spawn_count(amount):
 
 func modify_enemy_lvl(amount):
 	enemy_lvl += amount
+	enemy_lvl += 10
+	rewards_counts += 2
 
 func modify_enemy_buff(dict: Dictionary):
 	for i in dict:

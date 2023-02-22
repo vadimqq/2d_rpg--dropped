@@ -17,14 +17,15 @@ particles_anim_loop = false
 emission_shape = 1
 emission_sphere_radius = 1.0
 flag_disable_z = true
-gravity = Vector3( 0, 98, 0 )
+spread = 20.0
+gravity = Vector3( 0, 0, 0 )
 angular_velocity = 100.0
 angular_velocity_random = 1.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 angle = 360.0
 angle_random = 1.0
-scale = 0.3
+scale = 0.2
 color = Color( 0.513726, 0.533333, 0.172549, 1 )
 anim_speed = 1.0
 

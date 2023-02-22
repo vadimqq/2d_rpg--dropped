@@ -264,7 +264,7 @@ func get_cast_duration():
 	return get_incremented_value(CAST_DURATION, GAIN_CAST_DURATION, AMPLIFICATION_CAST_DURATION)
 
 func get_cdr():
-	return CDR - GAIN_CDR
+	return CDR - GAIN_CDR if GAIN_CDR < 75 else 75
 
 func get_cd_by_value(value):
 	return UTILS.get_value_by_percent(value, get_cdr())

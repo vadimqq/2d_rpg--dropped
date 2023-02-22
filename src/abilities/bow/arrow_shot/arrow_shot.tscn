@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/abilities/ENTITY/base_ability/base_ability.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/abilities/bow/arrow_shot/arrow_shot.gd" type="Script" id=2]
+[ext_resource path="res://src/abilities/bow/arrow_shot/icon.png" type="Texture" id=3]
+
+[node name="arrow_shot" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+icon = ExtResource( 3 )
+max_lvl = 5
+scaling_tags = [ 0, 4 ]
+weapon_tags = [ 2 ]
+count_pierce = 0
+count_rebound = 0
+projectile_speed = 300
+projectile_count = 1
+
+[connection signal="execute" from="." to="." method="_on_arrow_shot_execute"]
+[connection signal="upgrade" from="." to="." method="_on_arrow_shot_upgrade"]

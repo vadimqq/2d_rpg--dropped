@@ -6,6 +6,8 @@ onready var cd_timer: Timer = $CD
 
 var owner_body
 
+export (Texture) var icon = Texture
+
 export (int) var lvl = 0
 export (int) var max_lvl = 1
 var is_max_lvl = false

@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/abilities/ENTITY/base_togle_ability/Base_togle_ability.tscn" type="PackedScene" id=1]
-[ext_resource path="res://src/abilities/aura_agility/aura_agility.gd" type="Script" id=2]
-[ext_resource path="res://src/abilities/aura_agility/effect.png" type="Texture" id=3]
+[ext_resource path="res://src/abilities/bow/aura_agility/aura_agility.gd" type="Script" id=2]
+[ext_resource path="res://src/abilities/bow/aura_agility/effect.png" type="Texture" id=3]
+[ext_resource path="res://src/abilities/bow/aura_agility/icon.png" type="Texture" id=4]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -68,6 +69,7 @@ tracks/0/keys = {
 
 [node name="aura_agility" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+icon = ExtResource( 4 )
 weapon_tags = [ 0 ]
 
 [node name="Sprite" parent="Area2D/CollisionShape2D" index="0"]

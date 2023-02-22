@@ -15,6 +15,6 @@ func apply_gift():
 
 [resource]
 script = SubResource( 1 )
-name = "More enemy"
-victim_description = "ololo + 2"
-gift_description = "bip"
+name = "Void army"
+victim_description = "Shrine create more enemy by 2"
+gift_description = "none"
